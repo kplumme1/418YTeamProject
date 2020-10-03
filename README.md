@@ -1,5 +1,5 @@
 ### Install dependencies:
-It shouldn't be necessary to do any of this on the EC2 server, but if you clone this to a new machine you will need:
+It should only be necessary to install node and nodemon for new server. Otherwise the necessary files should all be in the repo.
  - install node v. 10.22.1
  - create forum folder for react app at proj/forum/  
    - npx create-react-app forum
