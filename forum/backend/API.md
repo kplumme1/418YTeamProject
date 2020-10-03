@@ -4,9 +4,9 @@
       "board_desc_text": "DESCRIPTION_HERE"
     }
 List: GET /boards/  
-Find: GET /boards/<ID>  
-Add: POST /boards/add/<ID>  
-Remove: DELETE /boards/<ID>  
+Find: GET /boards/ID  
+Add: POST /boards/add/ID  
+Remove: DELETE /boards/ID  
   
 ### Topic:
     {
@@ -16,9 +16,9 @@ Remove: DELETE /boards/<ID>
       "thread_top_post_id": "id of top post in thread."
     } 
 List: GET /topics/  
-Find: GET /topics/<ID>  
-Add: POST /topics/add/<ID>  
-Remove: DELETE /topics/<ID>  
+Find: GET /topics/ID  
+Add: POST /topics/add/ID  
+Remove: DELETE /topics/ID  
     
 ### Post:
     {
@@ -29,9 +29,9 @@ Remove: DELETE /topics/<ID>
     }
     
 List: GET /posts/  
-Find: GET /posts/<ID>  
-Add: POST /posts/add/<ID>  
-Remove: DELETE /posts/<ID>  
+Find: GET /posts/ID  
+Add: POST /posts/add/ID  
+Remove: DELETE /posts/ID  
     
 ### User:
 
