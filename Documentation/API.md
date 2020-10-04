@@ -34,4 +34,12 @@ Add: POST /posts/add/ID
 Remove: DELETE /posts/ID  
     
 ### User:
-
+    {
+      "username": "username"
+      "password": "password",
+      "role": "type of user so ('user', 'admin', 'moderator')",
+    }
+    
+Register: Post /user/register
+Login: Post /user/login
+Logout: Get /user/logout
