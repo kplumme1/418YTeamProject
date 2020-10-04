@@ -1,3 +1,5 @@
+# Depreciated - now using mongoAtlas instead of a local database
+
 ## MongoDB:
 Cloud monitoring URL: https://cloud.mongodb.com/freemonitoring/cluster/SW5RTWOUXEKFRCHNYYZDFKDTE4X4KSBS  
 See mongo security checklist: https://docs.mongodb.com/manual/administration/security-checklist/  
