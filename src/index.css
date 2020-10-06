@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-image: url("login_background.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#login_container {
+  margin: 100px auto;
+  padding: 50px 0px;
+  text-align: center;
+  border: 5px solid black;
+  border-radius: 25px;
+  height: 100%;
+  width: 50%;
+}
+
+form {
+  text-align: center;
+}
+
+label[for=username], label[for=password], label[for=email] {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+input[type=text], input[type=password] {
+  width: 70%;
+  display: inline-block;
+  padding: 12px 20px;
+  margin: 8px 0px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+#image_container {
+  text-align: center;
+  margin: 24px 0 24px 0;
+}
+
+img#profPic {
+  width: 25%;
+  max-width: 200px;
+  border-radius: 50%;
+  border: 5px solid gray;
+  background-color: #e6e6e6;
+}
+
+img#logo {
+  max-width: 100px;
+  max-height: 100px;
+  cursor: pointer;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10%;
+  background-color: #363636;
+  color: white;
+  font-size: 20px;
+}
+
+ul {
+  padding-left: 0px;
+}
+
+.nav {
+  list-style: none;
+}
+
+.nav li {
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+button {
+  background-color: #07c700;
+}
+
+button:hover {
+  background-color: #08e300;
+}
+
+#nav_button {
+  font-size: 16px;
+  padding: 15px 30px;
+  color: white;
+  border-radius: 60px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.user_button {
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border-radius: 60px;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  margin: 40px 25px 0px 25px;
+  min-width: 85px;
+}

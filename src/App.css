@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+	font-weight: bold;
+	text-transform: uppercase;
+	margin: 0 auto;
+	height: 100px;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	text-align: center;
+	border-bottom: 5px solid gray;
+	background-color: #0e1012;
+  color: white;
+  font-size: 32px;
+}
+
+.header a {
+	display: inline-block;
+	margin: 20px 20px;
+}
+
+.header a:link, a:visited {
+	color: white;
+	text-decoration: none;
+}
+
+.header a:hover {
+	color: gray;
+	transition: 0.1s;
+}
+
+.header img {
+	max-width: 80%;
+	max-height: 80%;
+	margin-right: 30px;
+	margin-right: 30px;
+}
