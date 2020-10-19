@@ -47,3 +47,19 @@ Codename:       bionic
 MERN guide:  
 https://www.geeksforgeeks.org/mern-stack/
 
+
+New dependencies:
+Software I installed as part of the tutorial
+
+bootstrap
+npm install bootstrap
+
+react router dom?
+npm install react-router-dom
+
+react date picker
+npm install react-datepicker
+
+axios
+npm install acios
+
