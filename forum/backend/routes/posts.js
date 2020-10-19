@@ -30,23 +30,6 @@ router.route('/:id').delete((req, res) => {
     .then(() => res.json('Post deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-/*
-//from exercises tutorial
-router.route('/update/:id').post((req, res) => {
-  Topic.findById(req.params.id)
-    .then(topic => {
-      topic.username = req.body.username;
-      topic.description = req.body.description;
-      topic.duration = Number(req.body.duration);
-      topic.date = Date.parse(req.body.date);
-
-      topic.save()
-        .then(() => res.json('Topic updated!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-    })
-    .catch(err => res.status(400).json('Error: ' + err));
-});
-*/
 
   newPost.save()
   .then(() => res.json('Post added!'))
