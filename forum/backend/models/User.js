@@ -5,9 +5,14 @@ const UserSchema = new mongoose.Schema({
     username :{
         type: String,
         required : true,
-	unique: true,
+	unique : true,
 	trim: true,
         min : 6
+    },
+    email :{
+        type : String,
+        required : true,
+        unique : true
     },
     password : {
         type : String,
@@ -16,7 +21,12 @@ const UserSchema = new mongoose.Schema({
     role : {
         type : String,
         enum : ['user', 'moderator', 'admin'],
+	default : 'user',
         required : true
+    },
+    isDeleted : {
+	type : Boolean,
+	default : false
     },
 });
 
