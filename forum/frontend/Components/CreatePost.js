@@ -30,7 +30,7 @@ function CreatePost() {
                         <Row>
                             <Col></Col>
                             <Col style = {{textAlign: "center"}}>
-                                <Button style = {{padding: "10px 20px", width: "160px"}} variant="primary" type="submit">
+                                <Button style = {{padding: "10px 20px", width: "160px"}} variant="primary" type="button" href = "/post">
                                     Create Post
                                 </Button>
                             </Col>
