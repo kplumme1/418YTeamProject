@@ -9,6 +9,7 @@ import Login from './Components/Login'
 import Register from './Components/Register'
 import CreateTopic from './Components/CreateTopic'
 import CreatePost from './Components/CreatePost'
+import Post from './Components/Post'
 import NotFound from './Components/NotFound'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -26,6 +27,7 @@ function App() {
           <Route path = "/Register" component = {Register} />
           <Route path = "/CreateTopic" component = {CreateTopic} />
           <Route path = "/CreatePost" component = {CreatePost} />
+          <Route path = "/Post" component = {Post} />
           <Route component = {NotFound} />
         </Switch>
       </BrowserRouter>
