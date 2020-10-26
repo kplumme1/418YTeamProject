@@ -8,20 +8,46 @@ import Image from 'react-bootstrap/Image'
 import profpic from '../profpic.png'
 
 function checkFields() {
+    let password = String(document.getElementById("passwordOne").value);
+    let email = String(document.getElementById("email").value);
     if(document.getElementById("username").value.length < 6) {
         document.getElementById("submitButton").disabled = "true";
         document.getElementById("validMessage").style.color = "red";
         document.getElementById("validMessage").innerHTML = "USERNAME NOT LONG ENOUGH [6 CHARS]";
     }
-    else if(document.getElementById("passwordOne").value !== document.getElementById("passwordTwo").value) {
+    else if (!email.toLowerCase().match("[a-z 0-9]@[a-z 0-9]+\.[a-z]")) {
+        document.getElementById("submitButton").disabled = "true";
+        document.getElementById("validMessage").style.color = "red";
+        document.getElementById("validMessage").innerHTML = "INVALID EMAIL";
+    }
+    else if(password.value !== document.getElementById("passwordTwo").value) {
         document.getElementById("submitButton").disabled = "true";
         document.getElementById("validMessage").style.color = "red";
         document.getElementById("validMessage").innerHTML = "PASSWORDS ARE NOT THE SAME";
     }
-    else if (document.getElementById("passwordOne").value.length < 8) {
+    else if (password.length < 8) {
         document.getElementById("submitButton").disabled = "true";
         document.getElementById("validMessage").style.color = "red";
-        document.getElementById("validMessage").innerHTML = "PASSWORD NOT LONG ENOUGH [6 CHARS]";
+        document.getElementById("validMessage").innerHTML = "PASSWORD NOT LONG ENOUGH [8 CHARS]";
+    }
+    else if (!password.match("^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()-+=_])(?=.*[0-9]).{8,100}$")) {
+        document.getElementById("submitButton").disabled = "true";
+        document.getElementById("validMessage").style.color = "red";
+        if (!password.match("^(?=.*[A-Z])")) {
+            document.getElementById("validMessage").innerHTML = "NEED AN UPPERCASE LETTER";
+        }
+        else if (!password.match("^(?=.*[a-z])")) {
+            document.getElementById("validMessage").innerHTML = "NEED A LOWERCASE LETTER";
+        }
+        else if (!password.match("^(?=.*[!@#$%^&*()-+=_])")) {
+            document.getElementById("validMessage").innerHTML = "NEED A SPECIAL CHARACTER (ex: !,@,$, etc.)";
+        }
+        else if (!password.match("^(?=.*[0-9])")) {
+            document.getElementById("validMessage").innerHTML = "NEED A NUMBER";
+        }
+        else if (password.length > 100) {
+            document.getElementById("validMessage").innerHTML = "PASSWORD TOO LONG [<= 100 CHARS]";
+        }
     }
     else {
         document.getElementById("submitButton").disabled = "";
@@ -44,7 +70,7 @@ function Register() {
                     <Form>
                         <Form.Group>
                             <Form.Label style = {{fontWeight: "bold"}}>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="email@domain.com" />
+                            <Form.Control type="email" id = "email" placeholder="email@domain.com" />
                             <Form.Text className="text-muted">
                             Your email will be safe - we're the only ones who'll see it.
                             </Form.Text>
