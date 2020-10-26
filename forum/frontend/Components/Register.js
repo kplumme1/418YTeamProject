@@ -20,7 +20,7 @@ function checkFields() {
         document.getElementById("validMessage").style.color = "red";
         document.getElementById("validMessage").innerHTML = "INVALID EMAIL";
     }
-    else if(password.value !== document.getElementById("passwordTwo").value) {
+    else if(password !== document.getElementById("passwordTwo").value) {
         document.getElementById("submitButton").disabled = "true";
         document.getElementById("validMessage").style.color = "red";
         document.getElementById("validMessage").innerHTML = "PASSWORDS ARE NOT THE SAME";
