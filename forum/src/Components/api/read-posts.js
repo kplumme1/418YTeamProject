@@ -4,17 +4,20 @@ import axios from 'axios';
 
 const Post = props => (
   <tr>
-    <td>{props.post.parent_topic_id}</td>
+    <td>{props.post._id}</td>
+    <td>{props.post.parent_thread_id}</td>
     <td>{props.post.post_author}</td>
     <td>{props.post.post_body_text}</td>
     <td>{props.post.post_num}</td>
     <td>
-      <Link to={"/edit/"+props.post._id}>edit</Link> | <a href="#" onClick={() => { props.deletePost(props.post._id) }}>delete</a>
+      <Link to={"/api/edit/"+props.post._id}>edit</Link> | <a href="#" onClick={() => { props.deletePost(props.post._id) }}>delete</a>
     </td>
   </tr>
 )
 
 export default class PostList extends Component {
+  //props is passed into our component here? where does it originate? in this file it seems assumed props contains post, matching the post model
+  //does the data originate from the axios responses below?
   constructor(props) {
     super(props);
 
@@ -24,17 +27,29 @@ export default class PostList extends Component {
   }
 
   componentDidMount() {
+    //This queries all posts
+    //console.log('componentdidmount');
     axios.get('http://kplumme1-backup.ddns.net:5000/posts/')
       .then(response => {
         this.setState({ posts: response.data })
-        console.log(response.data);
-        console.log(this.state.posts);
       })
       .catch((error) => {
         console.log(error);
       })
-      
   }
+  //this is an example of sending query params
+  /*
+  componentDidMount() {
+    console.log('componentdidmount');
+    axios.get('http://kplumme1-backup.ddns.net:5000/posts/thread/', {params: {parent_thread_id: '123'} })
+      .then(response => {
+        this.setState({ posts: response.data })
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+  */
 
   deletePost(id) {
     axios.delete('http://kplumme1-backup.ddns.net:5000/posts/'+id)
@@ -59,6 +74,7 @@ export default class PostList extends Component {
         <table className="table">
           <thead className="thead-light">
             <tr>
+              <th>internalid</th>
               <th>parentid</th>
               <th>username</th>
               <th>bodytext</th>

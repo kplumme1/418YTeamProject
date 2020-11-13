@@ -3,11 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const topicSchema = new Schema({
-    parent_board_id: { type: String, required: true },
-    thread_num: { type: Number, required: true },
-    thread_author: { type: String, required: true },
-    thread_top_post_id: { type: String, required: true },
-    thread_title_text: { type: String, required: true }
+    topic_title: { type: String, required: true },
+    topic_desc: { type: Number, required: true },
+    del_flag: { type: Boolean, required: true }    
 }, {
   timestamps: true,
 });

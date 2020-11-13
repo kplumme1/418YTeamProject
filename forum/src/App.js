@@ -14,6 +14,17 @@ import NotFound from './Components/NotFound'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
+//API Component imports
+import APICreatePost from "./Components/api/create-post";
+import APIReadPosts from "./Components/api/read-posts"
+import APIEditPost from "./Components/api/edit-posts";
+
+
+import ExercisesList from "./Components/api/exercises-list.component";
+
+import CreateExercise from "./Components/api/create-exercise.component";
+import CreateUser from "./Components/api/create-user.component";
+
 
 
 function App() {
@@ -30,6 +41,23 @@ function App() {
           <Route path = "/CreateTopic" component = {CreateTopic} />
           <Route path = "/CreatePost" component = {CreatePost} />
           <Route path = "/Post" component = {Post} />
+          {/*API/Prototype routes. - completed*/}
+          <Route path="/api/createpost" component={APICreatePost} />
+          <Route path = "/api/PostList" exact component = {APIReadPosts} />
+
+
+          {/*API/Prototype routes - work in progress.*/}
+          <Route path="/api/edit/:id" component={APIEditPost} />
+
+
+
+          {/*API/Prototype routes. - these need work*/}
+          <Route path="/api/ExerciseList" exact component={ExercisesList} /> {/*What does "exact" attribute do?*/}
+
+          <Route path="/api/create" component={CreateExercise} />
+          <Route path="/api/user" component={CreateUser} />
+          
+          {/*End of kyle's API/prototypes*/}
           <Route component = {NotFound} />
         </Switch>
       </BrowserRouter>

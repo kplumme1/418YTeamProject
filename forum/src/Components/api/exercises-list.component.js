@@ -24,10 +24,10 @@ export default class ExercisesList extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://kplumme1-backup.ddns.net:5000/exercises/')
+    console.log('componentdidmount');
+    axios.get('http://kplumme1-backup.ddns.net:5000/posts/', {params: {id: '123'} })
       .then(response => {
-        this.setState({ exercises: response.data })
-        console.log(response.data);
+        this.setState({ posts: response.data })
       })
       .catch((error) => {
         console.log(error);

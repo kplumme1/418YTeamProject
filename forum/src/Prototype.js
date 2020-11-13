@@ -1,3 +1,5 @@
+//This page is not actually in use any longer, the prototype components have been loaded into App.js
+
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route} from "react-router-dom";
