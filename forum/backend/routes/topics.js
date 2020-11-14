@@ -1,58 +1,109 @@
 const router = require('express').Router();
 let Topic = require('../models/topic.model');
 
+
+//get all topics
 router.route('/').get((req, res) => {
-  Topic.find()
+  Topic.find({ del_flag: false })
     .then(topics => res.json(topics))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
-    const parent_board_id = req.body.parent_board_id;
-    const thread_num = Number(req.body.thread_num);
-    const thread_author = req.body.thread_author;
-    const thread_top_post_id = req.body.thread_top_post_id;
-    const thread_title_text = req.body.thread_title_text;
-
-  const newTopic = new Topic({
-    parent_board_id,
-    thread_num,
-    thread_author,
-    thread_top_post_id,
-    thread_title_text
-  });
-
-  router.route('/:id').get((req, res) => {
-  Topic.findById(req.params.id)
+//get topics - there's only one board, so find all topics that aren't deleted
+router.route('/topic').get((req, res) => {
+  console.log('topic: ' + req.query.id)
+  Post.find({ del_flag: false })
     .then(topic => res.json(topic))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-router.route('/:id').delete((req, res) => {
-  Topic.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Topic deleted.'))
+
+
+//get topics by internal ID via query parameter
+router.route('/internalid').get((req, res) => {
+  console.log('topics/query id: ' + req.query.id)
+  Post.find({ _id: req.query._id, del_flag: false })
+    .then(topics => res.json(topics))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-/*
-//from exercises tutorial
-router.route('/update/:id').post((req, res) => {
-  Topic.findById(req.params.id)
-    .then(topic => {
-      topic.username = req.body.username;
-      topic.description = req.body.description;
-      topic.duration = Number(req.body.duration);
-      topic.date = Date.parse(req.body.date);
 
-      topic.save()
+
+//get post by internal db ID via URL
+router.route('/URLupdate/:id').get((req, res) => {
+  console.log('topics/query ID Via URL' + req.params.id);
+    Post.findById(req.params.id)
+      .then(topics => res.json(topics))
+      .catch(err => res.status(400).json('Error: ' + err));
+});
+
+/*
+    topic_title: { type: String, required: true },
+    topic_desc: { type: Number, required: true },
+    del_flag: { type: Boolean, required: true }  
+*/
+
+
+//add a topic
+router.route('/add').post((req, res) => {
+  const topic_title = req.body.topic_title;
+  const topic_desc = req.body.topic_desc;
+  const topic_num = req.body.topic_num;
+  const del_flag = req.body.del_flag;
+
+  let newTopic = new Topic({
+    topic_title,
+    topic_desc,
+    topic_num,
+    del_flag
+  });
+
+  //get the highest topic_num
+  Topic.find({ del_flag: false }).sort({topic_num: -1}).limit(1)
+    .exec(function (error, topic) {
+      console.log('topic[0]: ' + topic[0]);
+      if (typeof topic[0] === 'undefined' ) {
+        console.log('topic_num undefined...');
+        newTopic.topic_num = 0;
+      } else {
+        console.log('topic[0].post_num: ' + topic[0].topic_num);
+        newTopic.topic_num = Number(topic[0].topic_num + 1);
+      }
+
+      //console.log('newPost.post_num: ' + newPost.post_num);
+      newTopic.save()
+        .then(() => res.json('Topic added!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    });
+});
+
+//update a Topic
+router.route('/update').post((req, res) => {
+  console.log('updating topic: ' + req.body._id)
+  Topic.findById( req.body._id )
+    .then(topics => {
+        topic.topic_title = req.body.topic_title;
+        topic.topic_desc = req.body.topic_desc;
+        topic.del_flag = req.body.del_flag;
+
+      topics.save()
         .then(() => res.json('Topic updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));
 });
-*/
 
-  newTopic.save()
-  .then(() => res.json('Topic added!'))
-  .catch(err => res.status(400).json('Error: ' + err));
-});
+  //del not tested yet
+  router.route('/delete').post((req, res) => {
+    console.log('deleting (del_flag = true) post: ' + req.query._id)
+    Topic.findById( req.query._id )
+      .then(topcis => {
+        topcis.del_flag = true;
+        topcis.save()
+          .then(() => res.json('Topic deleted (flagged)!'))
+          .catch(err => res.status(400).json('Error: ' + err));
+      })
+      .catch(err => res.status(400).json('Error: ' + err));
+  });
+
+
 
 module.exports = router;
