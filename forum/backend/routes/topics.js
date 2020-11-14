@@ -10,27 +10,27 @@ router.route('/').get((req, res) => {
 });
 
 //get topics - there's only one board, so find all topics that aren't deleted
-router.route('/topic').get((req, res) => {
-  console.log('topic: ' + req.query.id)
-  Post.find({ del_flag: false })
+router.route('/board').get((req, res) => {
+  console.log('parent board: ' + req.query.id)
+  Topic.find({ del_flag: false })
     .then(topic => res.json(topic))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 
 //get topics by internal ID via query parameter
-router.route('/internalid').get((req, res) => {
+router.route('/queryid').get((req, res) => {
   console.log('topics/query id: ' + req.query.id)
-  Post.find({ _id: req.query._id, del_flag: false })
+  Topic.find({ _id: req.query._id, del_flag: false })
     .then(topics => res.json(topics))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 
-//get post by internal db ID via URL
-router.route('/URLupdate/:id').get((req, res) => {
+//get topic by internal db ID via URL
+router.route('/urlid/:id').get((req, res) => {
   console.log('topics/query ID Via URL' + req.params.id);
-    Post.findById(req.params.id)
+    Topic.findById(req.params.id)
       .then(topics => res.json(topics))
       .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -68,7 +68,7 @@ router.route('/add').post((req, res) => {
         newTopic.topic_num = Number(topic[0].topic_num + 1);
       }
 
-      //console.log('newPost.post_num: ' + newPost.post_num);
+      //console.log('newTopic.topic_num: ' + newTopic.topic_num);
       newTopic.save()
         .then(() => res.json('Topic added!'))
         .catch(err => res.status(400).json('Error: ' + err));
@@ -93,7 +93,7 @@ router.route('/update').post((req, res) => {
 
   //del not tested yet
   router.route('/delete').post((req, res) => {
-    console.log('deleting (del_flag = true) post: ' + req.query._id)
+    console.log('deleting (del_flag = true) topic: ' + req.query._id)
     Topic.findById( req.query._id )
       .then(topcis => {
         topcis.del_flag = true;

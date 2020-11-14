@@ -8,16 +8,16 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-//get posts by parent ID
+//get posts by parent thread ID
 router.route('/thread').get((req, res) => {
-  console.log('thread: ' + req.query.id)
+  console.log('parent thread: ' + req.query.id)
   Post.find({ parent_thread_id: req.query.parent_thread_id, del_flag: false })
     .then(posts => res.json(posts))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 //get posts by internal ID via query parameter
-router.route('/internalid').get((req, res) => {
+router.route('/queryid').get((req, res) => {
   console.log('query id: ' + req.query.id)
   Post.find({ _id: req.query._id, del_flag: false })
     .then(posts => res.json(posts))
@@ -26,7 +26,7 @@ router.route('/internalid').get((req, res) => {
 
 
 //get post by internal db ID via URL
-router.route('/URLupdate/:id').get((req, res) => {
+router.route('/urlid/:id').get((req, res) => {
   console.log('query ID Via URL' + req.params.id);
     Post.findById(req.params.id)
       .then(post => res.json(post))
