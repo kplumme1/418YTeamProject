@@ -93,8 +93,8 @@ Because the board is just a single top-level container it doesn't need to have m
 #### Create:
 `/boards/add/`
 
-#### Find board by unique ID:
-`/boards/<_id>`
+#### Find board by unique ID in URL:
+`/boards/urlid/<_id>`
 
 #### Find all boards (but there's only one for now...):
 `/boards/`
@@ -122,11 +122,11 @@ const topicSchema = new Schema({
 `/topics/board/`
 
 #### Find topic by ID in query parameter:
-`/topics/internalid/`
+`/topics/queryid/`
 This requires a 'query parameter' sent with the axios call. Simply create a JSON struct with an `_id` field and send that as the second parameter after the URL. 
 
 #### Find topic by ID in URL:
-`/topics/urlfindid/<_id>`
+`/topics/urlid/<_id>`
 Instead of using a query parameter, you can just apend the ID to the URL.
 
 #### Update topic:
@@ -156,10 +156,10 @@ const threadSchema = new Schema({
 Note: `_id` here is referring to the ID of the parent topic which contains these threads. 
 
 #### Find thread with `_id` in query parameter:
-`/threads/internalid/`
+`/threads/queryid/`
 
 #### Find threads with `_id` in URL:
-`/threads/urlfindid/<_id>`
+`/threads/urlid/<_id>`
 
 #### Update thread:
 `/threads/update/`
@@ -189,10 +189,10 @@ const postSchema = new Schema({
 `/posts/thread`
 
 #### Find specific post by `_id` in query parameter:
-`/posts/internalid/`
+`/posts/queryid/`
 
 #### Find specific post by `_id` in URL
-`/posts/internalid/<_id>`
+`/posts/urlid/<_id>`
 
 #### Update post:
 `/posts/update/`
