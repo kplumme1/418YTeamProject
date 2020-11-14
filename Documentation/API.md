@@ -39,7 +39,7 @@ Here is an example of an axios.get call to fetch a specific post by it's ID:
 ```
 
 This example is pulled from the edit posts prototype page:
-`http://kplumme1-ec2.ddns.net:3000/api/edit/<_ID HERE>` Note: the `_id` is part of the URL.
+`http://kplumme1-ec2.ddns.net:3000/api/edit/<_ID HERE>` Note: the `_id` is part of the URL. You can also click the "edit" button on a post in the post list prototype page mentioned above.
 This page is rendered by the edit-posts component located:
 `/src/Components/api/edit-posts.js`
 The unique ID of the post in question is apended to the end of the URL and the response from mongodb is set in the component's state structure.
