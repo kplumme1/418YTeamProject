@@ -20,9 +20,9 @@ import APIReadPosts from "./Components/api/read-posts"
 import APIEditPost from "./Components/api/edit-posts";
 
 
-import ExercisesList from "./Components/api/exercises-list.component";
+//import ExercisesList from "./Components/api/exercises-list.component";
 
-import CreateExercise from "./Components/api/create-exercise.component";
+//import CreateExercise from "./Components/api/create-exercise.component";
 import CreateUser from "./Components/api/create-user.component";
 
 
@@ -49,8 +49,6 @@ function App() {
           <Route path="/api/edit/:id" component={APIEditPost} />
 
           {/*API/Prototype routes. - these need work*/}
-          <Route path="/api/ExerciseList" exact component={ExercisesList} /> {/*What does "exact" attribute do?*/}
-          <Route path="/api/create" component={CreateExercise} />
           <Route path="/api/user" component={CreateUser} />
           {/*End of kyle's API/prototypes*/}
           <Route component = {NotFound} />
