@@ -80,7 +80,7 @@ const boardSchema = new Schema({
 });
 ```
 
-Going foreward all endpoints listed come after the backend URL, which as of now is:
+Going forward all endpoints listed come after the backend URL, which as of now is:
 `http://kplumme1-backup.ddns.net:5000`
 So, for instance the board creation endpoint is:
 `/boards/add`
