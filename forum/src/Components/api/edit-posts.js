@@ -29,7 +29,7 @@ export default class EditExercise extends Component {
 
 
   componentDidMount() {
-    axios.get('http://kplumme1-backup.ddns.net:5000/posts/URLupdate/'+this.props.match.params.id)
+    axios.get('http://kplumme1-backup.ddns.net:5000/posts/urlid/'+this.props.match.params.id)
       .then(response => {
         this.setState({
           internalid: response.data._id,

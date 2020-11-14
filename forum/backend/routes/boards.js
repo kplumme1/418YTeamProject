@@ -17,9 +17,14 @@ router.route('/add').post((req, res) => {
     board_desc_text
   });
 
-//find board by ID
+  //save new board
+  newBoard.save()
+    .then(() => res.json('Board added!'))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
 
-  router.route('/:id').get((req, res) => {
+//find board by ID
+router.route('/urlid/:id').get((req, res) => {
   Board.findById(req.params.id)
     .then(board => res.json(board))
     .catch(err => res.status(400).json('Error: ' + err));
@@ -32,10 +37,6 @@ router.route('/:id').delete((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-//save new board
-  newBoard.save()
-    .then(() => res.json('Board added!'))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+
 
 module.exports = router;
