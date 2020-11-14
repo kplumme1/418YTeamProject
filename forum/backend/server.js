@@ -47,11 +47,13 @@ const userRouter = require('./routes/User');
 const boardsRouter = require('./routes/boards');
 const topicsRouter = require('./routes/topics');
 const postRouter = require('./routes/posts');
+const threadRouter = require('./routes/threads');
 app.use('/exercises', exercisesRouter);
 app.use('/user', userRouter);
 app.use('/boards', boardsRouter);
 app.use('/topics', topicsRouter);
 app.use('/posts', postRouter);
+app.use('/threads', threadRouter);
 
 //start server
 app.listen(port, () => {

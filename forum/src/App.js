@@ -45,18 +45,13 @@ function App() {
           <Route path="/api/createpost" component={APICreatePost} />
           <Route path = "/api/PostList" exact component = {APIReadPosts} />
 
-
           {/*API/Prototype routes - work in progress.*/}
           <Route path="/api/edit/:id" component={APIEditPost} />
 
-
-
           {/*API/Prototype routes. - these need work*/}
           <Route path="/api/ExerciseList" exact component={ExercisesList} /> {/*What does "exact" attribute do?*/}
-
           <Route path="/api/create" component={CreateExercise} />
           <Route path="/api/user" component={CreateUser} />
-          
           {/*End of kyle's API/prototypes*/}
           <Route component = {NotFound} />
         </Switch>

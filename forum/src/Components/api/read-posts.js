@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+//copy of the old edit/delete link
+//<Link to={"/api/edit/"+props.post._id}>edit</Link> | <a href="#" onClick={() => { props.deletePost(props.post._id) }}>delete</a>
 const Post = props => (
   <tr>
     <td>{props.post._id}</td>

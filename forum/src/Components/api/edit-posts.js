@@ -7,10 +7,12 @@ export default class EditExercise extends Component {
   constructor(props) {
     super(props);
 
+    this.onChangeID = this.onChangeID.bind(this);
     this.onChangeParent = this.onChangeParent.bind(this);
     this.onChangePostNum = this.onChangePostNum.bind(this);
     this.onChangeAuthor = this.onChangeAuthor.bind(this);
-    this.onchangeText = this.onchangeText.bind(this);
+    this.onChangeText = this.onChangeText.bind(this);
+    this.onChangeFlag = this.onChangeFlag.bind(this);
 
     this.onSubmit = this.onSubmit.bind(this);
 
@@ -27,7 +29,7 @@ export default class EditExercise extends Component {
 
 
   componentDidMount() {
-    axios.get('http://kplumme1-backup.ddns.net:5000/posts/'+this.props.match.params.id)
+    axios.get('http://kplumme1-backup.ddns.net:5000/posts/URLupdate/'+this.props.match.params.id)
       .then(response => {
         this.setState({
           internalid: response.data._id,
@@ -44,6 +46,12 @@ export default class EditExercise extends Component {
   }
 
     //Functions
+    onChangeID(e) {
+      this.setState({
+          internalid: e.target.value
+      })
+    }
+
     onChangeParent(e) {
       this.setState({
           parentid: e.target.value
@@ -62,16 +70,23 @@ export default class EditExercise extends Component {
       })
     }
     
-    onchangeText(e) {
+    onChangeText(e) {
         this.setState({
             bodytext: e.target.value
         })
     }
 
+    onChangeFlag(e) {
+      this.setState({
+          delflag: e.target.value
+      })
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
-    const updatePost = {
+    let updatePost = {
+      _id: this.state.internalid,
       parent_thread_id: this.state.parentid,
 	    post_num: this.state.postnum,
 	    post_author: this.state.authorid,
@@ -86,7 +101,7 @@ export default class EditExercise extends Component {
     //axios.post('http://kplumme1-backup.ddns.net:5000/exercises/update/' + this.props.match.params.id, updatePost)
     //  .then(res => console.log(res.data));
 
-    window.location = '/';
+    window.location = '/api/postlist/';
   }
 
   /*
@@ -108,7 +123,7 @@ export default class EditExercise extends Component {
                   required
                   className="form-control"
                   value={this.state.internalid}
-                  onChange={this.onChangeParent}
+                  onChange={this.onChangeID}
                   />
             </div>
             <div className="form-group"> 
@@ -144,7 +159,7 @@ export default class EditExercise extends Component {
                   required
                   className="form-control"
                   value={this.state.bodytext}
-                  onChange={this.onchangeText}
+                  onChange={this.onChangeText}
                   />
             </div>
             <div className="form-group"> 
@@ -153,7 +168,7 @@ export default class EditExercise extends Component {
                   required
                   className="form-control"
                   value={this.state.delflag}
-                  onChange={this.onchangeText}
+                  onChange={this.onChangeFlag}
                   />
             </div>
             <div className="form-group">
