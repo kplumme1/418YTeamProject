@@ -37,6 +37,6 @@ module.exports = function validateRegisterInput(data) {
     }
     return {
         errors,
-        isValid: Validator.isEmpty(errors)
+        isValid: Validator.isEmpty(errors.name)
     };
 };

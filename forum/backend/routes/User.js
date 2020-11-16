@@ -27,11 +27,12 @@ userRouter.post('/register', (req,res)=>{
     const {errors, isValid} = validateRegisterInput(req.body);
     //dont think i need this anymore
     //const { username,email,password,role } = req.body;
-    User.findOne({email: req.body.email}.then(user => {
+    const name = req.body.name;
+    User.findOne({email: req.body.email}).then((user) => {
         if (user) {
             return res.status(400).json({email: "Email already exists"});
         } else {
-        User.findOne({username},(err,user)=>{
+        User.findOne({name},(err,user)=>{
         if(err)
             res.status(500).json({message: {msgBody : "Error has occured", msgError : true}})
         if(user)
@@ -57,7 +58,7 @@ userRouter.post('/register', (req,res)=>{
         }
     });
         }
-    }));	
+    });	
 });
 
 userRouter.post('/login', (req, res) => {
