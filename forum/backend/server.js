@@ -24,7 +24,8 @@ const atlas_uri = 'mongodb+srv://'
 mongoose.connect(atlas_uri, {useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true},()=>{
 //mongoose.connect(uri, {useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true},()=>{
 */
-mongoose.connect('mongodb+srv://sujames:VIG0xH7s2JLanipm@cluster0.aqznf.gcp.mongodb.net/testDB?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology: true},()=>{
+
+mongoose.connect('mongodb+srv://shawnyg:djul3kfk6TqtbQ31@cluster0.sv7sa.mongodb.net/<testDB>?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology: true},()=>{
     console.log('successfully connected to database');
 });
 /* test hashing
