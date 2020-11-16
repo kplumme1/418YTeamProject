@@ -22,6 +22,8 @@ const signToken = userID => {
 
 //checks if user already exists and registers if not
 userRouter.post('/register', (req,res)=>{
+    console.log("Hello0");
+    console.log(req.body);
     const {errors, isValid} = validateRegisterInput(req.body);
     //dont think i need this anymore
     //const { username,email,password,role } = req.body;
