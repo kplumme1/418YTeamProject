@@ -19,12 +19,12 @@ function AdminHeader (){
                 <Nav.Link href="about">About</Nav.Link>
                 <Nav.Link href="help">Help</Nav.Link>
             </Nav>
-            <Nav alignRight>
+            <Nav alignright="true">
                 <Button style = {{marginRight: "10px"}} href = "CreatePost">+ [TEMP] Create Post</Button>
                 <Button style = {{marginRight: "10px"}} href = "CreateTopic">+ Create Topic</Button>
             </Nav>
             <Nav>
-                <NavDropdown alignRight title="Profile" id="dropdown-menu-align-right">
+                <NavDropdown alignright="true" title="Profile" id="dropdown-menu-align-right">
                     <NavDropdown.Item href="login">Login</NavDropdown.Item>
                     <NavDropdown.Item href="register">Register</NavDropdown.Item>
                 </NavDropdown>
