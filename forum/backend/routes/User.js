@@ -80,17 +80,15 @@ userRouter.post('/login', (req, res) => {
                 name: user.name
             };
 
-            jwt.sign{
+            JWT.sign({
                 payload,
-                keys.secretOrKey,
-                {expiresIn: 614800}, //1 week in seconds
-                {err, token} => {
-                    res.json({
-                        success: true,
-                        token: "Bearer " + token
-                    });
-                }
-            };
+                iss: keys.secretOrKey,
+            }, keys.secretOrKey,  {expiresIn: 614800}, (err, token) => {
+                res.json({
+                    success: true,
+                    token: "Bearer " + token
+                });
+            }); // 1 week in seconds
         } else {
             return res
             .status(400)
