@@ -14,6 +14,9 @@ import NotFound from './Components/NotFound'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
+
+import {Provider} from "react-redux";
+import store from "./store"
 //API Component imports
 import APICreatePost from "./Components/api/create-post";
 import APIReadPosts from "./Components/api/read-posts"
@@ -26,10 +29,10 @@ import APIEditPost from "./Components/api/edit-posts";
 import CreateUser from "./Components/api/create-user.component";
 
 
-
 function App() {
   return (
     <React.Fragment>
+      <Provider store={store}>
       <BrowserRouter>
         <AdminHeader/>
         <Switch>
@@ -54,6 +57,7 @@ function App() {
           <Route component = {NotFound} />
         </Switch>
       </BrowserRouter>
+      </Provider>
     </React.Fragment>
   );
 }

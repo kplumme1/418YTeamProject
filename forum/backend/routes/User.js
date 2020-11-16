@@ -3,7 +3,14 @@ const userRouter = express.Router();
 const passport = require('passport');
 const passportConfig = require('../passport');
 const JWT = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const keys = require("../config/keys");
+
 const User = require('../models/User');
+
+//input validation things
+const validateRegisterInput = require("../validation/register");
+const validateLoginInput = require("../validation/login");
 
 const signToken = userID => {
 	return JWT.sign({
@@ -13,28 +20,81 @@ const signToken = userID => {
 	}, "testUser", {expiresIn : "1h"});
 }
 
+//checks if user already exists and registers if not
 userRouter.post('/register', (req,res)=>{
-    const { username,email,password,role } = req.body;
-    User.findOne({email: req.body.email.toLowerCase()}, function (err) {
-	if(err) {
-	    return res.status(500).send("An unexpected error occured.");
-		}
-});
-	if(user)
-	    return res.status(400).send({message: "Email is already taken, try logging in"});
-    User.findOne({username},(err,user)=>{
+    const {errors, isValid} = validateRegisterInput(req.body);
+    //dont think i need this anymore
+    //const { username,email,password,role } = req.body;
+    User.findOne({email: req.body.email}.then(user => {
+        if (user) {
+            return res.status(400).json({email: "Email already exists"});
+        } else {
+        User.findOne({username},(err,user)=>{
         if(err)
             res.status(500).json({message: {msgBody : "Error has occured", msgError : true}})
         if(user)
             res.status(400).json({message: {msgBody : "Username is already taken.", msgError : true}})
         else{
-            const newUser = new User({username,email,password,role});
-            newUser.save(err=>{
-                if(err)
-                    res.status(500).json({message: {msgBody : "Error has occured", msgError : true}})
-                else
-                    res.status(201).json({message: {msgBody : "Account Successfully Created", msgError : false}})
+            const newUser = new User({
+                username : req.body.name,
+                email : req.body.email,
+                password : req.body.password,
+                role : req.body.role
+                });
+            //hashing passwords
+            bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            newUser.password = hash;
+            newUser
+                .save()
+                .then(user => res.json(user))
+                .catch(err => console.log(err));
             });
+            });
+        }
+    });
+        }
+    }));	
+});
+
+userRouter.post('/login', (req, res) => {
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.findOne({email}).then(user => {
+        if (!user) {
+            return res.status(404).json({emailnotfound: "Email not found."});
+        }
+    });
+
+    bcrypt.compare(password, user.password).then(isMatch => {
+        if(isMatch) {
+            const payload = {
+                id: user.id,
+                name: user.name
+            };
+
+            jwt.sign{
+                payload,
+                keys.secretOrKey,
+                {expiresIn: 614800}, //1 week in seconds
+                {err, token} => {
+                    res.json({
+                        success: true,
+                        token: "Bearer " + token
+                    });
+                }
+            };
+        } else {
+            return res
+            .status(400)
+            .json({passwordIncorrect: "Password Incorrect"});
         }
     });
 });
