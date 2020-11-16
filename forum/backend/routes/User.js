@@ -14,6 +14,7 @@ const signToken = userID => {
 }
 
 userRouter.post('/register', (req,res)=>{
+    console.log(req.body);
     const { username,email,password,role } = req.body;
     User.findOne({email: req.body.email.toLowerCase()}, function (err) {
 	if(err) {
@@ -28,6 +29,9 @@ userRouter.post('/register', (req,res)=>{
         if(user)
             res.status(400).json({message: {msgBody : "Username is already taken.", msgError : true}})
         else{
+            if (!password.match("^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()-+=_])(?=.*[0-9]).{8,100}$")) {
+                return res.status(400).send({message: "Password does not meet password requirements."});
+            }
             const newUser = new User({username,email,password,role});
             newUser.save(err=>{
                 if(err)
