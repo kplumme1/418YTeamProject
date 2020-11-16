@@ -7,9 +7,37 @@ import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import profpic from '../profpic.png'
 
-function Login() {
-    return (
-        <Container style = {{marginTop: "40px"}}>
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
+
+class Login extends Component {
+    constructor() {
+        super();
+        this.state = {
+            email: "",
+            password: "",
+            errors: {}
+        };
+    }
+
+    onChange = e => {
+        this.setState({ [e.target.id]: e.target.value});
+    };
+
+    onSubmit = e => {
+        e.prevemtDefault();
+        const userData = {
+            email: this.state.email,
+            password: this.state.password
+        };
+        console.log(userData);
+    };
+
+    render() {
+        const {errors} = this.state;
+
+        return (
+            <Container style = {{marginTop: "40px"}}>
             <Row>
                 <Col></Col>
                 <Col md = {7} style = {{border: "5px solid black", borderRadius: "30px", padding: "20px 20px"}}>
@@ -18,7 +46,7 @@ function Login() {
                         <Col><Image style = {{border: "8px solid black"}} src = {profpic} height = "200px" width = "200px" roundedCircle></Image></Col>
                         <Col></Col>
                     </Row>
-                    <Form>
+                    <Form noValidate onSubmit={this.onSubmit}>
                         <Form.Group>
                             <Form.Label style = {{fontWeight: "bold"}}>Email address</Form.Label>
                             <Form.Control type="email" placeholder="email@domain.com" />
@@ -50,7 +78,8 @@ function Login() {
                 <Col></Col>
             </Row>
         </Container>
-    );
+        );
+    }
 }
 
 export default Login

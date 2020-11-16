@@ -7,32 +7,42 @@ import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import profpic from '../profpic.png'
 
-function checkFields() {
-    if(document.getElementById("username").value.length < 6) {
-        document.getElementById("submitButton").disabled = "true";
-        document.getElementById("validMessage").style.color = "red";
-        document.getElementById("validMessage").innerHTML = "USERNAME NOT LONG ENOUGH [6 CHARS]";
-    }
-    else if(document.getElementById("passwordOne").value !== document.getElementById("passwordTwo").value) {
-        document.getElementById("submitButton").disabled = "true";
-        document.getElementById("validMessage").style.color = "red";
-        document.getElementById("validMessage").innerHTML = "PASSWORDS ARE NOT THE SAME";
-    }
-    else if (document.getElementById("passwordOne").value.length < 8) {
-        document.getElementById("submitButton").disabled = "true";
-        document.getElementById("validMessage").style.color = "red";
-        document.getElementById("validMessage").innerHTML = "PASSWORD NOT LONG ENOUGH [6 CHARS]";
-    }
-    else {
-        document.getElementById("submitButton").disabled = "";
-        document.getElementById("validMessage").style.color = "green";
-        document.getElementById("validMessage").innerHTML = "REGISTRATION ALLOWED";
-    }
-}
+import React {Component} from "react";
+import {Link} from "react-router-dom";
 
-function Register() {
-    return (
-        <Container style = {{marginTop: "40px"}}>
+class Register extends Component {
+    constructor() {
+        super();
+        this.state = {
+            name: "",
+            email: "",
+            password: "",
+            password2: "",
+            errors: {}
+        };
+    }
+
+    onChange = e => {
+        this.setState({ [e.target.id]: e.target.value});
+    };
+
+    onSubmit = e => {
+        e.preventDefault();
+        const newUser = {
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password,
+            password2: this.state.password2
+    };
+
+    console.log(newUser);
+    };
+
+    render() {
+        const {errors} = this.state;
+
+        return (
+            <Container style = {{marginTop: "40px"}}>
             <Row>
                 <Col></Col>
                 <Col md = {7} style = {{border: "5px solid black", borderRadius: "30px", padding: "20px 20px"}}>
@@ -41,7 +51,7 @@ function Register() {
                         <Col><Image style = {{border: "8px solid black"}} src = {profpic} height = "200px" width = "200px" roundedCircle></Image></Col>
                         <Col></Col>
                     </Row>
-                    <Form>
+                    <Form noValidate onSubmit={this.onSubmit}>
                         <Form.Group>
                             <Form.Label style = {{fontWeight: "bold"}}>Email address</Form.Label>
                             <Form.Control type="email" placeholder="email@domain.com" />
@@ -52,17 +62,17 @@ function Register() {
 
                         <Form.Group>
                             <Form.Label style = {{fontWeight: "bold"}}>Username</Form.Label>
-                            <Form.Control id = "username" type="text" placeholder="Username" onKeyUp = {checkFields}/>
+                            <Form.Control id = "name" type="text" placeholder="Username" onKeyUp = {checkFields}/>
                         </Form.Group>
 
                         <Form.Group>
                             <Form.Label style = {{fontWeight: "bold"}}>Password</Form.Label>
-                            <Form.Control id = "passwordOne" type="password" placeholder="Password [CaSe SeNsItIvE]" onKeyUp = {checkFields}/>
+                            <Form.Control id = "password" type="password" placeholder="Password [CaSe SeNsItIvE]" onKeyUp = {checkFields}/>
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Label style = {{fontWeight: "bold"}}>Retype Password</Form.Label>
-                            <Form.Control id = "passwordTwo" type="password" placeholder="Password [CaSe SeNsItIvE]" onKeyUp = {checkFields}/>
+                            <Form.Label style = {{fontWeight: "bold"}}>Confirm Password</Form.Label>
+                            <Form.Control id = "password2" type="password" placeholder="Password [CaSe SeNsItIvE]" onKeyUp = {checkFields}/>
                         </Form.Group>
                         <Row>
                             <Col></Col>
@@ -88,7 +98,32 @@ function Register() {
                 <Col></Col>
             </Row>
         </Container>
-    );
+        )
+    }
 }
+
+function checkFields() {
+    if(document.getElementById("name").value.length < 6) {
+        document.getElementById("submitButton").disabled = "true";
+        document.getElementById("validMessage").style.color = "red";
+        document.getElementById("validMessage").innerHTML = "USERNAME NOT LONG ENOUGH [6 CHARS]";
+    }
+    else if(document.getElementById("password").value !== document.getElementById("passwordTwo").value) {
+        document.getElementById("submitButton").disabled = "true";
+        document.getElementById("validMessage").style.color = "red";
+        document.getElementById("validMessage").innerHTML = "PASSWORDS ARE NOT THE SAME";
+    }
+    else if (document.getElementById("password").value.length < 8) {
+        document.getElementById("submitButton").disabled = "true";
+        document.getElementById("validMessage").style.color = "red";
+        document.getElementById("validMessage").innerHTML = "PASSWORD NOT LONG ENOUGH [6 CHARS]";
+    }
+    else {
+        document.getElementById("submitButton").disabled = "";
+        document.getElementById("validMessage").style.color = "green";
+        document.getElementById("validMessage").innerHTML = "REGISTRATION ALLOWED";
+    }
+}
+
 
 export default Register
