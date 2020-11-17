@@ -7,8 +7,8 @@ import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import profpic from '../profpic.png'
 
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import {Component} from "react";
+//import {Link} from "react-router-dom";
 
 class Login extends Component {
     constructor() {

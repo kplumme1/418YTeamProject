@@ -38,6 +38,12 @@ userRouter.post('/register', (req,res)=>{
         if(user)
             res.status(400).json({message: {msgBody : "Username is already taken.", msgError : true}})
         else{
+            console.log("Vald:");
+            console.log(isValid);
+            if (isValid == false) {
+                return res.status(500).json({message: {msgBody : "Error has occured. Please try again.", msgError : true}});
+            }
+            
             const newUser = new User({
                 username : req.body.name,
                 email : req.body.email,
