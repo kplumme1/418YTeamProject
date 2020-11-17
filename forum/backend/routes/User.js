@@ -129,6 +129,9 @@ function authenticateToken(req, res) {
 
         req.user = user;
         console.log("Authenticated");
+        console.log(user);
+        console.log(user.name);
+        console.log(user.email);
         //next();
     });
 }
