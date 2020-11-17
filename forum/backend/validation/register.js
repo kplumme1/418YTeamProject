@@ -7,13 +7,11 @@ module.exports = function validateRegisterInput(data) {
     data.name = !Validator.isEmpty(data.name) ? data.name : "";
     data.email = !Validator.isEmpty(data.email) ? data.email : "";
     data.password = !Validator.isEmpty(data.password) ? data.password : "";
-    data.password2 = !Validator.isEmpty(data.password2) ? data.password2 : "";
-
 // Name checks
     if (Validator.isEmpty(data.name)) {
         errors.name = "Username field is required";
     }
-    if (Validator.isLength(data.name, {min: 6, max: 16})) {
+    if (data.name.length > 16 || data.name.length < 6) {
         errors.name = "Username is not between 6 and 16 characters";
     }
 // Email checks
@@ -25,18 +23,13 @@ module.exports = function validateRegisterInput(data) {
 // Password checks
     if (Validator.isEmpty(data.password)) {
         errors.password = "Password field is required";
-    }
-    if (Validator.isEmpty(data.password2)) {
-        errors.password2 = "Confirm password field is required";
-    }
-    if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-        errors.password = "Password must be at least 6 characters";
-    }
-    if (!Validator.equals(data.password, data.password2)) {
-        errors.password2 = "Passwords must match";
+    } else {
+        if (!data.password.match("^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()-+=_])(?=.*[0-9]).{8,100}$")) {
+        errors.password = "Password must meet requirements";
+        }
     }
     return {
         errors,
-        isValid: Validator.isEmpty(errors.name)
+        isValid: (errors.name == null && errors.password == null && errors.email == null)
     };
 };

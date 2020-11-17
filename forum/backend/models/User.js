@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
 	default : false
     },
 });
-
+/**
 UserSchema.pre('save', function(next){
     if(!this.isModified('password'))
         return next();
@@ -40,7 +40,7 @@ UserSchema.pre('save', function(next){
         next();
     })
 });
-
+*/
 UserSchema.methods.comparePassword = function(password, cb) {
     bcrypt.compare(password, this.password, (err,isMatch)=>{
         if(err)

@@ -17,6 +17,6 @@ module.exports = function validateLoginInput(data) {
     }
     return {
         errors,
-        isValid: Validator.isEmpty(errors)
+        isValid: (errors.email == null && errors.password == null)
     };
 };

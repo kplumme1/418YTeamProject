@@ -6,9 +6,10 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import profpic from '../profpic.png'
+import axios from 'axios'
 
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import {Component} from "react";
+//import {Link} from "react-router-dom";
 
 class Login extends Component {
     constructor() {
@@ -25,11 +26,31 @@ class Login extends Component {
     };
 
     onSubmit = e => {
-        e.prevemtDefault();
+        e.preventDefault();
         const userData = {
             email: this.state.email,
             password: this.state.password
         };
+        const logUser = {
+            email: String(document.getElementById("email").value),
+            password: String(document.getElementById("password").value)
+        };
+        console.log(this.state.email);
+        console.log(this.state.password);
+        console.log("ABOCVE^^^");
+        console.log(logUser);
+        axios.post('http://localhost:5000/user/login/', logUser)
+        .then(function(response) {
+            if (response.statusText != null && response.statusText == "OK" && response.status == 200) {
+                alert("Login complete! Redirecting...")
+                window.location.href = "http://localhost:3000/";
+            } else {
+                alert(response.statusText);
+            }
+        })
+        .catch(function(error) {
+            alert("Error:" + error);
+        });
         console.log(userData);
     };
 
@@ -49,7 +70,7 @@ class Login extends Component {
                     <Form noValidate onSubmit={this.onSubmit}>
                         <Form.Group>
                             <Form.Label style = {{fontWeight: "bold"}}>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="email@domain.com" />
+                            <Form.Control type="email" id = "email" placeholder="email@domain.com" />
                             <Form.Text className="text-muted">
                             Your email will be safe - we're the only ones who'll see it.
                             </Form.Text>
@@ -57,7 +78,7 @@ class Login extends Component {
 
                         <Form.Group>
                             <Form.Label style = {{fontWeight: "bold"}}>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password"  id = "password" placeholder="Password" />
                         </Form.Group>
                         <Row>
                             <Col></Col>
