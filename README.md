@@ -15,7 +15,7 @@ It should only be necessary to install node and nodemon for new server. Otherwis
 /forum/backend/models/ - database schema  
 /forum/backend/routes/ - express routing  
   
-/forum/src/ - frontend directory
+/forum/src/ - frontend directory  
 /forum/src/components/ - react components
   
 ### Server Control:
