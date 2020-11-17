@@ -31,12 +31,7 @@ class Register extends Component {
     onSubmit = e => {
         console.log("SendingUser");
         e.preventDefault();
-        const newUser = {
-            name: this.state.name,
-            email: this.state.email,
-            password: this.state.password,
-            password2: this.state.password2
-        };
+
         const regUser = {
             name: String(document.getElementById("name").value),
             email: String(document.getElementById("email").value),
