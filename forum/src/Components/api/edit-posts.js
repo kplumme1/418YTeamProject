@@ -29,7 +29,7 @@ export default class EditExercise extends Component {
 
 
   componentDidMount() {
-    axios.get('http://kplumme1-backup.ddns.net:5000/posts/urlid/'+this.props.match.params.id)
+    axios.get('http://localhost:5000/posts/urlid/'+this.props.match.params.id)
       .then(response => {
         this.setState({
           internalid: response.data._id,
@@ -95,10 +95,10 @@ export default class EditExercise extends Component {
     }
 
     console.log(updatePost);//console logging for dev - can be removed for release
-    axios.post('http://kplumme1-backup.ddns.net:5000/posts/update', updatePost)
+    axios.post('http://localhost:5000/posts/update', updatePost)
       .then(res => console.log(res.data));
 
-    //axios.post('http://kplumme1-backup.ddns.net:5000/exercises/update/' + this.props.match.params.id, updatePost)
+    //axios.post('http://localhost:5000/exercises/update/' + this.props.match.params.id, updatePost)
     //  .then(res => console.log(res.data));
 
     window.location = '/api/postlist/';

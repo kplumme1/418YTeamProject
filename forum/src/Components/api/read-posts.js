@@ -30,7 +30,7 @@ export default class PostList extends Component {
   componentDidMount() {
     //This queries all posts
     //console.log('componentdidmount');
-    axios.get('http://kplumme1-backup.ddns.net:5000/posts/')
+    axios.get('http://localhost:5000/posts/')
       .then(response => {
         this.setState({ posts: response.data })
       })
@@ -42,7 +42,7 @@ export default class PostList extends Component {
   /*
   componentDidMount() {
     console.log('componentdidmount');
-    axios.get('http://kplumme1-backup.ddns.net:5000/posts/thread/', {params: {parent_thread_id: '123'} })
+    axios.get('http://localhost:5000/posts/thread/', {params: {parent_thread_id: '123'} })
       .then(response => {
         this.setState({ posts: response.data })
       })
@@ -53,7 +53,7 @@ export default class PostList extends Component {
   */
 
   deletePost(id) {
-    axios.delete('http://kplumme1-backup.ddns.net:5000/posts/'+id)
+    axios.delete('http://localhost:5000/posts/'+id)
       .then(response => { console.log(response.data)});
 
     this.setState({

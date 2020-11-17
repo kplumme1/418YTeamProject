@@ -28,7 +28,7 @@ export default class CreateUser extends Component {
 
     console.log(newUser);
 
-    axios.post('http://kplumme1-backup.ddns.net:5000/users/add', newUser)
+    axios.post('http://localhost:5000/users/add', newUser)
       .then(res => console.log(res.data));
 
     this.setState({

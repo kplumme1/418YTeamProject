@@ -71,7 +71,7 @@ userRouter.post('/register', (req,res)=>{
 
 userRouter.post('/login', (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
-    authenticateToken(req,res);
+    //authenticateToken(req,res);
     if(!isValid) {
         return res.status(400).json(errors);
     }

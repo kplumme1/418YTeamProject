@@ -41,11 +41,14 @@ class Login extends Component {
         console.log(logUser);
         axios.post('http://localhost:5000/user/login/', logUser)
         .then(function(response) {
-            if (response.statusText != null && response.statusText == "OK" && response.status == 200) {
+            alert(JSON.stringify(response));
+            alert(response.data.accessToken);
+            if (response.status == 200 && response.data != null && response.data.accessToken != null) {
+                document.cookie = "token"
                 alert("Login complete! Redirecting...")
                 window.location.href = "http://localhost:3000/";
             } else {
-                alert(response.statusText);
+                //alert(response.statusText);
             }
         })
         .catch(function(error) {
