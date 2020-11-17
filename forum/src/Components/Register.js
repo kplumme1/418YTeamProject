@@ -31,24 +31,31 @@ class Register extends Component {
     onSubmit = e => {
         console.log("SendingUser");
         e.preventDefault();
-        alert("You are submitting");
         const newUser = {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2
         };
-        console.log(newUser);
+        const regUser = {
+            name: String(document.getElementById("name").value),
+            email: String(document.getElementById("email").value),
+            password: String(document.getElementById("password").value),
+            role: "user"
+        };
+        console.log(regUser);
         console.log("BACKEND");
         console.log(process.env.BACKEND_URL);
-        axios.post('http://localhost:5000/user/register/', newUser)
+        axios.post('http://localhost:5000/user/register/', regUser)
         .then(function(response) {
-            alert(response);
+            if (response.statusText != null && response.statusText == "OK" && response.status == 200) {
+                alert("Registration complete! Redirecting...")
+                window.location.href = "http://localhost:3000/login";
+            }
         })
         .catch(function(error) {
             alert("Error:" + error);
         });
-        alert("axios past");
     };
 
     render() {
@@ -123,6 +130,11 @@ function checkFields() {
         document.getElementById("submitButton").disabled = "true";
         document.getElementById("validMessage").style.color = "red";
         document.getElementById("validMessage").innerHTML = "USERNAME NOT LONG ENOUGH [6 CHARS]";
+    }
+    else if(document.getElementById("name").value.length > 16) {
+        document.getElementById("submitButton").disabled = "true";
+        document.getElementById("validMessage").style.color = "red";
+        document.getElementById("validMessage").innerHTML = "USERNAME TOO LONG [<=16 CHARS]";
     }
     else if (!email.toLowerCase().match("[a-z 0-9]@[a-z 0-9]+\.[a-z]")) {
         document.getElementById("submitButton").disabled = "true";

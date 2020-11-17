@@ -22,8 +22,6 @@ const signToken = userID => {
 
 //checks if user already exists and registers if not
 userRouter.post('/register', (req,res)=>{
-    console.log("Hello0");
-    console.log(req.body);
     const {errors, isValid} = validateRegisterInput(req.body);
     //dont think i need this anymore
     //const { username,email,password,role } = req.body;
@@ -41,6 +39,9 @@ userRouter.post('/register', (req,res)=>{
             console.log("Vald:");
             console.log(isValid);
             if (isValid == false) {
+                console.log(errors.email);
+                console.log(errors.name);
+                console.log(errors.password);
                 return res.status(500).json({message: {msgBody : "Error has occured. Please try again.", msgError : true}});
             }
             
@@ -57,7 +58,7 @@ userRouter.post('/register', (req,res)=>{
             newUser.password = hash;
             newUser
                 .save()
-                .then(user => res.json(user))
+                .then(user => res.status(200).send("OK"))
                 .catch(err => console.log(err));
             });
             });
@@ -80,32 +81,37 @@ userRouter.post('/login', (req, res) => {
         if (!user) {
             return res.status(404).json({emailnotfound: "Email not found."});
         }
+        bcrypt.compare(password, user.password).then(isMatch => {
+            if(isMatch) {
+                const payload = {
+                    id: user.id,
+                    name: user.name
+                };
+    
+                JWT.sign({
+                    payload,
+                    iss: keys.secretOrKey,
+                }, keys.secretOrKey,  {expiresIn: 614800}, (err, token) => {
+                    /**
+                    res.json({
+                        success: true,
+                        token: "Bearer " + token
+                    });
+                    */
+                   console.log("Logged in");
+                   res.status(200).send("OK");
+                }); // 1 week in seconds
+            } else {
+                return res
+                .status(400)
+                .json({passwordIncorrect: "Password Incorrect"});
+            }
+        });
     });
-
-    bcrypt.compare(password, user.password).then(isMatch => {
-        if(isMatch) {
-            const payload = {
-                id: user.id,
-                name: user.name
-            };
-
-            JWT.sign({
-                payload,
-                iss: keys.secretOrKey,
-            }, keys.secretOrKey,  {expiresIn: 614800}, (err, token) => {
-                res.json({
-                    success: true,
-                    token: "Bearer " + token
-                });
-            }); // 1 week in seconds
-        } else {
-            return res
-            .status(400)
-            .json({passwordIncorrect: "Password Incorrect"});
-        }
-    });
+    
+    
 });
-
+/**
 userRouter.post('/login', passport.authenticate('local',{session : false}), (req,res)=> {
 	if(req.isAuthenticated()){
 		const {_id, username, role} = req.user;
@@ -115,6 +121,7 @@ userRouter.post('/login', passport.authenticate('local',{session : false}), (req
 		res.status(200).json({isAuthenticated: true, user : {username, role}})
 	}
 });
+*/
 
 userRouter.get('/logout', passport.authenticate('jwt',{session : false}), (req,res)=> {
         res.clearCookie('access_Token');
