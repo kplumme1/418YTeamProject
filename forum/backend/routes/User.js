@@ -94,7 +94,7 @@ userRouter.post('/login', (req, res) => {
                 //sign the access key using the secret key and the payload and assign it to access key
                 const accessToken = JWT.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
                 //response object of the access token
-                res.status(200).json({accessToken: accessToken});
+                res.status(200).json({accessToken: accessToken, username: user.username});
                 console.log("Logged in");
                 //res.status(200).send("OK");
                                 
