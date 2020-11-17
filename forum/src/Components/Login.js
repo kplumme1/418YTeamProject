@@ -44,9 +44,12 @@ class Login extends Component {
             alert(JSON.stringify(response));
             alert(response.data.accessToken);
             if (response.status == 200 && response.data != null && response.data.accessToken != null) {
-                document.cookie = "token=" + response.data.accessToken;
-                document.cookie = "username=" + response.data.username;
-                document.cookie = "role=" + response.data.role;
+                var d = new Date();
+                d.setTime(d.getTime() + (1*60*60*1000));
+                var expires = "expires="+ d.toUTCString();
+                document.cookie = "token=" + response.data.accessToken + ";" + expires + ";path=/";
+                document.cookie = "username=" + response.data.username+ ";" + expires + ";path=/";
+                document.cookie = "role=" + response.data.role+ ";" + expires + ";path=/";
                 alert("Login complete! Redirecting...");
                 window.location.href = "http://localhost:3000/";
             } else {
