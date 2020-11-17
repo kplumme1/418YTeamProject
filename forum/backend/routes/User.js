@@ -6,6 +6,7 @@ const JWT = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const keys = require("../config/keys");
 
+
 const User = require('../models/User');
 
 //input validation things
@@ -83,24 +84,20 @@ userRouter.post('/login', (req, res) => {
         }
         bcrypt.compare(password, user.password).then(isMatch => {
             if(isMatch) {
+                //check to see if the user id is put in the payload here and consider putting role in payload too
+                const userID = user._id;
+
+                //create the payload
                 const payload = {
-                    id: user.id,
-                    name: user.name
-                };
-    
-                JWT.sign({
-                    payload,
-                    iss: keys.secretOrKey,
-                }, keys.secretOrKey,  {expiresIn: 614800}, (err, token) => {
-                    /**
-                    res.json({
-                        success: true,
-                        token: "Bearer " + token
-                    });
-                    */
-                   console.log("Logged in");
-                   res.status(200).send("OK");
-                }); // 1 week in seconds
+                    userId: userID
+                }
+                //sign the access key using the secret key and the payload and assign it to access key
+                const accessToken = jwt.sign(payload, process,env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+                //response object of the access token
+                res.json({accessToken: accessToken});
+                console.log("Logged in");
+                res.status(200).send("OK");
+                                
             } else {
                 return res
                 .status(400)
@@ -111,7 +108,28 @@ userRouter.post('/login', (req, res) => {
     
     
 });
-/**
+
+//just a function to see if the auth token is valid still to test things can possibly
+//be used in the future so left here
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token == null) 
+    return res  
+        .sendStatus(401)
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err,user) => {
+        if (err)
+        return res
+            .sendStatus(403)
+
+        req.user = user;
+        next();
+    });
+}
+
+
+/** old cookie attempt
 userRouter.post('/login', passport.authenticate('local',{session : false}), (req,res)=> {
 	if(req.isAuthenticated()){
 		const {_id, username, role} = req.user;
@@ -123,6 +141,7 @@ userRouter.post('/login', passport.authenticate('local',{session : false}), (req
 });
 */
 
+//old logout function needs to be updated could not figure out how to "logout" with a jwt token without cookies
 userRouter.get('/logout', passport.authenticate('jwt',{session : false}), (req,res)=> {
         res.clearCookie('access_Token');
         res.json({user:{username : "", role : ""}, success : true});
