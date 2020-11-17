@@ -71,7 +71,7 @@ userRouter.post('/register', (req,res)=>{
 
 userRouter.post('/login', (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
-    //authenticateToken(req,res);
+    authenticateToken(req,res);
     if(!isValid) {
         return res.status(400).json(errors);
     }
@@ -129,9 +129,16 @@ function authenticateToken(req, res) {
 
         req.user = user;
         console.log("Authenticated");
-        console.log(user);
-        console.log(user.name);
-        console.log(user.email);
+        console.log(user); // is a table and has userId... gotta figure
+        User.findOne({_id: user.userId}).then(user => {
+            if (!user) {
+                console.log("Couldn't find user?");
+                //;return res.status(404).json({emailnotfound: "Email not found."});
+            }
+            console.log("USERNAM<E?");
+            console.log(user.username);
+            console.log(user.email);
+        });
         //next();
     });
 }
