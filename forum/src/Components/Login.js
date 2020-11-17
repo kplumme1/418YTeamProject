@@ -46,6 +46,7 @@ class Login extends Component {
             if (response.status == 200 && response.data != null && response.data.accessToken != null) {
                 document.cookie = "token=" + response.data.accessToken;
                 document.cookie = "username=" + response.data.username;
+                document.cookie = "role=" + response.data.role;
                 alert("Login complete! Redirecting...");
                 window.location.href = "http://localhost:3000/";
             } else {

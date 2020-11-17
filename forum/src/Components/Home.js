@@ -20,6 +20,7 @@ function getCookie(name) {
 if (getCookie("token")) {
     console.log("Current token: " + getCookie("token"));
     console.log("Username: " + getCookie("username"));
+    console.log("Role: "+ getCookie("role"));
 }
 
 function Home() {
