@@ -65,7 +65,7 @@ export default class APICreatePost extends Component {
 
     //axios sends data through backend API endpoint
     console.log(newPost);//console logging for dev - can be removed for release
-    axios.post('http://localhost:5000/posts/add', newPost)
+    axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost)
       .then(res => console.log(res.data));
 
       //reset form (via stste object)
