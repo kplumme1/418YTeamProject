@@ -17,8 +17,9 @@ function getCookie(name) {
     return null;
 }
 
-var cookieUser = localStorage.getItem(getCookie("username")) || "Invalid User";
-var cookieRole = localStorage.getItem(getCookie("role")) || "Guest";
+var cookieUser = getCookie("username") || "Invalid User";
+var cookieRole = getCookie("role") || "Guest";
+var postCount = 0;
 
 function Profile() {
     return (
@@ -35,7 +36,7 @@ function Profile() {
                     <div style = {{textAlign: "center"}}>
                         <h1>{cookieUser}</h1>
                         <h4>User Role: {cookieRole}</h4>
-                        <h4>Post Count: blah</h4>
+                        <h4>Post Count: {postCount}</h4>
                     </div>
                 </Col>
                 <Col></Col>
