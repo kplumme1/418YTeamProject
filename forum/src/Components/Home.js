@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
+var config = require('../config.json');
 
 // getCookie function from stack overflow
 function getCookie(name) {
@@ -24,16 +25,19 @@ if (getCookie("token")) {
 }
 
 function Home() {
+
+    const final = (<Jumbotron style = {{margin: "1% 1%"}}>
+                    <h1>Welcome to {config.forumname}!</h1>
+                    <p>
+                        This is the forum of the modern times - no PHP, no ASP, no nonsense. Join now!
+                    </p>
+                    <p>
+                        <Button variant="primary" href="/login">Login/Register</Button>
+                    </p>
+                    </Jumbotron>);
+
     return (
-        <Jumbotron style = {{margin: "1% 1%"}}>
-            <h1>Welcome to 4UM!</h1>
-            <p>
-                This is the forum of the modern times - no PHP, no ASP, no nonsense. Join now!
-            </p>
-            <p>
-                <Button variant="primary" href="/login">Login/Register</Button>
-            </p>
-        </Jumbotron>
+        final
     );
 }
 

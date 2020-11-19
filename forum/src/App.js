@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Header from './Components/Header'
 import AdminHeader from './Components/AdminHeader'
 import Home from './Components/Home'
 import Help from './Components/Help'
 import About from './Components/About'
 import Login from './Components/Login'
 import Register from './Components/Register'
+import Profile from './Components/Profile'
 import CreateTopic from './Components/CreateTopic'
 import CreatePost from './Components/CreatePost'
 import Post from './Components/Post'
@@ -42,6 +42,7 @@ function App() {
           <Route path = "/Help" component = {Help} />
           <Route path = "/Login" component = {Login} />
           <Route path = "/Register" component = {Register} />
+          <Route path = "/Profile" component = {Profile} />
           <Route path = "/CreateTopic" component = {CreateTopic} />
           <Route path = "/CreatePost" component = {CreatePost} />
           <Route path = "/Post" component = {Post} />
