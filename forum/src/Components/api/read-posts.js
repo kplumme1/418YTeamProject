@@ -11,7 +11,7 @@ const Post = props => (
     <td>{props.post.post_body_text}</td>
     <td>{props.post.post_num}</td>
     <td>
-      <Link to={"/api/edit/"+props.post._id}>edit</Link> | <a href="#" onClick={() => { props.deletePost(props.post._id) }}>delete</a>
+      <Link to={"/api/edit/"+props.post._id}>edit</Link> | <a href="#" onClick={() => { props.deletePost(props.post._id, props.post.post_body_text) }}>delete</a>
     </td>
   </tr>
 )
@@ -52,8 +52,15 @@ export default class PostList extends Component {
   }
   */
 
-  deletePost(id) {
-    axios.delete('http://kplumme1-ec2.ddns.net:5000/posts/'+id)
+  deletePost(id, text) {
+    //axios.delete('http://kplumme1-ec2.ddns.net:5000/posts/'+id)
+    let updatePost = {
+      _id: id,
+      post_body_text: text,
+      del_flag: true
+    }
+
+    axios.post('http://kplumme1-ec2.ddns.net:5000/posts/update', updatePost)
       .then(response => { console.log(response.data)});
 
     this.setState({
