@@ -7,6 +7,9 @@ import Row from 'react-bootstrap/Row'
 import { Editor } from "@tinymce/tinymce-react";
 import axios from 'axios';
 
+var mongoose = require('mongoose');
+
+
 //export default class CreatePost extends Component {
 export default class CreatePost extends Component {
     constructor(props) {
@@ -38,13 +41,24 @@ export default class CreatePost extends Component {
     onSubmit(e) {
     e.preventDefault();
 
+    var newId = mongoose.Types.ObjectId();
+
     //Structure to be sent to axios/router
     const newPost = {
-        parent_thread_id: this.state.parentid,
+        parent_thread_id: newId,
         post_num: this.state.postnum,
         post_author: this.state.authorid,
         post_body_text: this.state.bodytext,
         del_flag: this.state.delflag
+    }
+
+    const newThread = {
+        _id: newId,
+        parent_topic_id: "testTopic",
+        thread_num: 0,
+        thread_author: "testAuthor",
+        thread_title: "Thread_Title",
+        del_flag: false
     }
 
     alert("new post json: " + newPost.del_flag + ", " + newPost.post_body_text);
@@ -52,6 +66,8 @@ export default class CreatePost extends Component {
     //axios sends data through backend API endpoint
     console.log(newPost);//console logging for dev - can be removed for release
     axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost)
+      .then(res => console.log(res.data));
+    axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread)
       .then(res => console.log(res.data));
 
 

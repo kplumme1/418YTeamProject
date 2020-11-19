@@ -7,6 +7,7 @@ import About from './Components/About'
 import Login from './Components/Login'
 import Register from './Components/Register'
 import Profile from './Components/Profile'
+import Logout from './Components/Logout';
 import CreateTopic from './Components/CreateTopic'
 import CreatePost from './Components/CreatePost'
 import Post from './Components/Post'
@@ -21,7 +22,10 @@ import store from "./store"
 //API Component imports
 import APICreatePost from "./Components/api/create-post";
 import APIReadPosts from "./Components/api/read-posts"
+import APIReadTopics from "./Components/api/read-topics";
+import APIReadThreads from "./Components/api/read-threads";
 import APIEditPost from "./Components/api/edit-posts";
+
 
 
 //import ExercisesList from "./Components/api/exercises-list.component";
@@ -43,15 +47,18 @@ function App() {
           <Route path = "/Login" component = {Login} />
           <Route path = "/Register" component = {Register} />
           <Route path = "/Profile" component = {Profile} />
+          <Route path = "/Logout" component = {Logout} />
           <Route path = "/CreateTopic" component = {CreateTopic} />
           <Route path = "/CreatePost" component = {CreatePost} />
           <Route path = "/Post" component = {Post} />
           {/*API/Prototype routes. - completed*/}
           <Route path="/api/createpost" component={APICreatePost} />
           <Route path = "/api/PostList" exact component = {APIReadPosts} />
-
-          {/*API/Prototype routes - work in progress.*/}
           <Route path="/api/edit/:id" component={APIEditPost} />
+          {/*API/Prototype routes - work in progress.*/}
+          <Route path="/api/TopicList" component={APIReadTopics} />
+          <Route path="/api/ThreadList" component={APIReadThreads} />
+          
 
           {/*API/Prototype routes. - these need work*/}
           <Route path="/api/user" component={CreateUser} />
