@@ -17,8 +17,8 @@ function getCookie(name) {
     return null;
 }
 
-var cookieUser = localStorage.getItem(getCookie("username")) || "Invalid User";
-var cookieRole = localStorage.getItem(getCookie("role")) || "Guest";
+var cookieUser = getCookie("username") || "Invalid User";
+var cookieRole = getCookie("role") || "Guest";
 
 function Profile() {
     return (
