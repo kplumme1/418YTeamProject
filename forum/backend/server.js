@@ -15,7 +15,7 @@ app.use(express.json());
 
 //connect to mongo server cluster - old lines of code are commented out but kept for now until testing complete.
 //atlas_uri now builds the fully qualified uri from individual parts, making it easier to edit the .env file
-/*
+
 const atlas_uri = 'mongodb+srv://' 
                     + process.env.ATLAS_USER 
                     + ':' + process.env.ATLAS_PASS 
@@ -25,9 +25,9 @@ const atlas_uri = 'mongodb+srv://'
 mongoose.connect(atlas_uri, {useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true},()=>{
 //mongoose.connect(uri, {useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true},()=>{
 
-*/
 
-mongoose.connect('mongodb+srv://shawnyg:djul3kfk6TqtbQ31@cluster0.sv7sa.mongodb.net/<testDB>?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology: true},()=>{
+
+//mongoose.connect('mongodb+srv://shawnyg:djul3kfk6TqtbQ31@cluster0.sv7sa.mongodb.net/<testDB>?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology: true},()=>{
 //mongoose.connect('mongodb+srv://sujames:VIG0xH7s2JLanipm@cluster0.aqznf.gcp.mongodb.net/testDB?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology: true},()=>{
 //mongoose.connect('mongodb+srv://sujames:VIG0xH7s2JLanipm@cluster0.aqznf.gcp.mongodb.net/testDB?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology: true},()=>{
 
