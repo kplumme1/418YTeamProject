@@ -26,7 +26,9 @@ if (getCookie("token")) {
 
 function Home() {
 
-    const final = (<Jumbotron style = {{margin: "1% 1%"}}>
+    var cookieUser = getCookie("username") || "guest";
+
+    const notLoggedIn = (<Jumbotron style = {{margin: "1% 1%"}}>
                     <h1>Welcome to {config.forumname}!</h1>
                     <p>
                         This is the forum of the modern times - no PHP, no ASP, no nonsense. Join now!
@@ -35,10 +37,26 @@ function Home() {
                         <Button variant="primary" href="/login">Login/Register</Button>
                     </p>
                     </Jumbotron>);
+    
+    const loggedIn = (<Jumbotron style = {{margin: "1% 1%"}}>
+                    <h1>Welcome to {config.forumname}, {cookieUser}!</h1>
+                    <p>
+                        You're ready to see the forum of the future! Click any of the topics below to start your experience. With your account, you can create posts as well!
+                    </p>
+                    </Jumbotron>);
 
-    return (
-        final
-    );
+    if (cookieUser === "guest") {
+        return (
+            notLoggedIn
+        );
+    }
+
+    else {
+        return (
+            loggedIn
+        );
+    }
+    
 }
 
 export default Home
