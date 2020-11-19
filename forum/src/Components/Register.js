@@ -9,7 +9,6 @@ import profpic from '../profpic.png'
 import axios from 'axios';
 
 import {Component} from "react";
-import {Link} from "react-router-dom";
 
 // ha got my name on contributor since github doesnt consider merge commits as a contributor
 
