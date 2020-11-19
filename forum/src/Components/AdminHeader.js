@@ -20,8 +20,8 @@ function getCookie(name) {
 }
 
 function AdminHeader (){
-    var cookieRole = localStorage.getItem(getCookie("role")) || "guest";
-    var cookieUser = localStorage.getItem(getCookie("username")) || "Profile";
+    var cookieRole = getCookie("role") || "guest";
+    var cookieUser = getCookie("username") || "Profile";
 
     // If the user is not logged in
     if (cookieRole === "guest") {
