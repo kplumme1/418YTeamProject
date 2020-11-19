@@ -41,8 +41,6 @@ class Login extends Component {
         console.log(logUser);
         axios.post('http://kplumme1-ec2.ddns.net:5000/user/login/', logUser)
         .then(function(response) {
-            alert(JSON.stringify(response));
-            alert(response.data.accessToken);
             if (response.status == 200 && response.data != null && response.data.accessToken != null) {
                 var d = new Date();
                 d.setTime(d.getTime() + (1*60*60*1000));
