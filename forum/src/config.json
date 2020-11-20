@@ -1,4 +1,7 @@
 {
-    "forumcall": "NAME_HERE",
-    "logo": "https://i.gyazo.com/dd2c2a213eed5652d31c6ce4e7e9eb85.png"
+    "forumname": "Good Stuff",
+    "logo": "https://i.imgur.com/2IrYxmc.png",
+    "buttonColor": "Blue",
+    "aboutPage": "Hello! This is loaded from the config file!",
+    "helpPage": "This is your help page, loaded from config.json! You can send an email to us by clicking this. The admin needs to change the email address under PUT_EMAIL_HERE in 'Help.js'."
 }

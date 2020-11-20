@@ -39,10 +39,8 @@ class Login extends Component {
         console.log(this.state.password);
         console.log("ABOCVE^^^");
         console.log(logUser);
-        axios.post('http://localhost:5000/user/login/', logUser)
+        axios.post('http://kplumme1-ec2.ddns.net:5000/user/login/', logUser)
         .then(function(response) {
-            alert(JSON.stringify(response));
-            alert(response.data.accessToken);
             if (response.status == 200 && response.data != null && response.data.accessToken != null) {
                 var d = new Date();
                 d.setTime(d.getTime() + (1*60*60*1000));
@@ -51,7 +49,7 @@ class Login extends Component {
                 document.cookie = "username=" + response.data.username+ ";" + expires + ";path=/";
                 document.cookie = "role=" + response.data.role+ ";" + expires + ";path=/";
                 alert("Login complete! Redirecting...");
-                window.location.href = "http://localhost:3000/";
+                window.location.href = "http://kplumme1-ec2.ddns.net:3000/";
             } else {
                 //alert(response.statusText);
             }
@@ -106,7 +104,7 @@ class Login extends Component {
                 </Col>
                 <Col></Col>
             </Row>
-        </Container>
+            </Container>
         );
     }
 }
