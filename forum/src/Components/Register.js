@@ -6,21 +6,137 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import profpic from '../profpic.png'
+import axios from 'axios';
+
+import {Component} from "react";
+
+// ha got my name on contributor since github doesnt consider merge commits as a contributor
+
+class Register extends Component {
+    constructor() {
+        super();
+        this.state = {
+            name: "",
+            email: "",
+            password: "",
+            password2: "",
+            errors: {}
+        };
+    }
+
+    onChange = e => {
+        this.setState({ [e.target.id]: e.target.value});
+    };
+
+    onSubmit = e => {
+        console.log("SendingUser");
+        e.preventDefault();
+
+        const regUser = {
+            name: String(document.getElementById("name").value),
+            email: String(document.getElementById("email").value),
+            password: String(document.getElementById("password").value),
+            role: "user"
+        };
+        console.log(regUser);
+        console.log("BACKEND");
+        console.log(process.env.BACKEND_URL);
+        axios.post('http://kplumme1-ec2.ddns.net:5000/user/register/', regUser)
+        .then(function(response) {
+            if (response.statusText != null && response.statusText == "OK" && response.status == 200) {
+                alert("Registration complete! Redirecting...")
+                window.location.href = "http://kplumme1-ec2.ddns.net:3000/login";
+            }
+        })
+        .catch(function(error) {
+            alert("Error:" + error);
+        });
+    };
+
+    render() {
+        const {errors} = this.state;
+
+        return (
+            <Container style = {{marginTop: "40px"}}>
+            <Row>
+                <Col></Col>
+                <Col md = {7} style = {{border: "5px solid black", borderRadius: "30px", padding: "20px 20px"}}>
+                    <Row>
+                        <Col></Col>
+                        <Col><Image style = {{border: "8px solid black"}} src = {profpic} height = "200px" width = "200px" roundedCircle></Image></Col>
+                        <Col></Col>
+                    </Row>
+                    <Form noValidate onSubmit={this.onSubmit}>
+                        <Form.Group>
+                            <Form.Label style = {{fontWeight: "bold"}}>Email address</Form.Label>
+                            <Form.Control id = "email" type="email" placeholder="email@domain.com" />
+                            <Form.Text className="text-muted">
+                            Your email will be safe - we're the only ones who'll see it.
+                            </Form.Text>
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Label style = {{fontWeight: "bold"}}>Username</Form.Label>
+                            <Form.Control id = "name" type="text" placeholder="Username" onKeyUp = {checkFields}/>
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Label style = {{fontWeight: "bold"}}>Password</Form.Label>
+                            <Form.Control id = "password" type="password" placeholder="Password [CaSe SeNsItIvE]" onKeyUp = {checkFields}/>
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Label style = {{fontWeight: "bold"}}>Confirm Password</Form.Label>
+                            <Form.Control id = "password2" type="password" placeholder="Password [CaSe SeNsItIvE]" onKeyUp = {checkFields}/>
+                        </Form.Group>
+                        <Row>
+                            <Col></Col>
+                            <Col style = {{textAlign: "center"}}>
+                                <Button style = {{padding: "10px 20px", width: "120px"}} id = "submitButton" variant="primary" type="submit" disabled = "true">
+                                    Register
+                                </Button>
+                            </Col>
+                            <Col style = {{textAlign: "center"}}>
+                                <Button style = {{padding: "10px 20px", width: "120px"}} variant="primary" type="button" href = "./login">
+                                    Login?
+                                </Button>
+                            </Col>
+                            <Col></Col>
+                        </Row>
+                        <Row>
+                            <Col></Col>
+                            <Col id = "validMessage" style = {{textAlign: "center", marginTop: "5px"}}></Col>
+                            <Col></Col>
+                        </Row>
+                    </Form>
+                </Col>
+                <Col></Col>
+            </Row>
+        </Container>
+        )
+    }
+}
+
 
 function checkFields() {
-    let password = String(document.getElementById("passwordOne").value);
+    let password = String(document.getElementById("password").value);
     let email = String(document.getElementById("email").value);
-    if(document.getElementById("username").value.length < 6) {
+    if(document.getElementById("name").value.length < 6) {
         document.getElementById("submitButton").disabled = "true";
         document.getElementById("validMessage").style.color = "red";
         document.getElementById("validMessage").innerHTML = "USERNAME NOT LONG ENOUGH [6 CHARS]";
+    }
+    else if(document.getElementById("name").value.length > 16) {
+        document.getElementById("submitButton").disabled = "true";
+        document.getElementById("validMessage").style.color = "red";
+        document.getElementById("validMessage").innerHTML = "USERNAME TOO LONG [<=16 CHARS]";
     }
     else if (!email.toLowerCase().match("[a-z 0-9]@[a-z 0-9]+\.[a-z]")) {
         document.getElementById("submitButton").disabled = "true";
         document.getElementById("validMessage").style.color = "red";
         document.getElementById("validMessage").innerHTML = "INVALID EMAIL";
     }
-    else if(password !== document.getElementById("passwordTwo").value) {
+    else if(password !== document.getElementById("password2").value) {
         document.getElementById("submitButton").disabled = "true";
         document.getElementById("validMessage").style.color = "red";
         document.getElementById("validMessage").innerHTML = "PASSWORDS ARE NOT THE SAME";
@@ -54,67 +170,6 @@ function checkFields() {
         document.getElementById("validMessage").style.color = "green";
         document.getElementById("validMessage").innerHTML = "REGISTRATION ALLOWED";
     }
-}
-
-function Register() {
-    return (
-        <Container style = {{marginTop: "40px"}}>
-            <Row>
-                <Col></Col>
-                <Col md = {7} style = {{border: "5px solid black", borderRadius: "30px", padding: "20px 20px"}}>
-                    <Row>
-                        <Col></Col>
-                        <Col><Image style = {{border: "8px solid black"}} src = {profpic} height = "200px" width = "200px" roundedCircle></Image></Col>
-                        <Col></Col>
-                    </Row>
-                    <Form>
-                        <Form.Group>
-                            <Form.Label style = {{fontWeight: "bold"}}>Email address</Form.Label>
-                            <Form.Control type="email" id = "email" placeholder="email@domain.com" />
-                            <Form.Text className="text-muted">
-                            Your email will be safe - we're the only ones who'll see it.
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group>
-                            <Form.Label style = {{fontWeight: "bold"}}>Username</Form.Label>
-                            <Form.Control id = "username" type="text" placeholder="Username" onKeyUp = {checkFields}/>
-                        </Form.Group>
-
-                        <Form.Group>
-                            <Form.Label style = {{fontWeight: "bold"}}>Password</Form.Label>
-                            <Form.Control id = "passwordOne" type="password" placeholder="Password [CaSe SeNsItIvE]" onKeyUp = {checkFields}/>
-                        </Form.Group>
-
-                        <Form.Group>
-                            <Form.Label style = {{fontWeight: "bold"}}>Retype Password</Form.Label>
-                            <Form.Control id = "passwordTwo" type="password" placeholder="Password [CaSe SeNsItIvE]" onKeyUp = {checkFields}/>
-                        </Form.Group>
-                        <Row>
-                            <Col></Col>
-                            <Col style = {{textAlign: "center"}}>
-                                <Button style = {{padding: "10px 20px", width: "120px"}} id = "submitButton" variant="primary" type="submit" disabled = "true">
-                                    Register
-                                </Button>
-                            </Col>
-                            <Col style = {{textAlign: "center"}}>
-                                <Button style = {{padding: "10px 20px", width: "120px"}} variant="primary" type="button" href = "./login">
-                                    Login?
-                                </Button>
-                            </Col>
-                            <Col></Col>
-                        </Row>
-                        <Row>
-                            <Col></Col>
-                            <Col id = "validMessage" style = {{textAlign: "center", marginTop: "5px"}}></Col>
-                            <Col></Col>
-                        </Row>
-                    </Form>
-                </Col>
-                <Col></Col>
-            </Row>
-        </Container>
-    );
 }
 
 export default Register

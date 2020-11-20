@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Header from './Components/Header'
 import AdminHeader from './Components/AdminHeader'
 import Home from './Components/Home'
 import Help from './Components/Help'
 import About from './Components/About'
 import Login from './Components/Login'
 import Register from './Components/Register'
+import Profile from './Components/Profile'
+import Logout from './Components/Logout';
 import CreateTopic from './Components/CreateTopic'
 import CreatePost from './Components/CreatePost'
 import Post from './Components/Post'
@@ -14,10 +15,17 @@ import NotFound from './Components/NotFound'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
+
+
+import {Provider} from "react-redux";
+import store from "./store"
 //API Component imports
 import APICreatePost from "./Components/api/create-post";
 import APIReadPosts from "./Components/api/read-posts"
+import APIReadTopics from "./Components/api/read-topics";
+import APIReadThreads from "./Components/api/read-threads";
 import APIEditPost from "./Components/api/edit-posts";
+
 
 
 //import ExercisesList from "./Components/api/exercises-list.component";
@@ -26,10 +34,10 @@ import APIEditPost from "./Components/api/edit-posts";
 import CreateUser from "./Components/api/create-user.component";
 
 
-
 function App() {
   return (
     <React.Fragment>
+      <Provider store={store}>
       <BrowserRouter>
         <AdminHeader/>
         <Switch>
@@ -38,15 +46,19 @@ function App() {
           <Route path = "/Help" component = {Help} />
           <Route path = "/Login" component = {Login} />
           <Route path = "/Register" component = {Register} />
+          <Route path = "/Profile" component = {Profile} />
+          <Route path = "/Logout" component = {Logout} />
           <Route path = "/CreateTopic" component = {CreateTopic} />
           <Route path = "/CreatePost" component = {CreatePost} />
           <Route path = "/Post" component = {Post} />
           {/*API/Prototype routes. - completed*/}
           <Route path="/api/createpost" component={APICreatePost} />
           <Route path = "/api/PostList" exact component = {APIReadPosts} />
-
-          {/*API/Prototype routes - work in progress.*/}
           <Route path="/api/edit/:id" component={APIEditPost} />
+          {/*API/Prototype routes - work in progress.*/}
+          <Route path="/api/TopicList" component={APIReadTopics} />
+          <Route path="/api/ThreadList" component={APIReadThreads} />
+          
 
           {/*API/Prototype routes. - these need work*/}
           <Route path="/api/user" component={CreateUser} />
@@ -54,6 +66,7 @@ function App() {
           <Route component = {NotFound} />
         </Switch>
       </BrowserRouter>
+      </Provider>
     </React.Fragment>
   );
 }

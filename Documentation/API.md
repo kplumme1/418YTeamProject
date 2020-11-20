@@ -5,7 +5,7 @@ To access an API endpoint use axios methods. The primary ones we are interested 
 Here is an example of a simple axios.get to preform a GET request on the endpoint that returns all posts. (This endpoint is just for development, we probably won't ever want to return all posts)
 
 ```
-axios.get('http://kplumme1-backup.ddns.net:5000/posts/')
+axios.get('http://localhost:5000/posts/')
       .then(response => {
         this.setState({ posts: response.data })
       })
@@ -16,13 +16,13 @@ axios.get('http://kplumme1-backup.ddns.net:5000/posts/')
   ```
   
 You can see how this gets used in the post list prototype page:
-`http://kplumme1-ec2.ddns.net:3000/api/postlist`
+`http://localhost:3000/api/postlist`
 Which is rendered by the `read-posts.js` component located:
 `/src/Components/api/read-posts.js`
 
 Here is an example of an axios.get call to fetch a specific post by it's ID:
 ```
-    axios.get('http://kplumme1-backup.ddns.net:5000/posts/URLupdate/'+this.props.match.params.id)
+    axios.get('http://localhost:5000/posts/URLupdate/'+this.props.match.params.id)
       .then(response => {
         this.setState({
           internalid: response.data._id,
@@ -39,7 +39,7 @@ Here is an example of an axios.get call to fetch a specific post by it's ID:
 ```
 
 This example is pulled from the edit posts prototype page:
-`http://kplumme1-ec2.ddns.net:3000/api/edit/<_ID HERE>` Note: the `_id` is part of the URL. You can also click the "edit" button on a post in the post list prototype page mentioned above.
+`http://localhost:3000/api/edit/<_ID HERE>` Note: the `_id` is part of the URL. You can also click the "edit" button on a post in the post list prototype page mentioned above.
 This page is rendered by the edit-posts component located:
 `/src/Components/api/edit-posts.js`
 The unique ID of the post in question is apended to the end of the URL and the response from mongodb is set in the component's state structure.
@@ -56,7 +56,7 @@ Lastly, here is an example of an axios.post method:
     }
 
     console.log(updatePost);//console logging for dev - can be removed for release
-    axios.post('http://kplumme1-backup.ddns.net:5000/posts/update', updatePost)
+    axios.post('http://localhost:5000/posts/update', updatePost)
       .then(res => console.log(res.data));
 ```
 This can be seen in the edit-posts prototype page mentioned above. This is the method used to update the post with new data.
@@ -81,11 +81,11 @@ const boardSchema = new Schema({
 ```
 
 Going forward all endpoints listed come after the backend URL, which as of now is:
-`http://kplumme1-backup.ddns.net:5000`
+`http://localhost:5000`
 So, for instance the board creation endpoint is:
 `/boards/add`
 Which when appended to the backend URL becomes:
-`http://kplumme1-backup.ddns.net:5000/boards/add`
+`http://localhost:5000/boards/add`
 Note that whenever something appears in a URL with < > that means to insert some value there, like `<_id>` the implicit unique ID for the document.
 
 Because the board is just a single top-level container it doesn't need to have much else besides a title and a description to display.
