@@ -41,11 +41,11 @@ class Register extends Component {
         console.log(regUser);
         console.log("BACKEND");
         console.log(process.env.BACKEND_URL);
-        axios.post('http://localhost:5000/user/register/', regUser)
+        axios.post('http://kplumme1-ec2.ddns.net:5000/user/register/', regUser)
         .then(function(response) {
             if (response.statusText != null && response.statusText == "OK" && response.status == 200) {
                 alert("Registration complete! Redirecting...")
-                window.location.href = "http://localhost:3000/login";
+                window.location.href = "http://kplumme1-ec2.ddns.net:3000/login";
             }
         })
         .catch(function(error) {
