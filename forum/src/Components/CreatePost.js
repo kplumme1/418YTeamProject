@@ -65,9 +65,9 @@ export default class CreatePost extends Component {
 
     //axios sends data through backend API endpoint
     console.log(newPost);//console logging for dev - can be removed for release
-    axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost)
+    axios.post('http://localhost:5000/posts/add', newPost)
       .then(res => console.log(res.data));
-    axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread)
+    axios.post('http://localhost:5000/threads/add', newThread)
       .then(res => console.log(res.data));
 
 
