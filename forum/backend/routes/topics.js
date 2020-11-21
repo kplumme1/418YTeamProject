@@ -49,7 +49,7 @@ router.route('/add').post((req, res) => {
   const topic_num = req.body.topic_num;
   const del_flag = req.body.del_flag;
   const parent_board_id = req.body.parent_board_id
-  console.log("Body: " + JSON.stringify(req.body));
+  //console.log("Body: " + JSON.stringify(req.body));
   let newTopic = new Topic({
     parent_board_id,
     topic_title,
