@@ -5,7 +5,7 @@ module.exports = {
     verify: function(req) {
         const authHeader = req.headers['token'];
         const token = authHeader;
-        console.log(token);
+        console.log("TOKEN: " + token);
         if (token == null) 
         return null;
     
@@ -13,9 +13,8 @@ module.exports = {
             if (err)
            return null;
     
-            req.user = user;
             //console.log("Authenticated");
-            return {userId: user.userId, username: user.username, email: user.email, role: user.role}
+            return {userId: user.userId, username: user.username, email: user.email, role: user.role, pfp: user.pfp}
         });
     }    
 }
