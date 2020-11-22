@@ -61,11 +61,15 @@ class Home extends React.Component {
                         </p>
                         </Jumbotron>);
         
+        const renderTopicMessage = (
+            <h1 style = {{textAlign: "center", textDecoration: "underline", margin: "100px 0px"}}>Active Topics</h1>
+        );
+        
         const renderTopics = this.state.topics.map(topic => (
-            <div style = {{margin: "1% 1%", backgroundColor: "rgba(255, 255, 255, .6", padding: "30px 60px", borderRadius: "50px"}}>
+            <div style = {{margin: "1% 1%", background: "linear-gradient(to right, #9cecfb, #65c7f7, #0052d4)", padding: "30px 60px", borderRadius: "50px", border: "2px solid black"}}>
                 <div>
-                    <h1>{topic.topic_title}</h1>
-                    <h4>{topic.topic_desc}</h4>
+                    <h3>{topic.topic_title}</h3>
+                    <h6>{topic.topic_desc}</h6>
                 </div>
             </div>
         ));
@@ -74,6 +78,7 @@ class Home extends React.Component {
             return (
                 <div>
                     {notLoggedIn}
+                    {renderTopicMessage}
                     {renderTopics}
                 </div>
             );
@@ -83,6 +88,7 @@ class Home extends React.Component {
             return (
                 <div>
                     {loggedIn}
+                    {renderTopicMessage}
                     {renderTopics}
                 </div>
             );
