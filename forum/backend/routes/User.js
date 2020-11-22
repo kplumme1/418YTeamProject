@@ -112,25 +112,4 @@ userRouter.post('/login', (req, res) => {
     
 });
 
-/** old cookie attempt
-userRouter.post('/login', passport.authenticate('local',{session : false}), (req,res)=> {
-	if(req.isAuthenticated()){
-		const {_id, username, role} = req.user;
-		const token = signToken(_id);
-		//httpOnly protects against javascript attacks same site protects against cross site request forgery  (to protect token)
-		res.cookie('access_token',token,{httpOnly: true, sameSite: true});
-		res.status(200).json({isAuthenticated: true, user : {username, role}})
-	}
-});
-*/
-
-//old logout function needs to be updated could not figure out how to "logout" with a jwt token without cookies
-userRouter.get('/logout', passport.authenticate('jwt',{session : false}), (req,res)=> {
-        res.clearCookie('access_Token');
-        res.json({user:{username : "", role : ""}, success : true});
-});
-
-
 module.exports = userRouter;
-
-
