@@ -108,9 +108,11 @@ userRouter.post('/login', (req, res) => {
             }
         });
     });
-    
-    
 });
+
+
+
+
 
 /** old cookie attempt
 userRouter.post('/login', passport.authenticate('local',{session : false}), (req,res)=> {
