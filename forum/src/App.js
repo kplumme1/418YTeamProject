@@ -11,6 +11,7 @@ import Logout from './Components/Logout';
 import CreateTopic from './Components/CreateTopic'
 import CreatePost from './Components/CreatePost'
 import Post from './Components/Post'
+import Threads from './Components/Threads'
 import NotFound from './Components/NotFound'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -51,6 +52,7 @@ function App() {
           <Route path = "/CreateTopic" component = {CreateTopic} />
           <Route path = "/CreatePost" component = {CreatePost} />
           <Route path = "/Post" component = {Post} />
+          <Route path = "/topics" component = {Threads} />
           {/*API/Prototype routes. - completed*/}
           <Route path="/api/createpost" component={APICreatePost} />
           <Route path = "/api/PostList" exact component = {APIReadPosts} />
