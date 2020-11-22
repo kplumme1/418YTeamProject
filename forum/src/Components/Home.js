@@ -61,6 +61,12 @@ class Home extends React.Component {
                         </p>
                         </Jumbotron>);
         
+        const adminCreateTopicHeader = (
+            <div style = {{backgroundColor: "#343a40", textAlign: "center"}}>
+                <Button style = {{margin: "0px 10px 20px 10px", fontSize: "20px"}} href = "/CreateTopic">+ Create Topic</Button>
+            </div>
+        );
+        
         const renderTopicMessage = (
             <h1 style = {{textAlign: "center", textDecoration: "underline", margin: "100px 0px"}}>Active Topics</h1>
         );
@@ -84,6 +90,17 @@ class Home extends React.Component {
                     {renderTopics}
                 </div>
             );
+        }
+
+        if (cookieUser === "admin") {
+            return (
+                <div>
+                    {adminCreateTopicHeader}
+                    {loggedIn}
+                    {renderTopicMessage}
+                    {renderTopics}
+                </div>
+            ); 
         }
 
         else {
