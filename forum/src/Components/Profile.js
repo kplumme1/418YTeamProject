@@ -2,6 +2,7 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
+import Form from 'react-bootstrap/Form'
 import Image from 'react-bootstrap/Image'
 import profpic from '../profpic.png'
 
@@ -41,6 +42,22 @@ function Profile() {
                 </Col>
                 <Col></Col>
             </Row>
+            <Form>
+                    <Form.Label style={{ fontWeight: "bold" }}>Edit Username</Form.Label>
+                    <Form.Control type="text" placeholder="Username" />
+                    <Form.Text className="text-muted">
+                        This is where you can change and edit your username.
+                    </Form.Text>
+                </Form>
+                <br></br>
+                <Form>
+                    <Form.Label style={{ fontWeight: "bold" }} action="/uploadpicture" method="post" enctype="multipart/form-data">Edit Profile Picture</Form.Label>
+                        <Form.Control type="file" placeholder="picurl" />
+                        <input type="submit" />
+                    <Form.Text className="submit">
+                        This is where you can add or change your profile picture.
+                    </Form.Text>
+            </Form> 
             </Container>
         </div>
     );

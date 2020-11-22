@@ -108,8 +108,47 @@ userRouter.post('/login', (req, res) => {
             }
         });
     });
-    
-    
+});
+
+userRouter.post('/login', (req, res) => {
+    const { errors, isValid } = validateLoginInput(req.body);
+    //authenticateToken(req,res);
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.findOne({email}).then(user => {
+        if (!user) {
+            return res.status(404).json({emailnotfound: "Email not found."});
+        }
+        bcrypt.compare(password, user.password).then(isMatch => {
+            if(isMatch) {
+                //check to see if the user id is put in the payload here and consider putting role in payload too
+                const userID = user._id;
+
+                //create the payload
+                const payload = {
+                    userId: userID,
+                    username: user.username,
+                    email: user.email,
+                    role: user.role
+                }
+                //sign the access key using the secret key and the payload and assign it to access key
+                const accessToken = JWT.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+                //response object of the access token
+                res.status(200).json({accessToken: accessToken, username: user.username, role: user.role});
+                console.log("Logged in");
+                //res.status(200).send("OK");
+                                
+            } else {
+                return res
+                .status(400)
+                .json({passwordIncorrect: "Password Incorrect"});
+            }
+        });
+    });
 });
 
 module.exports = userRouter;
