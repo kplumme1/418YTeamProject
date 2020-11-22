@@ -4,7 +4,7 @@ let Post = require('../models/post.model');
 
 //get all posts
 router.route('/').get((req, res) => {
-  Post.find({ del_flag: false })
+  Post.find({ del_flag: false }).sort({post_num: 1})
     .then(posts => res.json(posts))
     .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -12,7 +12,7 @@ router.route('/').get((req, res) => {
 //get posts by parent thread ID
 router.route('/thread').get((req, res) => {
   console.log('parent thread: ' + req.query.id)
-  Post.find({ parent_thread_id: req.query.parent_thread_id, del_flag: false })
+  Post.find({ parent_thread_id: req.query.parent_thread_id, del_flag: false }).sort({post_num: 1})
     .then(posts => res.json(posts))
     .catch(err => res.status(400).json('Error: ' + err));
 });
