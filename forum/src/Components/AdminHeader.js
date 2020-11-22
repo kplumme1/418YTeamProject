@@ -4,7 +4,6 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
-import Logo from '../logo.png'
 var config = require('../config.json');
 
 // getCookie function from stack overflow
@@ -28,19 +27,19 @@ function AdminHeader (){
         return (
             <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" style = {{fontSize: "20px"}}>
                 <Navbar.Brand href="/">
-                    <Image src = {Logo} height = "90px"></Image>
+                    <Image src = {config.logo} height = "90px"></Image>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="about">About</Nav.Link>
-                        <Nav.Link href="help">Help</Nav.Link>
+                        <Nav.Link href="/about">About</Nav.Link>
+                        <Nav.Link href="/help">Help</Nav.Link>
                     </Nav>
                     <Nav>
                         <NavDropdown alignright="true" title={cookieUser} id="dropdown-menu-align-right">
-                            <NavDropdown.Item href="login">Login</NavDropdown.Item>
-                            <NavDropdown.Item href="register">Register</NavDropdown.Item>
+                            <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+                            <NavDropdown.Item href="/register">Register</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
@@ -59,16 +58,16 @@ function AdminHeader (){
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="about">About</Nav.Link>
-                    <Nav.Link href="help">Help</Nav.Link>
+                    <Nav.Link href="/about">About</Nav.Link>
+                    <Nav.Link href="/help">Help</Nav.Link>
                 </Nav>
                 <Nav alignright="true">
                     <Button style = {{marginRight: "10px"}} href = "CreateTopic">+ Create Topic</Button>
                 </Nav>
                 <Nav>
                     <NavDropdown alignright="true" title={cookieUser} id="dropdown-menu-align-right">
-                        <NavDropdown.Item href="profile">Profile</NavDropdown.Item>
-                        <NavDropdown.Item href="logout">Logout</NavDropdown.Item>
+                        <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                        <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
             </Navbar.Collapse>
@@ -87,13 +86,13 @@ function AdminHeader (){
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="about">About</Nav.Link>
-                        <Nav.Link href="help">Help</Nav.Link>
+                        <Nav.Link href="/about">About</Nav.Link>
+                        <Nav.Link href="/help">Help</Nav.Link>
                     </Nav>
                     <Nav>
                         <NavDropdown alignright="true" title={cookieUser} id="dropdown-menu-align-right">
-                            <NavDropdown.Item href="profile">Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="logout">Logout</NavDropdown.Item>
+                            <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
