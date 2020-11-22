@@ -53,7 +53,7 @@ export default class CreateTopic extends Component {
         console.log(newTopic);//console logging for dev - can be removed for release
         axios.post('http://kplumme1-ec2.ddns.net:5000/topics/add', newTopic)
           .then(res => console.log(res.data));
-        alert('test: ' + this.state.topicTitle);
+        //alert('test: ' + this.state.topicTitle);
 
           //reset form (via stste object)
           this.setState({

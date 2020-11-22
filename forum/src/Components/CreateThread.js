@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import axios from 'axios';
+import { Editor } from "@tinymce/tinymce-react";
 
 var mongoose = require('mongoose');
 const auth = require('../auth');
@@ -16,18 +17,21 @@ export default class CreateTopic extends Component {
         super(props);
     
         //Function bindings
+        this.onChangeText = this.onChangeText.bind(this);
         this.submitThread = this.submitThread.bind(this);
     
-        //State object //no longer used
-        /*
+        //State object
         this.state = {
-            topicTitle: '',
-            topicDesc: ''
+            postText: ''
         }
-      */
     }
 
-    
+    onChangeText(content, editor) {
+        //alert("onChangeText: " + content);
+        this.setState({
+            postText: content
+        })
+    }
 
 
       //Function Declarations   
@@ -43,12 +47,10 @@ export default class CreateTopic extends Component {
             parent_topic_id: topicID,
             thread_title: String(document.getElementById("threadtitle").value)
         }
-        /*const newPost = {
+        const newPost = {
             parent_thread_id: newId,
-            post_author: this.state.authorid,
-            post_body_text: this.state.bodytext,
-            del_flag: this.state.delflag
-        }*/
+            post_body_text: this.state.postText//String(document.getElementById("posttext").value)
+        }
 
         //Structure to be sent to axios/router
         //const newThread = {
@@ -59,6 +61,8 @@ export default class CreateTopic extends Component {
         //axios sends data through backend API endpoint
         console.log(newThread);//console logging for dev - can be removed for release
         axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread)
+          .then(res => console.log(res.data));
+        axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost)
           .then(res => console.log(res.data));
         //alert('test: ' + this.state.threadTitle);
 
@@ -124,11 +128,24 @@ export default class CreateTopic extends Component {
                                 </Form.Text>
                             </Form.Group>
 
+                            {/*
                             <Form.Group>
                                 <Form.Label style = {{fontWeight: "bold"}}>Post Text</Form.Label>
                                 <Form.Control as = "textarea" type="text" id="posttext" placeholder="Enter some interesting text people will want to read. Try not to be boring." />
                                 <Form.Text className="text-muted" >
                                 </Form.Text>
+                            </Form.Group>
+                            */}
+                            <Form.Group>
+                                <Form.Label style={{ fontWeight: "bold" }}>Reply</Form.Label>
+                                <Editor
+                                    apiKey = "ryef7c7iynamh7xxtkti6mskmx80xg2t3qy2xqtiqmwxf2d5"
+                                    init={{
+                                        height: 300,
+                                        menubar: false
+                                    }}
+                                    onEditorChange = {this.onChangeText}
+                                />
                             </Form.Group>
                             <Row>
                                 <Col></Col>

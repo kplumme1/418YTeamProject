@@ -9,7 +9,7 @@ import profpic from '../profpic.png'
 import axios from 'axios'
 
 import {Component} from "react";
-//import {Link} from "react-router-dom";
+
 
 class Login extends Component {
     constructor() {
@@ -49,7 +49,7 @@ class Login extends Component {
                 document.cookie = "username=" + response.data.username+ ";" + expires + ";path=/";
                 document.cookie = "role=" + response.data.role+ ";" + expires + ";path=/";
                 document.cookie = "pfp=" + response.data.pfp+ ";" + expires + ";path=/";
-                alert("Login complete! Redirecting...");
+                //alert("Login complete! Redirecting...");
                 window.location.href = "/";
             } else {
                 //alert(response.statusText);
