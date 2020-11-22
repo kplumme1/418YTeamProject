@@ -82,7 +82,7 @@ class Home extends React.Component {
             </a>
         ));
 
-        if (cookieUser === "guest") {
+        if (cookieUser == "guest") {
             return (
                 <div>
                     {notLoggedIn}
@@ -92,7 +92,7 @@ class Home extends React.Component {
             );
         }
 
-        if (cookieUser === "admin") {
+        else if (cookieUser == "admin") {
             return (
                 <div>
                     {adminCreateTopicHeader}
