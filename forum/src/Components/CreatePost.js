@@ -21,15 +21,12 @@ export default class CreatePost extends Component {
 
         //State object
         this.state = {
-        parentid: 'testID',
-        postnum: 0,
-        authorid: 'testUserID',
-        bodytext: '',
-        delflag: false
+        bodytext: ''
       }
     }
 
     //Methods
+    
     onChangeText(content, editor) {
         //alert("onChangeText: " + content);
         this.setState({
@@ -40,18 +37,16 @@ export default class CreatePost extends Component {
     //Function that submits data to db via axios and router
     onSubmit(e) {
     e.preventDefault();
-
+    var thisurl = window.location.href.split("/")
+    var threadID = thisurl[thisurl.length - 1]
     var newId = mongoose.Types.ObjectId();
 
     //Structure to be sent to axios/router
     const newPost = {
-        parent_thread_id: newId,
-        post_num: this.state.postnum,
-        post_author: this.state.authorid,
+        parent_thread_id: threadID,
         post_body_text: this.state.bodytext,
-        del_flag: this.state.delflag
     }
-
+    /*
     const newThread = {
         _id: newId,
         parent_topic_id: "testTopic",
@@ -60,17 +55,18 @@ export default class CreatePost extends Component {
         thread_title: "Thread_Title",
         del_flag: false
     }
+    */
 
-    alert("new post json: " + newPost.del_flag + ", " + newPost.post_body_text);
+    //alert("new post json: " + newPost.parent_thread_id + ", " + newPost.post_body_text);
 
     //axios sends data through backend API endpoint
     console.log(newPost);//console logging for dev - can be removed for release
     axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost)
       .then(res => console.log(res.data));
-    axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread)
-      .then(res => console.log(res.data));
+    //axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread)
+      //.then(res => console.log(res.data));
 
-
+      window.location.href = "/post/" + threadID;
   }
   
 
@@ -82,6 +78,7 @@ export default class CreatePost extends Component {
                     <Col></Col>
                     <Col md={7} style={{ border: "5px solid black", borderRadius: "30px", padding: "20px 20px" }}>
                         <Form >
+                            {/*  dsfsdfsdf
                             <Form.Group>
                                 <Form.Label style={{ fontWeight: "bold" }}>New Post Name</Form.Label>
                                 <Form.Control type="text" placeholder="Name" />
@@ -89,9 +86,9 @@ export default class CreatePost extends Component {
                                     What will your post be about?.
                                 </Form.Text>
                             </Form.Group>
-
+                            */}
                             <Form.Group>
-                                <Form.Label style={{ fontWeight: "bold" }}>Post Body</Form.Label>
+                                <Form.Label style={{ fontWeight: "bold" }}>Reply</Form.Label>
                                 <Editor
                                     apiKey = "ryef7c7iynamh7xxtkti6mskmx80xg2t3qy2xqtiqmwxf2d5"
                                     init={{

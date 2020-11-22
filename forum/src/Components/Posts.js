@@ -27,17 +27,17 @@ class Posts extends React.Component {
           console.log(error);
         })
 
-        var parentID = window.location.href.split("/")
-        parentID = parentID[parentID.length - 1]
+        var thisurl = window.location.href.split("/")
+        var threadID = thisurl[thisurl.length - 1]
 
         return (
             <div>
                 <div style = {{backgroundColor: "#343a40", textAlign: "center"}}>
-                    <Button style = {{margin: "0px 10px 20px 10px", fontSize: "20px"}} href = "/CreatePost">+ Reply to Thread</Button>
+                    <Button style = {{margin: "0px 10px 20px 10px", fontSize: "20px"}} href = {"/CreatePost/" + threadID}>+ Reply to Thread</Button>
                 </div>
                 <h1 style = {{textAlign: "center", textDecoration: "underline", margin: "50px 0px"}}>Replies to Post</h1>
                 {this.state.posts.map(post => {
-                    if(post.parent_thread_id === parentID){
+                    if(post.parent_thread_id === threadID){
                         return (
                             <div style = {{margin: "1% 1%", background: "linear-gradient(to right, #9cecfb, #65c7f7, #0052d4)", padding: "30px 60px", borderRadius: "50px", border: "2px solid black"}}>
                                 <div>

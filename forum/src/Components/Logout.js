@@ -7,7 +7,7 @@ function loadCall() {
     eraseCookie("username");
     eraseCookie("role");
     eraseCookie("token");
-    alert("Logout complete! Redirecting...");
+    //alert("Logout complete! Redirecting...");
     window.location.href = "/";
 }
 
