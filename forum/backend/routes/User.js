@@ -89,7 +89,10 @@ userRouter.post('/login', (req, res) => {
 
                 //create the payload
                 const payload = {
-                    userId: userID
+                    userId: userID,
+                    username: user.username,
+                    email: user.email,
+                    role: user.role
                 }
                 //sign the access key using the secret key and the payload and assign it to access key
                 const accessToken = JWT.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
@@ -108,42 +111,6 @@ userRouter.post('/login', (req, res) => {
     
     
 });
-
-//just a function to see if the auth token is valid still to test things can possibly
-//be used in the future so left here
-function authenticateToken(req, res) {
-    const authHeader = req.headers['authorization'];
-    console.log(authHeader);
-    console.log("HEADER");
-    const token = authHeader;
-    //const token = authHeader && authHeader.split(' ')[1];
-    console.log(token);
-    if (token == null) 
-    return res  
-        .sendStatus(401)
-
-    JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err,user) => {
-        if (err)
-        return res
-            .sendStatus(403)
-
-        req.user = user;
-        console.log("Authenticated");
-        console.log(user); // is a table and has userId... gotta figure
-        User.findOne({_id: user.userId}).then(user => {
-            if (!user) {
-                console.log("Couldn't find user?");
-                //;return res.status(404).json({emailnotfound: "Email not found."});
-            }
-            console.log("USERNAM<E?");
-            console.log(user.username);
-            console.log(user.email);
-            console.log(user.role);
-        });
-        //next();
-    });
-}
-
 
 /** old cookie attempt
 userRouter.post('/login', passport.authenticate('local',{session : false}), (req,res)=> {
