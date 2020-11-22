@@ -7,8 +7,9 @@ import About from './Components/About'
 import Login from './Components/Login'
 import Register from './Components/Register'
 import Profile from './Components/Profile'
-import Logout from './Components/Logout';
+import Logout from './Components/Logout'
 import CreateTopic from './Components/CreateTopic'
+import CreateThread from './Components/CreateThread'
 import CreatePost from './Components/CreatePost'
 import Posts from './Components/Posts'
 import Threads from './Components/Threads'
@@ -17,7 +18,7 @@ import NoPermissions from './Components/NoPermissions'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
-import {Provider} from "react-redux";
+import {Provider} from "react-redux"
 import store from "./store"
 //API Component imports
 import APICreatePost from "./Components/api/create-post";
@@ -49,21 +50,17 @@ function App() {
           <Route path = "/Profile" component = {Profile} />
           <Route path = "/Logout" component = {Logout} />
           <Route path = "/CreateTopic" component = {CreateTopic} />
+          <Route path = "/CreateThread" component = {CreateThread} />
           <Route path = "/CreatePost" component = {CreatePost} />
           <Route path = "/topics" component = {Threads} />
           <Route path = "/post/" component = {Posts} />
           <Route path = "/nopermissions" component = {NoPermissions} />
           {/*API/Prototype routes. - completed*/}
           <Route path="/api/createpost" component={APICreatePost} />
-          <Route path = "/api/PostList" exact component = {APIReadPosts} />
-          <Route path="/api/edit/:id" component={APIEditPost} />
-          {/*API/Prototype routes - work in progress.*/}
+          <Route path="/api/PostList" exact component = {APIReadPosts} />
           <Route path="/api/TopicList" component={APIReadTopics} />
           <Route path="/api/ThreadList" component={APIReadThreads} />
-          
-
-          {/*API/Prototype routes. - these need work*/}
-          <Route path="/api/user" component={CreateUser} />
+          <Route path="/api/edit/:id" component={APIEditPost} />
           {/*End of kyle's API/prototypes*/}
           <Route component = {NotFound} />
         </Switch>
