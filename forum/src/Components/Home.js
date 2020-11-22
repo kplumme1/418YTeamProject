@@ -44,16 +44,42 @@ function Home() {
                         You're ready to see the forum of the future! Click any of the topics below to start your experience. With your account, you can create posts as well!
                     </p>
                     </Jumbotron>);
+    
+    var topics = [
+        {
+            name: "Pokemon",
+            desc: "All about the pokeymans"
+        },
+        {
+            name: "Albany Courses",
+            desc: "We vent as students here!"
+        }
+    ];
+    
+    const renderTopics = topics.map(topic => (
+        <div style = {{margin: "1% 1%", backgroundColor: "rgba(255, 255, 255, .6", padding: "30px 60px", borderRadius: "50px"}}>
+            <div>
+                <h1>{topic.name}</h1>
+                <h4>{topic.desc}</h4>
+            </div>
+        </div>
+    ));
 
     if (cookieUser === "guest") {
         return (
-            notLoggedIn
+            <div>
+                {notLoggedIn}
+                {renderTopics}
+            </div>
         );
     }
 
     else {
         return (
-            loggedIn
+            <div>
+                {loggedIn}
+                {renderTopics}
+            </div>
         );
     }
     
