@@ -13,6 +13,7 @@ import CreatePost from './Components/CreatePost'
 import Posts from './Components/Posts'
 import Threads from './Components/Threads'
 import NotFound from './Components/NotFound'
+import NoPermissions from './Components/NoPermissions'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
@@ -51,6 +52,7 @@ function App() {
           <Route path = "/CreatePost" component = {CreatePost} />
           <Route path = "/topics" component = {Threads} />
           <Route path = "/post/" component = {Posts} />
+          <Route path = "/nopermissions" component = {NoPermissions} />
           {/*API/Prototype routes. - completed*/}
           <Route path="/api/createpost" component={APICreatePost} />
           <Route path = "/api/PostList" exact component = {APIReadPosts} />
