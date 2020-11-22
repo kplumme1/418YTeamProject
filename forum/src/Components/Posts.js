@@ -31,6 +31,7 @@ class Posts extends React.Component {
 
         return (
             <div>
+                <h1 style = {{textAlign: "center", textDecoration: "underline", margin: "50px 0px"}}>Replies to Post</h1>
                 {this.state.posts.map(post => {
                     if(post.parent_thread_id === parentID){
                         return (
