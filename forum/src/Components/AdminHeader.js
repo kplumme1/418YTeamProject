@@ -4,7 +4,6 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
-import Logo from '../logo.png'
 var config = require('../config.json');
 
 // getCookie function from stack overflow
@@ -28,7 +27,7 @@ function AdminHeader (){
         return (
             <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" style = {{fontSize: "20px"}}>
                 <Navbar.Brand href="/">
-                    <Image src = {Logo} height = "90px"></Image>
+                    <Image src = {config.logo} height = "90px"></Image>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
