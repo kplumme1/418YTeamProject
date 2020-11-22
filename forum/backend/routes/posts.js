@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const auth = require('../validation/auth');
 let Post = require('../models/post.model');
 
 //get all posts
@@ -37,6 +38,8 @@ router.route('/urlid/:id').get((req, res) => {
 
 //add a post
 router.route('/add').post((req, res) => {
+  const userInfo = auth.verify(req);
+  console.log("Response: " + JSON.stringify(userInfo));
   const parent_thread_id = req.body.parent_thread_id;
   let post_num = Number(req.body.post_num);
   const post_author = req.body.post_author;
