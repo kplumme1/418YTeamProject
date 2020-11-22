@@ -55,7 +55,7 @@ function App() {
           <Route path = "/topics" component = {Threads} />
           <Route path = "/post/" component = {Posts} />
           <Route path = "/nopermissions" component = {NoPermissions} />
-          {/*API/Prototype routes. - completed*/}
+          {/*API/Prototype routes*/}
           <Route path="/api/createpost" component={APICreatePost} />
           <Route path="/api/PostList" exact component = {APIReadPosts} />
           <Route path="/api/TopicList" component={APIReadTopics} />

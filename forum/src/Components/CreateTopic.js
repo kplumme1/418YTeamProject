@@ -13,7 +13,6 @@ export default class CreateTopic extends Component {
         super(props);
     
         //Function bindings
-        //this.onChangeParent = this.onChangeParent.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDesc = this.onChangeDesc.bind(this);
         this.submitTopic = this.submitTopic.bind(this);
@@ -43,8 +42,7 @@ export default class CreateTopic extends Component {
 
         //Structure to be sent to axios/router
         const newTopic = {
-            //parent_board_id: { type: String, required: true},//unnecessary unless we speciically decide to use this
-            topic_title: String(document.getElementById("topictitle").value),//this.state.topictitle,//username: String(document.getElementById("topicdesc").value)
+            topic_title: String(document.getElementById("topictitle").value),
             topic_desc: String(document.getElementById("topicdesc").value)
             //topic_num: { type: Number, required: true },
         }

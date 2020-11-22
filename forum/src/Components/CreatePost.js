@@ -46,18 +46,6 @@ export default class CreatePost extends Component {
         parent_thread_id: threadID,
         post_body_text: this.state.bodytext,
     }
-    /*
-    const newThread = {
-        _id: newId,
-        parent_topic_id: "testTopic",
-        thread_num: 0,
-        thread_author: "testAuthor",
-        thread_title: "Thread_Title",
-        del_flag: false
-    }
-    */
-
-    //alert("new post json: " + newPost.parent_thread_id + ", " + newPost.post_body_text);
 
     //axios sends data through backend API endpoint
     console.log(newPost);//console logging for dev - can be removed for release
@@ -78,15 +66,6 @@ export default class CreatePost extends Component {
                     <Col></Col>
                     <Col md={7} style={{ border: "5px solid black", borderRadius: "30px", padding: "20px 20px" }}>
                         <Form >
-                            {/*  dsfsdfsdf
-                            <Form.Group>
-                                <Form.Label style={{ fontWeight: "bold" }}>New Post Name</Form.Label>
-                                <Form.Control type="text" placeholder="Name" />
-                                <Form.Text className="text-muted">
-                                    What will your post be about?.
-                                </Form.Text>
-                            </Form.Group>
-                            */}
                             <Form.Group>
                                 <Form.Label style={{ fontWeight: "bold" }}>Reply</Form.Label>
                                 <Editor
