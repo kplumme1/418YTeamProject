@@ -45,7 +45,7 @@ class Register extends Component {
         .then(function(response) {
             if (response.statusText != null && response.statusText == "OK" && response.status == 200) {
                 alert("Registration complete! Redirecting...")
-                window.location.href = "http://kplumme1-ec2.ddns.net:3000/login";
+                window.location.href = "/login";
             }
         })
         .catch(function(error) {
@@ -97,7 +97,7 @@ class Register extends Component {
                                 </Button>
                             </Col>
                             <Col style = {{textAlign: "center"}}>
-                                <Button style = {{padding: "10px 20px", width: "120px"}} variant="primary" type="button" href = "./login">
+                                <Button style = {{padding: "10px 20px", width: "120px"}} variant="primary" type="button" href = "/login">
                                     Login?
                                 </Button>
                             </Col>

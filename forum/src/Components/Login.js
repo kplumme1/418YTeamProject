@@ -49,7 +49,7 @@ class Login extends Component {
                 document.cookie = "username=" + response.data.username+ ";" + expires + ";path=/";
                 document.cookie = "role=" + response.data.role+ ";" + expires + ";path=/";
                 alert("Login complete! Redirecting...");
-                window.location.href = "http://kplumme1-ec2.ddns.net:3000/";
+                window.location.href = "/";
             } else {
                 //alert(response.statusText);
             }

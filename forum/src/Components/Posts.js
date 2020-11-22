@@ -31,14 +31,15 @@ class Posts extends React.Component {
 
         return (
             <div>
+                <h1 style = {{textAlign: "center", textDecoration: "underline", margin: "50px 0px"}}>Replies to Post</h1>
                 {this.state.posts.map(post => {
                     if(post.parent_thread_id === parentID){
                         return (
                             <div style = {{margin: "1% 1%", background: "linear-gradient(to right, #9cecfb, #65c7f7, #0052d4)", padding: "30px 60px", borderRadius: "50px", border: "2px solid black"}}>
                                 <div>
-                                    <h2>{post.post_body_text}</h2>
-                                    <h6>Created By {post.post_author}</h6>
-                                    <h6>Created On {post.createdAt}</h6>
+                                    <h4>{post.post_author}</h4>
+                                    <h5>{post.createdAt.split("T")[0] + " at " + post.createdAt.split("T")[1].split(".")[0]}</h5>
+                                    <h4 style = {{marginTop: "50px"}}>{post.post_body_text}</h4>
                                 </div>
                             </div>
                         )}
