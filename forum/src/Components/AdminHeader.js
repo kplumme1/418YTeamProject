@@ -33,13 +33,13 @@ function AdminHeader (){
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="about">About</Nav.Link>
-                        <Nav.Link href="help">Help</Nav.Link>
+                        <Nav.Link href="/about">About</Nav.Link>
+                        <Nav.Link href="/help">Help</Nav.Link>
                     </Nav>
                     <Nav>
                         <NavDropdown alignright="true" title={cookieUser} id="dropdown-menu-align-right">
-                            <NavDropdown.Item href="login">Login</NavDropdown.Item>
-                            <NavDropdown.Item href="register">Register</NavDropdown.Item>
+                            <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+                            <NavDropdown.Item href="/register">Register</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
@@ -58,16 +58,16 @@ function AdminHeader (){
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="about">About</Nav.Link>
-                    <Nav.Link href="help">Help</Nav.Link>
+                    <Nav.Link href="/about">About</Nav.Link>
+                    <Nav.Link href="/help">Help</Nav.Link>
                 </Nav>
                 <Nav alignright="true">
                     <Button style = {{marginRight: "10px"}} href = "CreateTopic">+ Create Topic</Button>
                 </Nav>
                 <Nav>
                     <NavDropdown alignright="true" title={cookieUser} id="dropdown-menu-align-right">
-                        <NavDropdown.Item href="profile">Profile</NavDropdown.Item>
-                        <NavDropdown.Item href="logout">Logout</NavDropdown.Item>
+                        <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                        <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
             </Navbar.Collapse>
@@ -86,13 +86,13 @@ function AdminHeader (){
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="about">About</Nav.Link>
-                        <Nav.Link href="help">Help</Nav.Link>
+                        <Nav.Link href="/about">About</Nav.Link>
+                        <Nav.Link href="/help">Help</Nav.Link>
                     </Nav>
                     <Nav>
                         <NavDropdown alignright="true" title={cookieUser} id="dropdown-menu-align-right">
-                            <NavDropdown.Item href="profile">Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="logout">Logout</NavDropdown.Item>
+                            <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

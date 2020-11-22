@@ -27,7 +27,7 @@ class Threads extends React.Component {
                 {this.state.threads.map(thread => {
                     if(thread.parent_topic_id === parentID){
                         return (
-                            <a href = {parentID + "/" + thread._id} style = {{color: "black", onMouseEnter: ""}}>
+                            <a href = {"/post/" + thread._id} style = {{color: "black"}}>
                                 <div style = {{margin: "1% 1%", background: "linear-gradient(to right, #9cecfb, #65c7f7, #0052d4)", padding: "30px 60px", borderRadius: "50px", border: "2px solid black"}}>
                                     <div>
                                         <h3>{thread.thread_title}</h3>

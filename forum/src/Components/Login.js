@@ -94,7 +94,7 @@ class Login extends Component {
                                 </Button>
                             </Col>
                             <Col style = {{textAlign: "center"}}>
-                                <Button style = {{padding: "10px 20px", width: "120px"}} variant="primary" type="button" href = "./register">
+                                <Button style = {{padding: "10px 20px", width: "120px"}} variant="primary" type="button" href = "/register">
                                     Register?
                                 </Button>
                             </Col>

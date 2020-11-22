@@ -5,7 +5,7 @@ class Posts extends React.Component {
 
     constructor() {
         super();
-        this.state = {posts: []};
+        this.state = {posts: [], parentPosts: []};
     }
 
     render() {
@@ -13,6 +13,14 @@ class Posts extends React.Component {
         axios.get('http://kplumme1-ec2.ddns.net:5000/posts/')
         .then(response => {
           this.setState({ posts: response.data })
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+
+        axios.get('http://kplumme1-ec2.ddns.net:5000/threads/')
+        .then(response => {
+          this.setState({ parentPosts: response.data })
         })
         .catch((error) => {
           console.log(error);
