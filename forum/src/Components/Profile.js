@@ -6,6 +6,9 @@ import Form from 'react-bootstrap/Form'
 import Image from 'react-bootstrap/Image'
 import profpic from '../profpic.png'
 import axios from 'axios';
+
+const FormData = require('form-data');
+
 export default class Profile extends Component {
     constructor (props) {
         super(props);
@@ -36,10 +39,15 @@ export default class Profile extends Component {
                 pfp: document.getElementById("pfp").files
             };
 
+            
+            var bodyFormData = new FormData();
+            bodyFormData.append('pfp', document.getElementById("pfp").files[0])
             const headers = {
                 headers: {
-                    token: this.getCookie("token")
-                }
+                    token: this.getCookie("token"),
+                    'Content-Type': 'multipart/form-data'
+                },
+                data: bodyFormData
             }
             /*
             console.log(this.state.email);
@@ -47,6 +55,21 @@ export default class Profile extends Component {
             console.log("ABOCVE^^^");
             console.log(logUser);
             */
+           axios({
+            method: 'post',
+            url: 'http://localhost:5000/user/updatePFP/',
+            data: bodyFormData,
+            headers: {'Content-Type': 'multipart/form-data', "token":this.getCookie("token")}
+            })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(response);
+            });
+           return
             axios.post('http://localhost:5000/user/updatePFP/', logUser, headers)
             .then(function(response) {
                 //alert("Got response");
