@@ -43,6 +43,7 @@ class Home extends React.Component {
       })
 
         var cookieUser = getCookie("username") || "guest";
+        var cookieRole = getCookie("role") || "guest";
 
         const notLoggedIn = (<Jumbotron style = {{margin: "1% 1%"}}>
                         <h1>Welcome to {config.forumname}!</h1>
@@ -82,7 +83,7 @@ class Home extends React.Component {
             </a>
         ));
 
-        if (cookieUser == "guest") {
+        if (cookieRole == "guest") {
             return (
                 <div>
                     {notLoggedIn}
@@ -92,7 +93,7 @@ class Home extends React.Component {
             );
         }
 
-        else if (cookieUser == "admin") {
+        else if (cookieRole == "admin") {
             return (
                 <div>
                     {adminCreateTopicHeader}
