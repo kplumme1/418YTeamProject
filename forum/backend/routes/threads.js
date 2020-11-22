@@ -4,7 +4,7 @@ let Thread = require('../models/thread.model');
 
 //get all threads
 router.route('/').get((req, res) => {
-  Thread.find({ del_flag: false })
+  Thread.find({ del_flag: false }).sort({thread_num: -1})
     .then(threads => res.json(threads))
     .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -12,7 +12,7 @@ router.route('/').get((req, res) => {
 //get threads by parent ID
 router.route('/topic').get((req, res) => {
   console.log('parent topic: ' + req.query.id)
-  Thread.find({ parent_topic_id: req.query.parent_topic_id, del_flag: false })
+  Thread.find({ parent_topic_id: req.query.parent_topic_id, del_flag: false }).sort({thread_num: -1})
     .then(topic => res.json(topic))
     .catch(err => res.status(400).json('Error: ' + err));
 });
