@@ -14,7 +14,7 @@ module.exports = {
            return null;
     
             //console.log("Authenticated");
-            return {userId: user.userId, username: user.username, email: user.email, role: user.role}
+            return {userId: user.userId, username: user.username, email: user.email, role: user.role, pfp: user.pfp}
         });
     }    
 }
