@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Button from 'react-bootstrap/Button'
+import ReactHtmlParser from 'react-html-parser';
 
 class Posts extends React.Component {
 
@@ -43,7 +44,7 @@ class Posts extends React.Component {
                                 <div>
                                     <h4>{post.post_author}</h4>
                                     <h5>{post.createdAt.split("T")[0] + " at " + post.createdAt.split("T")[1].split(".")[0]}</h5>
-                                    <h4 style = {{marginTop: "50px"}}>{post.post_body_text}</h4>
+                                    <h4 style = {{marginTop: "50px"}}>{ReactHtmlParser(post.post_body_text)}</h4>
                                 </div>
                             </div>
                         )}

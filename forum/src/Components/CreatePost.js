@@ -46,18 +46,6 @@ export default class CreatePost extends Component {
         parent_thread_id: threadID,
         post_body_text: this.state.bodytext,
     }
-    /*
-    const newThread = {
-        _id: newId,
-        parent_topic_id: "testTopic",
-        thread_num: 0,
-        thread_author: "testAuthor",
-        thread_title: "Thread_Title",
-        del_flag: false
-    }
-    */
-
-    //alert("new post json: " + newPost.parent_thread_id + ", " + newPost.post_body_text);
 
     //axios sends data through backend API endpoint
     console.log(newPost);//console logging for dev - can be removed for release
@@ -72,7 +60,6 @@ export default class CreatePost extends Component {
 
     //function CreatePost() {
     render() {
-
         // getCookie function from stack overflow
         function getCookie(name) {
             var nameEQ = name + "=";

@@ -27,7 +27,6 @@ export default class CreateTopic extends Component {
     }
 
     onChangeText(content, editor) {
-        //alert("onChangeText: " + content);
         this.setState({
             postText: content
         })
@@ -39,8 +38,6 @@ export default class CreateTopic extends Component {
         e.preventDefault();
         var thisurl = window.location.href.split("/")
         var topicID = thisurl[thisurl.length - 1]
-        //var userID = auth.getUserId(req);
-        //alert('ID: ' + topicID)
         var newId = mongoose.Types.ObjectId();
         const newThread = {
             _id: newId,
@@ -52,11 +49,6 @@ export default class CreateTopic extends Component {
             post_body_text: this.state.postText//String(document.getElementById("posttext").value)
         }
 
-        //Structure to be sent to axios/router
-        //const newThread = {
-          //  topic_title: String(document.getElementById("threadtitle").value),
-            //topic_desc: String(document.getElementById("posttext").value)
-        //}
     
         //axios sends data through backend API endpoint
         console.log(newThread);//console logging for dev - can be removed for release
@@ -64,47 +56,8 @@ export default class CreateTopic extends Component {
           .then(res => console.log(res.data));
         axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost)
           .then(res => console.log(res.data));
-        //alert('test: ' + this.state.threadTitle);
 
-/*
-
-    //Structure to be sent to axios/router
-    const newPost = {
-        parent_thread_id: newId,
-        post_num: this.state.postnum,
-        post_author: this.state.authorid,
-        post_body_text: this.state.bodytext,
-        del_flag: this.state.delflag
-    }
-
-    const newThread = {
-        _id: newId,
-        parent_topic_id: "testTopic",
-        thread_num: 0,
-        thread_author: "testAuthor",
-        thread_title: "Thread_Title",
-        del_flag: false
-    }
-
-    alert("new post json: " + newPost.del_flag + ", " + newPost.post_body_text);
-
-    //axios sends data through backend API endpoint
-    console.log(newPost);//console logging for dev - can be removed for release
-    axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost)
-      .then(res => console.log(res.data));
-    axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread)
-      .then(res => console.log(res.data));
-
-
-    parent_topic_id: 'staticIdReplaceMe',
-    thread_num,
-    thread_author,
-    thread_title,
-    del_flag: false
-*/
-
-
-          //reset form (via stste object)
+          //reset form 
           this.setState({
             topicTitle: '',
             topicDesc: ''
