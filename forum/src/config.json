@@ -1,7 +1,8 @@
 {
     "forumname": "Good Stuff",
     "logo": "https://i.imgur.com/2IrYxmc.png",
+    "aboutPhoto": "https://i.imgur.com/yGxb9AW.png",
     "buttonColor": "Blue",
-    "aboutPage": "Hello! This is loaded from the config file!",
-    "helpPage": "This is your help page, loaded from config.json! You can send an email to us by clicking this. The admin needs to change the email address under PUT_EMAIL_HERE in 'Help.js'."
+    "aboutPage": "4UM is a modern internet forum with a mission to provide users with the ability to share information with the world.",
+    "contactEmail": " email us"
 }
