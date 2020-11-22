@@ -18,18 +18,6 @@ class Threads extends React.Component {
           console.log(error);
         })
 
-        const renderThreads = this.state.threads.map(thread => (
-            <a href = {"" + thread._id} style = {{color: "black", onMouseEnter: ""}}>
-                <div style = {{margin: "1% 1%", background: "linear-gradient(to right, #9cecfb, #65c7f7, #0052d4)", padding: "30px 60px", borderRadius: "50px", border: "2px solid black"}}>
-                    <div>
-                        <h3>{thread.thread_title}</h3>
-                        <h6>Created By {thread.thread_author}</h6>
-                        <h6>Created On {thread.createdAt}</h6>
-                    </div>
-                </div>
-            </a>
-        ));
-
         var parentID = window.location.href.split("/")
         parentID = parentID[parentID.length - 1]
 
@@ -39,7 +27,7 @@ class Threads extends React.Component {
                 {this.state.threads.map(thread => {
                     if(thread.parent_topic_id === parentID){
                         return (
-                            <a href = {"" + thread._id} style = {{color: "black", onMouseEnter: ""}}>
+                            <a href = {parentID + "/" + thread._id} style = {{color: "black", onMouseEnter: ""}}>
                                 <div style = {{margin: "1% 1%", background: "linear-gradient(to right, #9cecfb, #65c7f7, #0052d4)", padding: "30px 60px", borderRadius: "50px", border: "2px solid black"}}>
                                     <div>
                                         <h3>{thread.thread_title}</h3>
