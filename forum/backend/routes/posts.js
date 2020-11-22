@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const auth = require('../validation/auth');
-const userAuth = require('../validation/user');
 let Post = require('../models/post.model');
 
 //get all posts
@@ -39,13 +38,8 @@ router.route('/urlid/:id').get((req, res) => {
 
 //add a post
 router.route('/add').post((req, res) => {
-  const userId = auth.verify(req);
-  console.log("Response: " + JSON.stringify(userId));
-  if (userId != null) {
-    //const userInfo = userAuth.getUser(userId);
-    //console.log("Response2: " + JSON.stringify(userInfo));
-    // Above is still under testing; working on promise chaining. The auth() as seen as being used for userId is just to verify the token for now. Null = bad/no token; String = userId.
-  }
+  const userInfo = auth.verify(req);
+  console.log("Response: " + JSON.stringify(userInfo));
   const parent_thread_id = req.body.parent_thread_id;
   let post_num = Number(req.body.post_num);
   const post_author = req.body.post_author;

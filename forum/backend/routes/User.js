@@ -89,7 +89,10 @@ userRouter.post('/login', (req, res) => {
 
                 //create the payload
                 const payload = {
-                    userId: userID
+                    userId: userID,
+                    username: user.username,
+                    email: user.email,
+                    role: user.role
                 }
                 //sign the access key using the secret key and the payload and assign it to access key
                 const accessToken = JWT.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});

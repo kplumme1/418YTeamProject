@@ -5,7 +5,6 @@ module.exports = {
     verify: function(req) {
         const authHeader = req.headers['token'];
         const token = authHeader;
-        //const token = authHeader && authHeader.split(' ')[1];
         console.log(token);
         if (token == null) 
         return null;
@@ -15,12 +14,8 @@ module.exports = {
            return null;
     
             req.user = user;
-            console.log("Authenticated");
-            return user.userId;
-            //console.log(user); // is a table and has userId... gotta figure
-            var found;
-            
-            //next();
+            //console.log("Authenticated");
+            return {userId: user.userId, username: user.username, email: user.email, role: user.role}
         });
     }    
 }
