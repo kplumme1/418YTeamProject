@@ -55,35 +55,7 @@ class AdminHeader extends React.Component{
                 );
         }
 
-        // if the user is logged in and is an admin
-        if (cookieRole === "admin") {
-            return (
-            <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" style = {{fontSize: "20px"}}>
-                <Navbar.Brand href="/">
-                    <Image src = {config.logo} height = "90px"></Image>
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/about">About</Nav.Link>
-                        <Nav.Link href="/help">Help</Nav.Link>
-                    </Nav>
-                    <Nav alignright="true">
-                        <Button style = {{marginRight: "10px"}} href = "/CreateTopic">+ Create Topic</Button>
-                    </Nav>
-                    <Nav>
-                        <NavDropdown alignright="true" title={cookieUser} id="dropdown-menu-align-right">
-                            <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-            );
-        }
-
-        // if the user is logged in and is a user or mod
+        // if the user is logged in and is a user, mod, or admin
         else {
             return (
                 <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" style = {{fontSize: "20px"}}>
