@@ -32,7 +32,7 @@ export default class ThreadList extends Component {
   componentDidMount() {
     //This queries all posts
     //console.log('componentdidmount');
-    axios.get('http://kplumme1-ec2.ddns.net:5000/threads/')
+    axios.get('http://localhost:5000/threads/')
       .then(response => {
         this.setState({ threads: response.data })
       })
@@ -42,13 +42,13 @@ export default class ThreadList extends Component {
   }
 
   deleteThread(id, text) {
-    //axios.delete('http://kplumme1-ec2.ddns.net:5000/posts/'+id)
+    //axios.delete('http://localhost:5000/posts/'+id)
     let updateThread = {
       _id: id,
       del_flag: true
     }
 
-    axios.post('http://kplumme1-ec2.ddns.net:5000/threads/update', updateThread)
+    axios.post('http://localhost:5000/threads/update', updateThread)
       .then(response => { console.log(response.data)});
 
     this.setState({
