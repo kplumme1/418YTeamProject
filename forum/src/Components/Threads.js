@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Button from 'react-bootstrap/Button'
 
 class Threads extends React.Component {
 
@@ -23,6 +24,9 @@ class Threads extends React.Component {
 
         return (
             <div>
+                <div style = {{backgroundColor: "#343a40", textAlign: "center"}}>
+                    <Button style = {{margin: "0px 10px 20px 10px", fontSize: "20px"}} href = "/CreateThread">+ Create Thread</Button>
+                </div>
                 <h1 style = {{textAlign: "center", textDecoration: "underline", margin: "50px 0px"}}>Threads</h1>
                 {this.state.threads.map(thread => {
                     if(thread.parent_topic_id === parentID){

@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Button from 'react-bootstrap/Button'
 
 class Posts extends React.Component {
 
@@ -31,6 +32,9 @@ class Posts extends React.Component {
 
         return (
             <div>
+                <div style = {{backgroundColor: "#343a40", textAlign: "center"}}>
+                    <Button style = {{margin: "0px 10px 20px 10px", fontSize: "20px"}} href = "/CreatePost">+ Reply to Thread</Button>
+                </div>
                 <h1 style = {{textAlign: "center", textDecoration: "underline", margin: "50px 0px"}}>Replies to Post</h1>
                 {this.state.posts.map(post => {
                     if(post.parent_thread_id === parentID){
