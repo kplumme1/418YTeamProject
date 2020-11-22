@@ -72,53 +72,81 @@ export default class CreatePost extends Component {
 
     //function CreatePost() {
     render() {
-        return (
-            <Container style={{ marginTop: "40px" }}>
-                <Row>
-                    <Col></Col>
-                    <Col md={7} style={{ border: "5px solid black", borderRadius: "30px", padding: "20px 20px" }}>
-                        <Form >
-                            {/*  dsfsdfsdf
-                            <Form.Group>
-                                <Form.Label style={{ fontWeight: "bold" }}>New Post Name</Form.Label>
-                                <Form.Control type="text" placeholder="Name" />
-                                <Form.Text className="text-muted">
-                                    What will your post be about?.
-                                </Form.Text>
-                            </Form.Group>
-                            */}
-                            <Form.Group>
-                                <Form.Label style={{ fontWeight: "bold" }}>Reply</Form.Label>
-                                <Editor
-                                    apiKey = "ryef7c7iynamh7xxtkti6mskmx80xg2t3qy2xqtiqmwxf2d5"
-                                    init={{
-                                        height: 300,
-                                        menubar: false
-                                    }}
-                                    onEditorChange = {this.onChangeText}
-                                />
-                            </Form.Group>
 
-                            <Form.Group>
-                                <Row>
-                                    <Col></Col>
-                                    <Col style={{ textAlign: "center" }}>
-                                        <Button onClick={this.onSubmit} 
-                                            style={{ padding: "10px 20px", width: "160px" }} 
-                                            variant="primary" 
-                                            type="submit" 
-                                            href="/posts/add">
-                                            Create Post
-                                        </Button>
-                                    </Col>
-                                    <Col></Col>
-                                </Row>
-                            </Form.Group>
-                        </Form>
-                    </Col>
-                    <Col></Col>
-                </Row>
-            </Container>
-        );
+        // getCookie function from stack overflow
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        if (getCookie("token")) {
+            console.log("Current token: " + getCookie("token"));
+            console.log("Username: " + getCookie("username"));
+            console.log("Role: "+ getCookie("role"));
+        }
+
+        var cookieRole = getCookie("role") || "guest";
+
+        if(cookieRole == "guest") {
+            window.location.href = "/login";
+        }
+
+        else {
+
+            return (
+                <Container style={{ marginTop: "40px" }}>
+                    <Row>
+                        <Col></Col>
+                        <Col md={7} style={{ border: "5px solid black", borderRadius: "30px", padding: "20px 20px" }}>
+                            <Form >
+                                {/*  dsfsdfsdf
+                                <Form.Group>
+                                    <Form.Label style={{ fontWeight: "bold" }}>New Post Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Name" />
+                                    <Form.Text className="text-muted">
+                                        What will your post be about?.
+                                    </Form.Text>
+                                </Form.Group>
+                                */}
+                                <Form.Group>
+                                    <Form.Label style={{ fontWeight: "bold" }}>Reply</Form.Label>
+                                    <Editor
+                                        apiKey = "ryef7c7iynamh7xxtkti6mskmx80xg2t3qy2xqtiqmwxf2d5"
+                                        init={{
+                                            height: 300,
+                                            menubar: false
+                                        }}
+                                        onEditorChange = {this.onChangeText}
+                                    />
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Row>
+                                        <Col></Col>
+                                        <Col style={{ textAlign: "center" }}>
+                                            <Button onClick={this.onSubmit} 
+                                                style={{ padding: "10px 20px", width: "160px" }} 
+                                                variant="primary" 
+                                                type="submit" 
+                                                href="/posts/add">
+                                                Create Post
+                                            </Button>
+                                        </Col>
+                                        <Col></Col>
+                                    </Row>
+                                </Form.Group>
+                            </Form>
+                        </Col>
+                        <Col></Col>
+                    </Row>
+                </Container>
+            );
+        }
     }
 }
