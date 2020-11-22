@@ -9,8 +9,10 @@ const keys = require("../config/keys");
 const auth = require('../validation/auth');
 const AWS = require('aws-sdk')
 const app = express();
+const fs = require('fs');
 app.use(fileUpload());
 const User = require('../models/User');
+const Readable = require('stream').Readable;
 
 //input validation things
 const validateRegisterInput = require("../validation/register");
@@ -58,7 +60,7 @@ userRouter.post('/register', (req,res)=>{
                 email : req.body.email,
                 password : req.body.password,
                 role : "user",
-                pfp : null,
+                pfp : "",
             });
             //hashing passwords
             bcrypt.genSalt(10, (err, salt) => {
@@ -106,7 +108,7 @@ userRouter.post('/login', (req, res) => {
                 //sign the access key using the secret key and the payload and assign it to access key
                 const accessToken = JWT.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
                 //response object of the access token
-                res.status(200).json({accessToken: accessToken, username: user.username, role: user.role});
+                res.status(200).json({accessToken: accessToken, username: user.username, role: user.role, pfp: user.pfp});
                 console.log("Logged in");
                 //res.status(200).send("OK");
                                 
@@ -163,7 +165,7 @@ userRouter.post('/updateUsername', (req, res) => {
                         const accessToken = JWT.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
                         //response object of the access token
                         res.status(200).json({accessToken: accessToken, username: user.username, role: user.role, pfp: user.pfp});
-                        console.log("Updated profile & Re-logged in");
+                        console.log("Updated profile username & Re-logged in");
                     }).catch(err => console.log(err));
                     //sign the access key using the secret key and the payload and assign it to access key
                     
@@ -175,67 +177,92 @@ userRouter.post('/updateUsername', (req, res) => {
     }
 });
 
+function bufferToStream(buffer) { 
+    var stream = new Readable();
+    stream.push(buffer);
+    stream.push(null);
+  
+    return stream;
+  }
+
 userRouter.post('/updatePFP', (req, res) => {
     console.log("GOT POST");
     const newUsername = req.body.username;
     const newPFP = req.body.profilePicture;
     const userInfo = auth.verify(req);
+
+    if (userInfo == null) {
+        return res.status(400).send("Unauthorized!!");
+    }
+
+    const email = userInfo.email;
     console.log("BODY: ");
     if (!req.files || Object.keys(req.files).length === 0) {
         res.status(400).send('No files were uploaded.');
         console.log("NO files");
         return;
       }
-    console.log(req.files.pfp.name);
-    return res.status(200).send("Testing done");
+    //console.log(req.files.pfp.name);
+    //console.log(req.files.pfp.size);
+    //console.log(req.files.pfp.tempFilePath);
+    var uploadParams = {Bucket: process.env.AWS_BUCKET_NAME, Key: '', Body: ''};
+    var file = req.files.pfp
+
+    // Configure the file stream and obtain the upload parameters
+    var fs = require('fs');
+    /*
+    var fileStream = fs.createReadStream(file);
+    fileStream.on('error', function(err) {
+    console.log('File Error', err);
+    });
+    uploadParams.Body = fileStream;
+    */
+   uploadParams.Body = file.data;
+    var path = require('path');
+    uploadParams.Key = file.name; //path.basename(file);
+    uploadParams.ACL = "public-read";
+
+    // call S3 to retrieve upload file to specified bucket
+    s3.upload (uploadParams, function (err, data) {
+    if (err) {
+        console.log("Error", err);
+        return res.status(400).send("Error");
+    } if (data) {
+        console.log("Upload Success", data.Location);
+        const pfpLink = data.Location;
+        User.findOne({email}).then(user => {
+            if (!user) {
+                return res.status(404).json({emailnotfound: "User not found."});
+            }
+            const userID = user._id;
+    
+            //create the payload
+            const payload = {
+                userId: userID,
+                username: user.username,
+                email: user.email,
+                role: user.role,
+                pfp: pfpLink
+            }
+            user.pfp = pfpLink;
+            user.save().then(function(user) {
+                //console.log("User saved")
+                const accessToken = JWT.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+                //response object of the access token
+                res.status(200).json({accessToken: accessToken, username: user.username, role: user.role, pfp: user.pfp});
+                console.log("Updated profile picture & Re-logged in");
+            }).catch(err => console.log(err));
+            //sign the access key using the secret key and the payload and assign it to access key
+            
+           
+            //res.status(200).send("OK");
+        });
+        //return res.status(200).send("Success: " + data.Location);
+    }
+    });
+    
     if (userInfo == null) {
         return res.status(400).send("Unauthorized!!");
-    }
-    var finalUsername = userInfo.username;
-    const email = userInfo.email;
-    if (newUsername != null) {
-        if (newUsername.length > 16 || newUsername.length < 6) {
-            console.log("Length username");
-            return res.status(400).send("Username must be");
-        }
-        User.findOne({username: newUsername},(err,user)=>{
-            if(err)
-                return res.status(500).json({message: {msgBody : "Error has occured", msgError : true}})
-            if(user) {
-                console.log("This one");
-                return res.status(400).json({message: {msgBody : "Username is already taken.", msgError : true}})
-            }
-            else{
-                finalUsername = newUsername;
-                User.findOne({email}).then(user => {
-                    if (!user) {
-                        return res.status(404).json({emailnotfound: "User not found."});
-                    }
-                    const userID = user._id;
-            
-                    //create the payload
-                    const payload = {
-                        userId: userID,
-                        username: finalUsername,
-                        email: user.email,
-                        role: user.role,
-                        pfp: user.pfp
-                    }
-                    user.username = finalUsername;
-                    user.save().then(function(user) {
-                        //console.log("User saved")
-                        const accessToken = JWT.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
-                        //response object of the access token
-                        res.status(200).json({accessToken: accessToken, username: user.username, role: user.role, pfp: user.pfp});
-                        console.log("Updated profile & Re-logged in");
-                    }).catch(err => console.log(err));
-                    //sign the access key using the secret key and the payload and assign it to access key
-                    
-                   
-                    //res.status(200).send("OK");
-                });
-            }
-        });
     }
 });
 

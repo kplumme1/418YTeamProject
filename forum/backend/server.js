@@ -24,12 +24,12 @@ const atlas_uri = 'mongodb+srv://'
                     + '@' + process.env.ATLAS_CLUSTER 
                     + '/' + process.env.ATLAS_DB
                     + '?' + process.env.ATLAS_SETTINGS;
-//mongoose.connect(atlas_uri, {useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true},()=>{ // ORIGINAL
+mongoose.connect(atlas_uri, {useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true},()=>{ // ORIGINAL
 //mongoose.connect(uri, {useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true},()=>{
 
 
 
-mongoose.connect('mongodb+srv://shawnyg:djul3kfk6TqtbQ31@cluster0.sv7sa.mongodb.net/<testDB>?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology: true},()=>{
+//mongoose.connect('mongodb+srv://shawnyg:djul3kfk6TqtbQ31@cluster0.sv7sa.mongodb.net/<testDB>?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology: true},()=>{
 //mongoose.connect('mongodb+srv://sujames:VIG0xH7s2JLanipm@cluster0.aqznf.gcp.mongodb.net/testDB?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology: true},()=>{
 //mongoose.connect('mongodb+srv://sujames:VIG0xH7s2JLanipm@cluster0.aqznf.gcp.mongodb.net/testDB?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology: true},()=>{
 

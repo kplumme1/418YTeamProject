@@ -57,23 +57,11 @@ export default class Profile extends Component {
             */
            axios({
             method: 'post',
-            url: 'http://localhost:5000/user/updatePFP/',
+            url: 'http://kplumme1-ec2.ddns.net:5000/user/updatePFP/',
             data: bodyFormData,
             headers: {'Content-Type': 'multipart/form-data', "token":this.getCookie("token")}
             })
             .then(function (response) {
-                //handle success
-                console.log(response);
-            })
-            .catch(function (response) {
-                //handle error
-                console.log(response);
-            });
-           return
-            axios.post('http://localhost:5000/user/updatePFP/', logUser, headers)
-            .then(function(response) {
-                //alert("Got response");
-                //alert(JSON.stringify(response));
                 if (response.status == 200 && response.data != null && response.data.accessToken != null) {
                     var d = new Date();
                     d.setTime(d.getTime() + (1*60*60*1000));
@@ -81,15 +69,17 @@ export default class Profile extends Component {
                     document.cookie = "token=" + response.data.accessToken + ";" + expires + ";path=/";
                     document.cookie = "username=" + response.data.username+ ";" + expires + ";path=/";
                     document.cookie = "role=" + response.data.role+ ";" + expires + ";path=/";
-                    alert("Username change successful...");
-                    window.location.href = "http://localhost:3000/profile";
+                    document.cookie = "pfp=" + response.data.pfp+ ";" + expires + ";path=/";
+                    alert("Profile picture change successful...");
+                    window.location.href = "http://kplumme1-ec2.ddns.net:3000/profile";
                 } else {
                     alert(response.statusText);
                 }
             })
-            .catch(function(error) {
-                alert("Error:" + error);
+            .catch(function (response) {
+                alert("Error:" + response);
             });
+           return
         }
 
         submitUsername(e) {
@@ -109,7 +99,7 @@ export default class Profile extends Component {
             console.log("ABOCVE^^^");
             console.log(logUser);
             */
-            axios.post('http://localhost:5000/user/updateUsername/', logUser, headers)
+            axios.post('http://kplumme1-ec2.ddns.net:5000/user/updateUsername/', logUser, headers)
             .then(function(response) {
                 //alert("Got response");
                 //alert(JSON.stringify(response));
@@ -120,8 +110,9 @@ export default class Profile extends Component {
                     document.cookie = "token=" + response.data.accessToken + ";" + expires + ";path=/";
                     document.cookie = "username=" + response.data.username+ ";" + expires + ";path=/";
                     document.cookie = "role=" + response.data.role+ ";" + expires + ";path=/";
+                    document.cookie = "pfp=" + response.data.pfp+ ";" + expires + ";path=/";
                     alert("Username change successful...");
-                    window.location.href = "http://localhost:3000/profile";
+                    window.location.href = "http://kplumme1-ec2.ddns.net:3000/profile";
                 } else {
                     alert(response.statusText);
                 }

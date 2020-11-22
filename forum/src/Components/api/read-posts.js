@@ -30,7 +30,7 @@ export default class PostList extends Component {
   componentDidMount() {
     //This queries all posts
     //console.log('componentdidmount');
-    axios.get('http://localhost:5000/posts/')
+    axios.get('http://kplumme1-ec2.ddns.net:5000/posts/')
       .then(response => {
         this.setState({ posts: response.data })
       })
@@ -40,14 +40,14 @@ export default class PostList extends Component {
   }
 
   deletePost(id, text) {
-    //axios.delete('http://localhost:5000/posts/'+id)
+    //axios.delete('http://kplumme1-ec2.ddns.net:5000/posts/'+id)
     let updatePost = {
       _id: id,
       post_body_text: text,
       del_flag: true
     }
 
-    axios.post('http://localhost:5000/posts/update', updatePost)
+    axios.post('http://kplumme1-ec2.ddns.net:5000/posts/update', updatePost)
       .then(response => { console.log(response.data)});
 
     this.setState({

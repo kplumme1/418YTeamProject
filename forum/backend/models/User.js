@@ -24,6 +24,9 @@ const UserSchema = new mongoose.Schema({
 	default : 'user',
         required : true
     },
+    pfp : {
+        type : String
+    },
     isDeleted : {
 	type : Boolean,
 	default : false

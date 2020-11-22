@@ -32,7 +32,7 @@ export default class TopicList extends Component {
   componentDidMount() {
     //This queries all posts
     //console.log('componentdidmount');
-    axios.get('http://localhost:5000/topics/')
+    axios.get('http://kplumme1-ec2.ddns.net:5000/topics/')
       .then(response => {
         this.setState({ topics: response.data })
       })
@@ -42,13 +42,13 @@ export default class TopicList extends Component {
   }
 
   deleteTopic(id, text) {
-    //axios.delete('http://localhost:5000/posts/'+id)
+    //axios.delete('http://kplumme1-ec2.ddns.net:5000/posts/'+id)
     let updateTopic = {
       _id: id,
       del_flag: true
     }
 
-    axios.post('http://localhost:5000/topics/update', updateTopic)
+    axios.post('http://kplumme1-ec2.ddns.net:5000/topics/update', updateTopic)
       .then(response => { console.log(response.data)});
 
     this.setState({
