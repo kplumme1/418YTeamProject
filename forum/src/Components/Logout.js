@@ -8,7 +8,7 @@ function loadCall() {
     eraseCookie("role");
     eraseCookie("token");
     alert("Logout complete! Redirecting...");
-    window.location.href = "http://kplumme1-ec2.ddns.net:3000/";
+    window.location.href = "/";
 }
 
 const Logout = () => window.addEventListener('load', () => loadCall());

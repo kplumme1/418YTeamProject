@@ -66,7 +66,7 @@ class Home extends React.Component {
         );
         
         const renderTopics = this.state.topics.map(topic => (
-            <a href = {"topics/" + topic._id} style = {{color: "black"}}>
+            <a href = {"/topics/" + topic._id} style = {{color: "black"}}>
                 <div style = {{margin: "1% 1%", background: "linear-gradient(to right, #9cecfb, #65c7f7, #0052d4)", padding: "30px 60px", borderRadius: "50px", border: "2px solid black"}}>
                     <div>
                         <h3>{topic.topic_title}</h3>

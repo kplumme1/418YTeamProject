@@ -62,7 +62,7 @@ function AdminHeader (){
                     <Nav.Link href="/help">Help</Nav.Link>
                 </Nav>
                 <Nav alignright="true">
-                    <Button style = {{marginRight: "10px"}} href = "CreateTopic">+ Create Topic</Button>
+                    <Button style = {{marginRight: "10px"}} href = "/CreateTopic">+ Create Topic</Button>
                 </Nav>
                 <Nav>
                     <NavDropdown alignright="true" title={cookieUser} id="dropdown-menu-align-right">
