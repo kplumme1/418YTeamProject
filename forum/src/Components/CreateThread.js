@@ -93,7 +93,7 @@ export default class CreateTopic extends Component {
 
     render() {
 
-        // getCookie function from stack overflow
+        // getCookie function
         function getCookie(name) {
             var nameEQ = name + "=";
             var ca = document.cookie.split(';');

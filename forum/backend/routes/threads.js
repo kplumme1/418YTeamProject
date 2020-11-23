@@ -57,15 +57,16 @@ router.route('/add').post((req, res) => {
   let newThread = new Thread({
     _id,
     parent_topic_id,
-    thread_author: userInfo.username/*'ignored'*/,
+    thread_author: userInfo.username,
     thread_title,
     del_flag: false
   });
 
   //get the highest thread_num
-  Thread.find({ parent_topic_id: /*req.body.parent_topic_id,*/newThread.parent_topic_id, del_flag: false }).sort({thread_num: -1}).limit(1)
+  Thread.find({ parent_topic_id: newThread.parent_topic_id, del_flag: false }).sort({thread_num: -1}).limit(1)
     .exec(function (error, thread) {
-      console.log('thread[0]: ' + thread[0]);
+      console.log('CREATE THREAD: ' + newThread.parent_topic_id);
+      //console.log('thread[0]: ' + thread[0]);
       if (typeof thread[0] === 'undefined' ) {
         console.log('thread_num undefined...');
         newThread.thread_num = 0;
