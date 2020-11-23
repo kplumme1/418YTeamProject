@@ -9,7 +9,6 @@ function loadCall() {
     eraseCookie("token");
     eraseCookie("pfp");
     alert("Logout complete! Redirecting...");
-
     window.location.href = "/";
 }
 

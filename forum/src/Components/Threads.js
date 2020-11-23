@@ -31,29 +31,32 @@ class Threads extends React.Component {
             .catch((error) => {
                 console.log(error);
             })
-            
-        axios.get('http://kplumme1-ec2.ddns.net:5000/user/userInfo').then(response => {
-            this.pfp = response.pfp;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        
-        //grab parent_topic_id from URL
-        var thisurl = window.location.href.split("/")
-        var topicID = thisurl[thisurl.length - 1]
-        //var parentID = window.location.href.split("/")
-        //parentID = parentID[parentID.length - 1]
+        var parentID = window.location.href.split("/")
+        parentID = parentID[parentID.length - 1]
 
 
         return (
             <div>
-                <div style = {{backgroundColor: "#343a40", textAlign: "center"}}>
-                    <Button style = {{margin: "0px 10px 20px 10px", fontSize: "20px"}} href = {"/CreateThread/" + topicID}>+ Create Thread</Button>
+                <div style={{ backgroundColor: "#343a40", textAlign: "center" }}>
+                    <Button style={{ margin: "0px 10px 20px 10px", fontSize: "20px" }} href="/CreateThread">+ Create Thread</Button>
                 </div>
                 <h1 style={{ textAlign: "center", textDecoration: "underline", margin: "50px 0px" }}>Threads</h1>
                 {this.state.threads.map(thread => {
-                    if(thread.parent_topic_id === topicID){
+                    if (thread.parent_topic_id === parentID) {
+                        var pfp;
+                        const sendData = {
+                            username:thread.thread_author
+                        }
+                        //alert("Going to send request");
+                        /*
+                        axios.get('http://kplumme1-ec2.ddns.net:5000/user/userInfo/'+thread.thread_author).then(response => {
+                            pfp = response.data.pfp;
+                        })
+                        .catch((error) => {
+                            //alert(error);
+                            //console.log(error);
+                        });
+                        */
                         return (
                             <a href={"/post/" + thread._id} style={{ color: "black" }}>
                                 <div style={{ margin: "1% 1%", background: "linear-gradient(to right, #9cecfb, #65c7f7, #0052d4)", padding: "30px 60px", borderRadius: "50px", border: "2px solid black" }}>
