@@ -32,7 +32,13 @@ class Threads extends React.Component {
             .catch((error) => {
                 console.log(error);
             })
-
+            
+        axios.get('http://kplumme1-ec2.ddns.net:5000/user/userInfo').then(response => {
+            this.pfp = response.pfp;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
         var parentID = window.location.href.split("/")
         parentID = parentID[parentID.length - 1]
 
@@ -49,6 +55,7 @@ class Threads extends React.Component {
                             <a href={"/post/" + thread._id} style={{ color: "black" }}>
                                 <div style={{ margin: "1% 1%", background: "linear-gradient(to right, #9cecfb, #65c7f7, #0052d4)", padding: "30px 60px", borderRadius: "50px", border: "2px solid black" }}>
                                     <div>
+                                        <Image style={{ border: "1spx solid black" }} src={this.pfp} height="50px" width="50px" roundedCircle></Image>
                                         <h3 style={{ marginBottom: "30px" }}>{thread.thread_title}</h3>
                                         <h6>Created By {thread.thread_author}</h6>
                                         <h5>{thread.createdAt.split("T")[0] + " at " + thread.createdAt.split("T")[1].split(".")[0]}</h5>
