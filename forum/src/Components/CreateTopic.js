@@ -7,6 +7,8 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import axios from 'axios';
 
+const backend = require('./backendLink');
+
 //converted into object oriented java (degenerate clown-shoes garbage) -Kyle
 export default class CreateTopic extends Component {
     constructor(props) {
@@ -49,7 +51,7 @@ export default class CreateTopic extends Component {
     
         //axios sends data through backend API endpoint
         console.log(newTopic);//console logging for dev - can be removed for release
-        axios.post('http://kplumme1-ec2.ddns.net:5000/topics/add', newTopic)
+        axios.post(backend.backendURL + '/topics/add', newTopic)
           .then(res => console.log(res.data));
         //alert('test: ' + this.state.topicTitle);
 

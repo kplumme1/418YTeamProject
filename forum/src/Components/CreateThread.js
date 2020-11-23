@@ -9,6 +9,7 @@ import axios from 'axios';
 import { Editor } from "@tinymce/tinymce-react";
 
 var mongoose = require('mongoose');
+const backend = require('./backendLink');
 const auth = require('../auth');
 
 //converted into object oriented java (degenerate clown-shoes garbage) -Kyle
@@ -70,9 +71,9 @@ export default class CreateTopic extends Component {
 
         //axios sends data through backend API endpoint
         console.log(newThread);//console logging for dev - can be removed for release
-        axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread, headers)
+        axios.post(backend.backendURL + '/threads/add', newThread, headers)
           .then(res => console.log(res.data));
-        axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost, headers)
+        axios.post(backend.backendURL + '/posts/add', newPost, headers)
           .then(res => console.log(res.data));
 
           //reset form 
