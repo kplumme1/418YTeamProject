@@ -78,11 +78,17 @@ export default class CreateTopic extends Component {
         axios.post(backend.backendURL + '/threads/add', newThread, headers)
           .then(res => console.log(res.data));
 <<<<<<< HEAD
+<<<<<<< HEAD
         axios.post(backend.backendURL + '/posts/add', newPost, headers)
 =======
         axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost, headers)
 
 >>>>>>> fcd8307a5097c4a003d2222fee8475012dc86145
+=======
+
+        axios.post(backend.backendURL + '/posts/add', newPost, headers)
+
+>>>>>>> 0b3ff568a04936941d5dea7d76d2a3c6f47ef8fa
           .then(res => console.log(res.data));
 
           //reset form 
