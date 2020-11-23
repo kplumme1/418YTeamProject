@@ -70,6 +70,7 @@ class AdminHeader extends React.Component{
                             <Nav.Link href="/help">Help</Nav.Link>
                         </Nav>
                         <Nav>
+                        <Image style = {{border: "4px solid black"}} src = {getCookie("pfp")} height = "50px" width = "50px" roundedCircle></Image>
                             <NavDropdown alignright="true" title={cookieUser} id="dropdown-menu-align-right">
                                 <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                                 <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
