@@ -38,7 +38,7 @@ class Threads extends React.Component {
         return (
             <div>
                 <div style={{ backgroundColor: "#343a40", textAlign: "center" }}>
-                    <Button style={{ margin: "0px 10px 20px 10px", fontSize: "20px" }} href="/CreateThread">+ Create Thread</Button>
+                    <Button style={{ margin: "0px 10px 20px 10px", fontSize: "20px" }} href={"/CreateThread/" + parentID}>+ Create Thread</Button>
                 </div>
                 <h1 style={{ textAlign: "center", textDecoration: "underline", margin: "50px 0px" }}>Threads</h1>
                 {this.state.threads.map(thread => {
