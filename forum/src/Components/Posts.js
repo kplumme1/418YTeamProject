@@ -10,8 +10,7 @@ class Posts extends React.Component {
         this.state = {posts: [], parentPosts: []};
     }
 
-    render() {
-
+    componentDidMount() {
         axios.get('http://kplumme1-ec2.ddns.net:5000/posts/')
         .then(response => {
           this.setState({ posts: response.data })
@@ -27,6 +26,9 @@ class Posts extends React.Component {
         .catch((error) => {
           console.log(error);
         })
+    }
+
+    render() {
 
         var thisurl = window.location.href.split("/")
         var threadID = thisurl[thisurl.length - 1]

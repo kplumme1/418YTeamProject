@@ -22,8 +22,7 @@ class Threads extends React.Component {
         this.state = { threads: [] };
     }
 
-    render() {
-
+    componentDidMount() {
         axios.get('http://kplumme1-ec2.ddns.net:5000/threads/')
             .then(response => {
                 this.setState({ threads: response.data })
@@ -31,6 +30,11 @@ class Threads extends React.Component {
             .catch((error) => {
                 console.log(error);
             })
+    }
+
+    render() {
+
+        
         var parentID = window.location.href.split("/")
         parentID = parentID[parentID.length - 1]
 
