@@ -6,6 +6,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios';
 var config = require('../config.json');
+const backend = require('./backendLink');
 
 // getCookie function from stack overflow
 function getCookie(name) {
@@ -31,16 +32,18 @@ class Home extends React.Component {
         super();
         this.state = {topics: []};
     }
-    
-    render(){
 
-        axios.get('http://kplumme1-ec2.ddns.net:5000/topics/')
+    componentDidMount() {
+        axios.get(backend.backendURL + '/topics/')
       .then(response => {
         this.setState({ topics: response.data })
       })
       .catch((error) => {
         console.log(error);
       })
+    }
+    
+    render(){
 
         var cookieUser = getCookie("username") || "guest";
         var cookieRole = getCookie("role") || "guest";
