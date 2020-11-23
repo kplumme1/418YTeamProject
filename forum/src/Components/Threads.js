@@ -22,7 +22,6 @@ class Threads extends React.Component {
         this.state = { threads: [] };
     }
 
-
     render() {
 
         axios.get('http://kplumme1-ec2.ddns.net:5000/threads/')
@@ -37,20 +36,24 @@ class Threads extends React.Component {
             this.pfp = response.pfp;
         })
         .catch((error) => {
-            console.log(error);
-        });
-        var parentID = window.location.href.split("/")
-        parentID = parentID[parentID.length - 1]
+          console.log(error);
+        })
+        
+        //grab parent_topic_id from URL
+        var thisurl = window.location.href.split("/")
+        var topicID = thisurl[thisurl.length - 1]
+        //var parentID = window.location.href.split("/")
+        //parentID = parentID[parentID.length - 1]
 
 
         return (
             <div>
-                <div style={{ backgroundColor: "#343a40", textAlign: "center" }}>
-                    <Button style={{ margin: "0px 10px 20px 10px", fontSize: "20px" }} href="/CreateThread">+ Create Thread</Button>
+                <div style = {{backgroundColor: "#343a40", textAlign: "center"}}>
+                    <Button style = {{margin: "0px 10px 20px 10px", fontSize: "20px"}} href = {"/CreateThread/" + topicID}>+ Create Thread</Button>
                 </div>
                 <h1 style={{ textAlign: "center", textDecoration: "underline", margin: "50px 0px" }}>Threads</h1>
                 {this.state.threads.map(thread => {
-                    if (thread.parent_topic_id === parentID) {
+                    if(thread.parent_topic_id === topicID){
                         return (
                             <a href={"/post/" + thread._id} style={{ color: "black" }}>
                                 <div style={{ margin: "1% 1%", background: "linear-gradient(to right, #9cecfb, #65c7f7, #0052d4)", padding: "30px 60px", borderRadius: "50px", border: "2px solid black" }}>

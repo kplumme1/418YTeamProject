@@ -121,6 +121,7 @@ userRouter.post('/login', (req, res) => {
     });
 });
 
+
 userRouter.post('/updateUsername', (req, res) => {
     const newUsername = req.body.username;
     const newPFP = req.body.profilePicture;

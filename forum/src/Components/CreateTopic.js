@@ -13,7 +13,6 @@ export default class CreateTopic extends Component {
         super(props);
     
         //Function bindings
-        //this.onChangeParent = this.onChangeParent.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDesc = this.onChangeDesc.bind(this);
         this.submitTopic = this.submitTopic.bind(this);
@@ -43,8 +42,7 @@ export default class CreateTopic extends Component {
 
         //Structure to be sent to axios/router
         const newTopic = {
-            //parent_board_id: { type: String, required: true},//unnecessary unless we speciically decide to use this
-            topic_title: String(document.getElementById("topictitle").value),//this.state.topictitle,//username: String(document.getElementById("topicdesc").value)
+            topic_title: String(document.getElementById("topictitle").value),
             topic_desc: String(document.getElementById("topicdesc").value)
             //topic_num: { type: Number, required: true },
         }
@@ -53,7 +51,7 @@ export default class CreateTopic extends Component {
         console.log(newTopic);//console logging for dev - can be removed for release
         axios.post('http://kplumme1-ec2.ddns.net:5000/topics/add', newTopic)
           .then(res => console.log(res.data));
-        alert('test: ' + this.state.topicTitle);
+        //alert('test: ' + this.state.topicTitle);
 
           //reset form (via stste object)
           this.setState({
@@ -66,91 +64,87 @@ export default class CreateTopic extends Component {
 
     render() {
 
-  /*
-function CreateTopic() {
-
-    // getCookie function from stack overflow
-    function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
-            var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1,c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        // getCookie function from stack overflow
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
         }
-        return null;
-    }
 
-    if (getCookie("token")) {
-        console.log("Current token: " + getCookie("token"));
-        console.log("Username: " + getCookie("username"));
-        console.log("Role: "+ getCookie("role"));
-    }
+        if (getCookie("token")) {
+            console.log("Current token: " + getCookie("token"));
+            console.log("Username: " + getCookie("username"));
+            console.log("Role: "+ getCookie("role"));
+        }
 
-    if(getCookie("role") != "admin") {
-        window.location.href = "/nopermissions";
-    }
+        var cookieRole = getCookie("role") || "guest";
 
-    else {
+        if(cookieRole != "admin") {
+            window.location.href = "/nopermissions";
+        }
 
-*/
+        else {
 
-        return (
-            <Container style = {{marginTop: "40px"}}>
-                <Row>
-                    <Col></Col>
-                    <Col md = {7} style = {{border: "5px solid black", borderRadius: "30px", padding: "20px 20px"}}>
-                        <Form>
-                            <Form.Group>
-                                <Form.Label style = {{fontWeight: "bold"}}>New Topic Name</Form.Label>
+            return (
+                <Container style = {{marginTop: "40px"}}>
+                    <Row>
+                        <Col></Col>
+                        <Col md = {7} style = {{border: "5px solid black", borderRadius: "30px", padding: "20px 20px"}}>
+                            <Form>
+                                <Form.Group>
+                                    <Form.Label style = {{fontWeight: "bold"}}>New Topic Name</Form.Label>
 
-                                <Form.Control type="text" id="topictitle" placeholder="Name" />
-                                <Form.Text 
-                                    className="text-muted"
-                                    //value={this.state.topictitle}
-                                    //onChange={this.onChangeTitle}
-                                >
-
-                                This is how the name will show up on the forum.
-                                </Form.Text>
-                            </Form.Group>
-
-                            <Form.Group>
-                                <Form.Label style = {{fontWeight: "bold"}}>Description</Form.Label>
-
-                                <Form.Control as = "textarea" type="text" id="topicdesc" placeholder="Description" />
-                                <Form.Text 
-                                    className="text-muted"
-                                    //value={this.state.topicDesc}
-                                    //onChange={this.onChangeDesc}    
-                                >
-
-                                This description will be shown below the name. Use it to explain to users what it will be about!
-                                </Form.Text>
-                            </Form.Group>
-                            <Row>
-                                <Col></Col>
-                                <Col style = {{textAlign: "center"}}>
-
-                                    <Button 
-                                        style = {{padding: "10px 20px", width: "160px"}} 
-                                        variant="primary" 
-                                        type="submit"
-                                        onClick={this.submitTopic}
+                                    <Form.Control type="text" id="topictitle" placeholder="Name" />
+                                    <Form.Text 
+                                        className="text-muted"
+                                        //value={this.state.topictitle}
+                                        //onChange={this.onChangeTitle}
                                     >
 
-                                        Create Topic
-                                    </Button>
-                                </Col>
-                                <Col></Col>
-                            </Row>
-                        </Form>
-                    </Col>
-                    <Col></Col>
-                </Row>
-            </Container>
-        );
+                                    This is how the name will show up on the forum.
+                                    </Form.Text>
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Form.Label style = {{fontWeight: "bold"}}>Description</Form.Label>
+
+                                    <Form.Control as = "textarea" type="text" id="topicdesc" placeholder="Description" />
+                                    <Form.Text 
+                                        className="text-muted"
+                                        //value={this.state.topicDesc}
+                                        //onChange={this.onChangeDesc}    
+                                    >
+
+                                    This description will be shown below the name. Use it to explain to users what it will be about!
+                                    </Form.Text>
+                                </Form.Group>
+                                <Row>
+                                    <Col></Col>
+                                    <Col style = {{textAlign: "center"}}>
+
+                                        <Button 
+                                            style = {{padding: "10px 20px", width: "160px"}} 
+                                            variant="primary" 
+                                            type="submit"
+                                            onClick={this.submitTopic}
+                                        >
+
+                                            Create Topic
+                                        </Button>
+                                    </Col>
+                                    <Col></Col>
+                                </Row>
+                            </Form>
+                        </Col>
+                        <Col></Col>
+                    </Row>
+                </Container>
+            );
+        }
     }
-
 }
-

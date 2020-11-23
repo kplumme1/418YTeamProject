@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const auth = require('../validation/auth');
 let Thread = require('../models/thread.model');
 
 
@@ -38,22 +39,31 @@ router.route('/urlid/:id').get((req, res) => {
 
 //add a thread
 router.route('/add').post((req, res) => {
+  const userInfo = auth.verify(req);
+  const _id = req.body._id;
   const parent_topic_id = req.body.parent_topic_id;
-  const thread_num = req.body.thread_num;
-  const thread_author = req.body.thread_author;
   const thread_title = req.body.thread_title;
-  const del_flag = req.body.del_flag;
+  //const del_flag = req.body.del_flag;
+/*
+    parent_topic_id: { type: String, required: true },
+    thread_num: { type: Number, required: true },
+    thread_author: { type: String, required: true },
+    thread_title: { type: String, required: true },
+    del_flag: { type: Boolean, required: true }    
+*/
+
+
 
   let newThread = new Thread({
+    _id,
     parent_topic_id,
-    thread_num,
-    thread_author,
+    thread_author: userInfo.username/*'ignored'*/,
     thread_title,
-    del_flag
+    del_flag: false
   });
 
   //get the highest thread_num
-  Thread.find({ parent_topic_id: req.body.parent_topic_id, del_flag: false }).sort({thread_num: -1}).limit(1)
+  Thread.find({ parent_topic_id: /*req.body.parent_topic_id,*/newThread.parent_topic_id, del_flag: false }).sort({thread_num: -1}).limit(1)
     .exec(function (error, thread) {
       console.log('thread[0]: ' + thread[0]);
       if (typeof thread[0] === 'undefined' ) {

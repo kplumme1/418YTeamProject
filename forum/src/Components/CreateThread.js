@@ -19,12 +19,28 @@ export default class CreateTopic extends Component {
         //Function bindings
         this.onChangeText = this.onChangeText.bind(this);
         this.submitThread = this.submitThread.bind(this);
+
+        this.getCookie = this.getCookie.bind(this);
+
     
         //State object
         this.state = {
             postText: ''
         }
     }
+
+
+    getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
 
     onChangeText(content, editor) {
         this.setState({
@@ -49,12 +65,19 @@ export default class CreateTopic extends Component {
             post_body_text: this.state.postText//String(document.getElementById("posttext").value)
         }
 
-    
+        const headers = {
+            headers: {
+                token: this.getCookie("token"),
+                //'Content-Type': 'multipart/form-data'
+            }
+        }
+
         //axios sends data through backend API endpoint
         console.log(newThread);//console logging for dev - can be removed for release
-        axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread)
+        axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread, headers)
           .then(res => console.log(res.data));
-        axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost)
+        axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost, headers)
+
           .then(res => console.log(res.data));
 
           //reset form 
@@ -63,7 +86,8 @@ export default class CreateTopic extends Component {
             topicDesc: ''
         })
 
-        window.location.href = "/";
+
+        window.location.href = "/post/" + newId;
       }
 
     render() {
