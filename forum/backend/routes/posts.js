@@ -39,16 +39,22 @@ router.route('/urlid/:id').get((req, res) => {
 //add a post
 router.route('/add').post((req, res) => {
   const userInfo = auth.verify(req);
+  if (userInfo == null) {
+    console.log("CHECK FAILED?!");
+    return res.status(400).send("Unauthorized!!");
+  } else {console.log("CHECK PASSED!!")}
   console.log("Response: " + JSON.stringify(userInfo));
+  //const post_author = userInfo.username;
   const parent_thread_id = req.body.parent_thread_id;
   let post_num = Number(req.body.post_num);
   //const post_author = req.body.post_author;
   const post_body_text = req.body.post_body_text;
   //const del_flag = req.body.del_flag;
 
+  
   let newPost = new Post({
     parent_thread_id,
-    post_author: 'ignored',
+    post_author: userInfo.username/*'ignored'*/,
     post_body_text,
     del_flag: false
   });
