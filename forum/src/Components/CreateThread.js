@@ -6,6 +6,10 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import axios from 'axios';
+import { Editor } from "@tinymce/tinymce-react";
+
+var mongoose = require('mongoose');
+const auth = require('../auth');
 
 //converted into object oriented java (degenerate clown-shoes garbage) -Kyle
 export default class CreateTopic extends Component {
@@ -13,47 +17,47 @@ export default class CreateTopic extends Component {
         super(props);
     
         //Function bindings
-        this.onChangeTitle = this.onChangeTitle.bind(this);
-        this.onChangeDesc = this.onChangeDesc.bind(this);
-        this.submitTopic = this.submitTopic.bind(this);
+        this.onChangeText = this.onChangeText.bind(this);
+        this.submitThread = this.submitThread.bind(this);
     
         //State object
         this.state = {
-            topicTitle: '',
-            topicDesc: ''
+            postText: ''
         }
-      }
+    }
 
-      //Function Declarations
-      onChangeTitle(e) {
+    onChangeText(content, editor) {
         this.setState({
-            topicTitle: e.target.value
-          })
-      }
+            postText: content
+        })
+    }
 
-      onChangeDesc(e) {
-        this.setState({
-            topicDesc: e.target.value
-          })
-      }
-    
-      submitTopic(e) {
+
+      //Function Declarations   
+      submitThread(e) {
         e.preventDefault();
-
-        //Structure to be sent to axios/router
-        const newTopic = {
-            topic_title: String(document.getElementById("topictitle").value),
-            topic_desc: String(document.getElementById("topicdesc").value)
-            //topic_num: { type: Number, required: true },
+        var thisurl = window.location.href.split("/")
+        var topicID = thisurl[thisurl.length - 1]
+        var newId = mongoose.Types.ObjectId();
+        const newThread = {
+            _id: newId,
+            parent_topic_id: topicID,
+            thread_title: String(document.getElementById("threadtitle").value)
         }
+        const newPost = {
+            parent_thread_id: newId,
+            post_body_text: this.state.postText//String(document.getElementById("posttext").value)
+        }
+
     
         //axios sends data through backend API endpoint
-        console.log(newTopic);//console logging for dev - can be removed for release
-        axios.post('http://kplumme1-ec2.ddns.net:5000/topics/add', newTopic)
+        console.log(newThread);//console logging for dev - can be removed for release
+        axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread)
           .then(res => console.log(res.data));
-        //alert('test: ' + this.state.topicTitle);
+        axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost)
+          .then(res => console.log(res.data));
 
-          //reset form (via stste object)
+          //reset form 
           this.setState({
             topicTitle: '',
             topicDesc: ''
@@ -84,8 +88,8 @@ export default class CreateTopic extends Component {
 
         var cookieRole = getCookie("role") || "guest";
 
-        if(cookieRole != "admin") {
-            window.location.href = "/nopermissions";
+        if(cookieRole == "guest") {
+            window.location.href = "/login";
         }
 
         else {
@@ -97,44 +101,41 @@ export default class CreateTopic extends Component {
                         <Col md = {7} style = {{border: "5px solid black", borderRadius: "30px", padding: "20px 20px"}}>
                             <Form>
                                 <Form.Group>
-                                    <Form.Label style = {{fontWeight: "bold"}}>New Topic Name</Form.Label>
-
-                                    <Form.Control type="text" id="topictitle" placeholder="Name" />
-                                    <Form.Text 
-                                        className="text-muted"
-                                        //value={this.state.topictitle}
-                                        //onChange={this.onChangeTitle}
-                                    >
-
-                                    This is how the name will show up on the forum.
+                                    <Form.Label style = {{fontWeight: "bold"}}>New Thread Title</Form.Label>
+                                    <Form.Control type="text" id="threadtitle" placeholder="Enter an interesting title" />
+                                    <Form.Text className="text-muted">
                                     </Form.Text>
                                 </Form.Group>
 
+                                {/*
                                 <Form.Group>
-                                    <Form.Label style = {{fontWeight: "bold"}}>Description</Form.Label>
-
-                                    <Form.Control as = "textarea" type="text" id="topicdesc" placeholder="Description" />
-                                    <Form.Text 
-                                        className="text-muted"
-                                        //value={this.state.topicDesc}
-                                        //onChange={this.onChangeDesc}    
-                                    >
-
-                                    This description will be shown below the name. Use it to explain to users what it will be about!
+                                    <Form.Label style = {{fontWeight: "bold"}}>Post Text</Form.Label>
+                                    <Form.Control as = "textarea" type="text" id="posttext" placeholder="Enter some interesting text people will want to read. Try not to be boring." />
+                                    <Form.Text className="text-muted" >
                                     </Form.Text>
+                                </Form.Group>
+                                */}
+                                <Form.Group>
+                                    <Form.Label style={{ fontWeight: "bold" }}>Reply</Form.Label>
+                                    <Editor
+                                        apiKey = "ryef7c7iynamh7xxtkti6mskmx80xg2t3qy2xqtiqmwxf2d5"
+                                        init={{
+                                            height: 300,
+                                            menubar: false
+                                        }}
+                                        onEditorChange = {this.onChangeText}
+                                    />
                                 </Form.Group>
                                 <Row>
                                     <Col></Col>
                                     <Col style = {{textAlign: "center"}}>
-
                                         <Button 
                                             style = {{padding: "10px 20px", width: "160px"}} 
                                             variant="primary" 
                                             type="submit"
-                                            onClick={this.submitTopic}
+                                            onClick={this.submitThread}
                                         >
-
-                                            Create Topic
+                                            Create Thread
                                         </Button>
                                     </Col>
                                     <Col></Col>
@@ -148,3 +149,4 @@ export default class CreateTopic extends Component {
         }
     }
 }
+

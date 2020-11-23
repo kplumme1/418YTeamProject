@@ -21,15 +21,12 @@ export default class CreatePost extends Component {
 
         //State object
         this.state = {
-        parentid: 'testID',
-        postnum: 0,
-        authorid: 'testUserID',
-        bodytext: '',
-        delflag: false
+        bodytext: ''
       }
     }
 
     //Methods
+    
     onChangeText(content, editor) {
         //alert("onChangeText: " + content);
         this.setState({
@@ -40,88 +37,103 @@ export default class CreatePost extends Component {
     //Function that submits data to db via axios and router
     onSubmit(e) {
     e.preventDefault();
-
+    var thisurl = window.location.href.split("/")
+    var threadID = thisurl[thisurl.length - 1]
     var newId = mongoose.Types.ObjectId();
 
     //Structure to be sent to axios/router
     const newPost = {
-        parent_thread_id: newId,
-        post_num: this.state.postnum,
-        post_author: this.state.authorid,
+        parent_thread_id: threadID,
         post_body_text: this.state.bodytext,
-        del_flag: this.state.delflag
     }
-
-    const newThread = {
-        _id: newId,
-        parent_topic_id: "testTopic",
-        thread_num: 0,
-        thread_author: "testAuthor",
-        thread_title: "Thread_Title",
-        del_flag: false
-    }
-
-    alert("new post json: " + newPost.del_flag + ", " + newPost.post_body_text);
 
     //axios sends data through backend API endpoint
     console.log(newPost);//console logging for dev - can be removed for release
     axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost)
       .then(res => console.log(res.data));
-    axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread)
-      .then(res => console.log(res.data));
+    //axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread)
+      //.then(res => console.log(res.data));
 
-
+      window.location.href = "/post/" + threadID;
   }
   
 
     //function CreatePost() {
     render() {
-        return (
-            <Container style={{ marginTop: "40px" }}>
-                <Row>
-                    <Col></Col>
-                    <Col md={7} style={{ border: "5px solid black", borderRadius: "30px", padding: "20px 20px" }}>
-                        <Form >
-                            <Form.Group>
-                                <Form.Label style={{ fontWeight: "bold" }}>New Post Name</Form.Label>
-                                <Form.Control type="text" placeholder="Name" />
-                                <Form.Text className="text-muted">
-                                    What will your post be about?.
-                                </Form.Text>
-                            </Form.Group>
+        // getCookie function from stack overflow
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
 
-                            <Form.Group>
-                                <Form.Label style={{ fontWeight: "bold" }}>Post Body</Form.Label>
-                                <Editor
-                                    apiKey = "ryef7c7iynamh7xxtkti6mskmx80xg2t3qy2xqtiqmwxf2d5"
-                                    init={{
-                                        height: 300,
-                                        menubar: false
-                                    }}
-                                    onEditorChange = {this.onChangeText}
-                                />
-                            </Form.Group>
+        if (getCookie("token")) {
+            console.log("Current token: " + getCookie("token"));
+            console.log("Username: " + getCookie("username"));
+            console.log("Role: "+ getCookie("role"));
+        }
 
-                            <Form.Group>
-                                <Row>
-                                    <Col></Col>
-                                    <Col style={{ textAlign: "center" }}>
-                                        <Button onClick={this.onSubmit} 
-                                            style={{ padding: "10px 20px", width: "160px" }} 
-                                            variant="primary" 
-                                            type="submit" 
-                                            href="/posts/add">
-                                            Create Post
-                                        </Button>
-                                    </Col>
-                                    <Col></Col>
-                                </Row>
-                            </Form.Group>
-                        </Form>
-                    </Col>
-                    <Col></Col>
-                </Row>
-            </Container>
-        );
+        var cookieRole = getCookie("role") || "guest";
+
+        if(cookieRole == "guest") {
+            window.location.href = "/login";
+        }
+
+        else {
+
+            return (
+                <Container style={{ marginTop: "40px" }}>
+                    <Row>
+                        <Col></Col>
+                        <Col md={7} style={{ border: "5px solid black", borderRadius: "30px", padding: "20px 20px" }}>
+                            <Form >
+                                {/*  dsfsdfsdf
+                                <Form.Group>
+                                    <Form.Label style={{ fontWeight: "bold" }}>New Post Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Name" />
+                                    <Form.Text className="text-muted">
+                                        What will your post be about?.
+                                    </Form.Text>
+                                </Form.Group>
+                                */}
+                                <Form.Group>
+                                    <Form.Label style={{ fontWeight: "bold" }}>Reply</Form.Label>
+                                    <Editor
+                                        apiKey = "ryef7c7iynamh7xxtkti6mskmx80xg2t3qy2xqtiqmwxf2d5"
+                                        init={{
+                                            height: 300,
+                                            menubar: false
+                                        }}
+                                        onEditorChange = {this.onChangeText}
+                                    />
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Row>
+                                        <Col></Col>
+                                        <Col style={{ textAlign: "center" }}>
+                                            <Button onClick={this.onSubmit} 
+                                                style={{ padding: "10px 20px", width: "160px" }} 
+                                                variant="primary" 
+                                                type="submit" 
+                                                href="/posts/add">
+                                                Create Post
+                                            </Button>
+                                        </Col>
+                                        <Col></Col>
+                                    </Row>
+                                </Form.Group>
+                            </Form>
+                        </Col>
+                        <Col></Col>
+                    </Row>
+                </Container>
+            );
+        }
     }
 }
