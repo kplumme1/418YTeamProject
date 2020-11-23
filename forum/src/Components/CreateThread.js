@@ -19,13 +19,16 @@ export default class CreateTopic extends Component {
         //Function bindings
         this.onChangeText = this.onChangeText.bind(this);
         this.submitThread = this.submitThread.bind(this);
+
         this.getCookie = this.getCookie.bind(this);
+
     
         //State object
         this.state = {
             postText: ''
         }
     }
+
 
     getCookie(name) {
         var nameEQ = name + "=";
@@ -37,6 +40,7 @@ export default class CreateTopic extends Component {
         }
         return null;
     }
+
 
     onChangeText(content, editor) {
         this.setState({
@@ -73,6 +77,7 @@ export default class CreateTopic extends Component {
         axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread, headers)
           .then(res => console.log(res.data));
         axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost, headers)
+
           .then(res => console.log(res.data));
 
           //reset form 
@@ -80,6 +85,7 @@ export default class CreateTopic extends Component {
             topicTitle: '',
             topicDesc: ''
         })
+
 
         window.location.href = "/post/" + newId;
       }
