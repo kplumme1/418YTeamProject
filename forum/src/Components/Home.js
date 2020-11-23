@@ -31,9 +31,8 @@ class Home extends React.Component {
         super();
         this.state = {topics: []};
     }
-    
-    render(){
 
+    componentDidMount() {
         axios.get('http://kplumme1-ec2.ddns.net:5000/topics/')
       .then(response => {
         this.setState({ topics: response.data })
@@ -41,6 +40,9 @@ class Home extends React.Component {
       .catch((error) => {
         console.log(error);
       })
+    }
+    
+    render(){
 
         var cookieUser = getCookie("username") || "guest";
         var cookieRole = getCookie("role") || "guest";
