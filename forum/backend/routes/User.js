@@ -121,8 +121,10 @@ userRouter.post('/login', (req, res) => {
     });
 });
 
-userRouter.get('/userInfo', (req, res) => {
-    const username = req.body.username;
+userRouter.get('/userInfo/:username', (req, res) => {
+    const username = req.params.username
+    //console.log("Got request: " + username);
+    //console.log("Full request params: " + JSON.stringify(req.params));
 
     if (username == null) {
         return res.status(404).send("User not found");
@@ -132,6 +134,7 @@ userRouter.get('/userInfo', (req, res) => {
         if (!user) {
             return res.status(404).send("User not found");
         }
+        //console.log("Found!");
          return res.status(200).json({username: user.username, role: user.role, pfp: user.pfp});
     });
 });
