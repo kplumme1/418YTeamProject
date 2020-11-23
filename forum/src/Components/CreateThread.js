@@ -77,12 +77,8 @@ export default class CreateTopic extends Component {
         console.log(newThread);//console logging for dev - can be removed for release
         axios.post(backend.backendURL + '/threads/add', newThread, headers)
           .then(res => console.log(res.data));
-<<<<<<< HEAD
-        axios.post(backend.backendURL + '/posts/add', newPost, headers)
-=======
-        axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost, headers)
 
->>>>>>> fcd8307a5097c4a003d2222fee8475012dc86145
+        axios.post(backend.backendURL + '/posts/add', newPost, headers)
           .then(res => console.log(res.data));
 
           //reset form 
