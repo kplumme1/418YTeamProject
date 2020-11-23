@@ -131,7 +131,7 @@ export default class Profile extends Component {
                     <Col md = {7} style = {{border: "5px solid black", borderRadius: "30px", padding: "20px 20px", backgroundColor: "rgba(255, 255, 255, .5)"}}>
                         <Row>
                             <Col></Col>
-                            <Col><Image style = {{border: "8px solid black"}} src = {profpic} height = "200px" width = "200px" roundedCircle></Image></Col>
+                            <Col><Image style = {{border: "8px solid black"}} src = {this.getCookie("pfp")} height = "200px" width = "200px" roundedCircle></Image></Col>
                             <Col></Col>
                         </Row>
                         <div style = {{textAlign: "center"}}>
@@ -147,7 +147,7 @@ export default class Profile extends Component {
                         <Form.Control type="text" id="username" placeholder="Username" />
                         <button
                             onClick={this.submitUsername}>
-                            I'm a button
+                            Submit
                         </button>
                         <Form.Text className="submit">
                             This is where you can change your username.
@@ -159,7 +159,7 @@ export default class Profile extends Component {
                             <Form.Control type="file" id="pfp" name="pfp" placeholder="picurl" />
                             <button
                             onClick={this.submitProfile}>
-                            I'm a button
+                            Submit
                         </button>
                         <Form.Text className="submit">
                             This is where you can add or change your profile picture.
