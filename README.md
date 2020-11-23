@@ -1,3 +1,6 @@
+Old README:
+
+
 ### Install dependencies:
 It should only be necessary to install node and nodemon for new server. Otherwise the necessary files should all be in the repo.
  - install node v. 10.22.1
