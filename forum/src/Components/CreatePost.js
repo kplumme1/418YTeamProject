@@ -10,6 +10,7 @@ import axios from 'axios';
 var mongoose = require('mongoose');
 
 
+
 //export default class CreatePost extends Component {
 export default class CreatePost extends Component {
     constructor(props) {
@@ -17,6 +18,8 @@ export default class CreatePost extends Component {
 
         //method bindings
         this.onChangeText = this.onChangeText.bind(this);
+        this.getCookie = this.getCookie.bind(this);
+        //this.changeUsername = this.changeUsername.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         //State object
@@ -25,8 +28,29 @@ export default class CreatePost extends Component {
       }
     }
 
+    getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+
+
     //Methods
-    
+    /*
+    changeUsername(user) {
+        alert("user: " + user);
+        this.setState({
+            username: user
+        })
+        alert("state set: " + this.state.username);
+    }
+    */
     onChangeText(content, editor) {
         //alert("onChangeText: " + content);
         this.setState({
@@ -47,9 +71,16 @@ export default class CreatePost extends Component {
         post_body_text: this.state.bodytext,
     }
 
+    const headers = {
+        headers: {
+            token: this.getCookie("token"),
+            //'Content-Type': 'multipart/form-data'
+        }
+    }
+
     //axios sends data through backend API endpoint
     console.log(newPost);//console logging for dev - can be removed for release
-    axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost)
+    axios.post('http://kplumme1-ec2.ddns.net:5000/posts/add', newPost, headers)
       .then(res => console.log(res.data));
     //axios.post('http://kplumme1-ec2.ddns.net:5000/threads/add', newThread)
       //.then(res => console.log(res.data));

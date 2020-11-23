@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const auth = require('../validation/auth');
 let Thread = require('../models/thread.model');
 
 
@@ -38,6 +39,7 @@ router.route('/urlid/:id').get((req, res) => {
 
 //add a thread
 router.route('/add').post((req, res) => {
+  const userInfo = auth.verify(req);
   const _id = req.body._id;
   const parent_topic_id = req.body.parent_topic_id;
   const thread_title = req.body.thread_title;
@@ -55,7 +57,7 @@ router.route('/add').post((req, res) => {
   let newThread = new Thread({
     _id,
     parent_topic_id,
-    thread_author: 'ignored',
+    thread_author: userInfo.username/*'ignored'*/,
     thread_title,
     del_flag: false
   });
