@@ -121,6 +121,21 @@ userRouter.post('/login', (req, res) => {
     });
 });
 
+userRouter.get('/userInfo', (req, res) => {
+    const username = req.body.username;
+
+    if (username == null) {
+        return res.status(404).send("User not found");
+    }
+
+    User.findOne({username: username}).then(user => {
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+         return res.status(200).json({username: user.username, role: user.role, pfp: user.pfp});
+    });
+});
+
 
 userRouter.post('/updateUsername', (req, res) => {
     const newUsername = req.body.username;
