@@ -79,7 +79,6 @@ export default class CreateTopic extends Component {
           .then(res => console.log(res.data));
 
         axios.post(backend.backendURL + '/posts/add', newPost, headers)
-
           .then(res => console.log(res.data));
 
           //reset form 
