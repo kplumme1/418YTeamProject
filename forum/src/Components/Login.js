@@ -7,9 +7,8 @@ import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import profpic from '../profpic.png'
 import axios from 'axios'
-
 import {Component} from "react";
-
+const backend = require('./backendLink');
 
 class Login extends Component {
     constructor() {
@@ -39,7 +38,7 @@ class Login extends Component {
         console.log(this.state.password);
         console.log("ABOCVE^^^");
         console.log(logUser);
-        axios.post('http://kplumme1-ec2.ddns.net:5000/user/login/', logUser)
+        axios.post(backend.backendURL + '/user/login/', logUser)
         .then(function(response) {
             if (response.status == 200 && response.data != null && response.data.accessToken != null) {
                 var d = new Date();

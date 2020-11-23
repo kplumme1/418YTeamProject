@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
+import backendLink from './backendLink';
+const backend = require('./backendLink');
 
 class Threads extends React.Component {
 
@@ -23,7 +25,7 @@ class Threads extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://kplumme1-ec2.ddns.net:5000/threads/')
+        axios.get(backend.backendURL + '/threads/')
             .then(response => {
                 this.setState({ threads: response.data })
             })

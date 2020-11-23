@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import Button from 'react-bootstrap/Button'
 import ReactHtmlParser from 'react-html-parser';
+const backend = require('./backendLink');
 
 class Posts extends React.Component {
 
@@ -11,7 +12,7 @@ class Posts extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://kplumme1-ec2.ddns.net:5000/posts/')
+        axios.get(backend.backendURL + '/posts/')
         .then(response => {
           this.setState({ posts: response.data })
         })
@@ -19,7 +20,7 @@ class Posts extends React.Component {
           console.log(error);
         })
 
-        axios.get('http://kplumme1-ec2.ddns.net:5000/threads/')
+        axios.get(backend.backendURL + '/threads/')
         .then(response => {
           this.setState({ parentPosts: response.data })
         })

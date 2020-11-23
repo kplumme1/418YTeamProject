@@ -7,8 +7,9 @@ import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import profpic from '../profpic.png'
 import axios from 'axios';
-
 import {Component} from "react";
+const backend = require('./backendLink');
+
 
 // ha got my name on contributor since github doesnt consider merge commits as a contributor
 
@@ -41,7 +42,7 @@ class Register extends Component {
         console.log(regUser);
         console.log("BACKEND");
         console.log(process.env.BACKEND_URL);
-        axios.post('http://kplumme1-ec2.ddns.net:5000/user/register/', regUser)
+        axios.post(backend.backendURL + '/user/register/', regUser)
         .then(function(response) {
             if (response.statusText != null && response.statusText == "OK" && response.status == 200) {
                 alert("Registration complete! Redirecting...")

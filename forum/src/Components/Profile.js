@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form'
 import Image from 'react-bootstrap/Image'
 import profpic from '../profpic.png'
 import axios from 'axios';
+const backend = require('./backendLink');
 
 const FormData = require('form-data');
 
@@ -57,7 +58,7 @@ export default class Profile extends Component {
         */
         axios({
             method: 'post',
-            url: 'http://kplumme1-ec2.ddns.net:5000/user/updatePFP/',
+            url: backend.backendURL + '/user/updatePFP/',
             data: bodyFormData,
             headers: { 'Content-Type': 'multipart/form-data', "token": this.getCookie("token") }
         })
